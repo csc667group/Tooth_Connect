@@ -1,0 +1,41 @@
+.carousel-inner>.item>img {
+margin: 0 auto;
+height: 500px;
+}
+
+.input-small {
+    width: 350px;
+}
+
+#topp {
+background-color: white;
+}
+
+
+
+.thumb {
+	margin: 300px;
+	position: static;
+
+}
+
+.thumbnail1 {
+	position: static;
+
+}
+.thumbnail2 {
+	position: static;
+
+}
+
+body {
+
+position: relative;
+
+}
+
+
+body { 
+    background: url('images/cream_dust/cream_dust.png');
+
+}
