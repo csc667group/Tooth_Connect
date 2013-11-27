@@ -18,7 +18,15 @@ class WishDB extends mysqli {
         return self::$instance;
     }
     
-    
+    // The clone and wakeup methods prevents external instantiation of copies of the Singleton class,
+    // thus eliminating the possibility of duplicate objects.
+    public function __clone() {
+        trigger_error('Clone is not allowed.', E_USER_ERROR);
+    }
+
+    public function __wakeup() {
+        trigger_error('Deserializing is not allowed.', E_USER_ERROR);
+    }    
                                                                                                                            
     // private constructor
     private function __construct() {

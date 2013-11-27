@@ -14,7 +14,7 @@
     <![endif]-->
 
 
-		<link type="text/css" rel="stylesheet" href="css/home_page.css" />
+		<link type="text/css" rel="stylesheet" href="home_page.css" />
 <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
   </head>
 
