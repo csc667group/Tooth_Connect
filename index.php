@@ -139,7 +139,7 @@
   //      echo 'value of password is ' . $user_password. ' ' ;
       if (!empty($user_username) && !empty($user_password)) {
         // Look up the username and password in the database
-        $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password='$user_password'";
+        $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password=SHA('$user_password')";
         $data = mysql_query($query);
         if (!$data) {
             die("query failed" . mysql_error());
