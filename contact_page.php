@@ -39,26 +39,18 @@
     }
   }
   if (isset($_SESSION['user_id'])) {   
-    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [Profile] </a>     ' . '<a href="logout.php">[Log out]</a></p>');
+                    
+    if($_SESSION['user_id'] < 1000) {          
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      } else {
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      }
   }        
 ?>
      
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li>
-          <?php 
-             if (isset($_SESSION['user_id'])) {
-                 if($_SESSION['user_id'] < 1000) {          
-                    echo '<a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a>';
-                 } else if ($_SESSION['user_id'] > 1000) {
-                    echo '<a href="Dentist_Profile.php"><i class="fa fa-home"></i> Home</a>';
-                 }
-             } else {
-                 echo '<a href="index.php"><i class="fa fa-home"></i> Home</a>';
-             }
-          ?>
-          </li>
-
+          <li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
           <li class="active"><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
         </ul>

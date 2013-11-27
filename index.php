@@ -27,22 +27,28 @@
 
 
   <div class="container">
-
+<?php
+  session_start();
+  // If the session vars aren't set, try to set them with a cookie
+  if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+      
+    }
+  }
+  if (isset($_SESSION['user_id'])) {   
+                    
+    if($_SESSION['user_id'] < 1000) {          
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      } else {
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      }
+  }        
+?>
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li class='active'>
-          <?php 
-             if (isset($_SESSION['user_id'])) {
-                 if($_SESSION['user_id'] < 1000) {          
-                    echo '<a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a>';
-                 } else if ($_SESSION['user_id'] > 1000) {
-                    echo '<a href="Dentist_Profile.php"><i class="fa fa-home"></i> Home</a>';
-                 }
-             } else {
-                 echo '<a href="index.php"><i class="fa fa-home"></i> Home</a>';
-             }
-          ?>
-          </li>
+          <li class='active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
           <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
         </ul>
@@ -114,7 +120,7 @@
 //  $result = mysql_query($query) or die("Query failed<br/><br/>" . mysql_error());
 
   // Start the session
-  session_start();
+//  session_start();
 
   // Clear the error message
   $error_msg = "";  
@@ -170,12 +176,13 @@
      //   echo 'submit not working';
     }
   } else {
-    echo('<p class="login"><h2 style = "align=right;">You are logged in as</h2> ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+   // echo('<p class="login"><h2 style = "align=right;">You are logged in as</h2> ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
   }
 
 ?>
 
 <br/>
+<?php if (!isset($_SESSION['user_id']) ) { ?>
 <form class="form-horizontal" role="form" method="post">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
@@ -212,7 +219,7 @@
 </form>
 
 <hr>
-
+<?php  } ?>
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>

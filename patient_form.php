@@ -83,10 +83,10 @@
       }
     }
     else {
-      echo '<p class="error">You must enter all of the sign-up data, including the desired password twice.</p>';
+      echo "<font color='red'>Missing fields.<br/></font>";
     
       if ($password1 != $password2) {
-          echo 'Password fields are different';
+          echo "<font color='red'>Password fields must be the same.</font>";
       }
        
     }
@@ -124,14 +124,24 @@
     <label for="exampleInputPassword2">Zipcode</label>
     <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Zipcode">
   </div>
-
 </form>
 
+
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label for="exampleInputEmail2">Phone Number</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Phone Number">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword2">Email Address</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
+  </div>
+</form>
 
 <form role="form-inline" role="form" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control input-small" name="username" placeholder="First Name">
+    <input type="text" class="form-control input-small" name="username" placeholder="User name">
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Password</label>
@@ -147,7 +157,7 @@
   </form>
 
 
-<br><br><hr>
+<br><hr>
 
      <div class="footer">
         <p>&copy; Copyrights 2013</p>

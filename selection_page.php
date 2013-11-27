@@ -40,7 +40,7 @@
       <img src="http://www.emergencydentist247.com/images/pain-cartoon.jpg" alt="..." height="120" width="155">
       <div class="caption">
         <h3>Register as a Patient</h3>
-       <p><a href="patient_form.php"><input type="button" value="Register"  onclick="selection_page.html"/></a>      </div>
+       <p><a href="patient_form.php"><input type="button" align="center" value="Register"  /></a>      </div>
     </div>
   </div>
 
@@ -49,9 +49,9 @@
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail thumbnail2">
       <img src="http://t2conline.com/wp-content/uploads/2011/12/Dentist_-_Cartoon.jpg" alt="..." height="300" width="200">
-      <div class="caption">
+      <div class="caption center-block">
         <h3>Register as a Dentist</h3>
-       <p><a href="dentist_form.php"><input type="button" value="Register"  onclick="selection_page.html"/></a>      </div>
+       <p><a href="dentist_form.php"><input type="button" align="center" value="Register"  /></a>      </div>
     </div>
   </div>
 

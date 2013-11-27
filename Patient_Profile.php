@@ -89,6 +89,8 @@ and open the template in the editor.
     
 <body>
     
+
+     <div class="container">
 <?php
  session_start();
 
@@ -107,25 +109,17 @@ and open the template in the editor.
     echo 'Cannot access this page. You are not a patient!';
     exit();
   }
+  if (isset($_SESSION['user_id'])) {   
+    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+  }          
 ?>  
-     <div class="container">
-
              <!-- HEADER BAR -->
+      <?php include("header_bar.php"); ?>
 
-<div class="masthead">
-	<ul class="nav nav-pills pull-right">
-	  <li class="active"><a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a></li>
-	  <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
-	  <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
-	</ul>
-	<h3 class="muted">Website name</h3>
-  </div>
       <hr>
     <ul style="list-style-type: none;" style="width: 275px;">
         <li>
-          <?php 
-            echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
-          ?>
+              
         </li>
         <li>
             <img src="images/img1.jpg" id="profilepic">
