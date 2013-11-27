@@ -199,8 +199,9 @@ and open the template in the editor.
                                  echo "Telephone #: " . htmlentities($row['d_telephoneNumber']) . "\n\n";
                                  echo "Email: " . htmlentities($row['d_email']) . "\n\n";
                                  echo "Specialties: " . htmlentities($row['d_specialties']) . "\n\n";  
-                             }
+                             }  mysql_close($connection);
                                     ?>
+                                    
                                 
                                 </div>
                                 

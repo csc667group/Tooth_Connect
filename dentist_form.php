@@ -29,33 +29,109 @@
     <hr>
 
 <h2 align="center"> Dentist Form </h2>
-<form class="form-inline" role="form">
+<?php
+  require_once('connectvars.php');
+
+  // Connect to the database
+  $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+  //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
+  if (!$connection) {
+    die("Database connection failed:" . mysql_error());
+  }
+
+  $database = mysql_select_db(DB_NAME, $connection);
+  if (!$database) {
+    die("Database selection failed:" . mysql_error());
+  }
+
+  if (isset($_POST['submit'])) {
+ //     echo 'form submitted';
+    // Grab the profile data from the POST
+//    $username = mysqli_real_escape_string($connection, trim($_POST['username']));
+//    $password1 = mysql_real_escape_string($connection, trim($_POST['password1']));
+//    $password2 = mysql_real_escape_string($connection, trim($_POST['password2']));
+    $username = $_POST['username'];
+    $password1 = $_POST['password1'];
+    $password2 = $_POST['password2'];
+    // = $_POST["firstname"];
+    //$lastname = $_POST["lastname"];
+    //$licensenum = $_POST["licensenum"];
+    
+    if (!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
+      // Make sure someone isn't already registered using this username
+      $query = "SELECT * FROM patient_data WHERE username = '$username'";
+      $data = mysql_query($query);
+      if (mysql_num_rows($data) == 0) {
+        // The username is unique, so insert the data into the database
+        
+        //$query = "INSERT INTO dentist_data (d_username,d_password, d_firstName, d_lastName, d_licenseNumber) VALUES ('$username', SHA('$password1'), '$firstname', '$lastname', '$licensenum')";
+          $query = "INSERT INTO dentist_data (d_username,d_password) VALUES ('$username', SHA('$password1') )";
+      
+        mysql_query($query);
+
+        // Confirm success with the user
+        echo '<p>Your new account has been successfully created. You\'re now ready to <a href="index.php">log in</a>.</p>';
+
+        mysql_close($connection);
+        exit();
+      }
+
+      else {
+        // An account already exists for this username, so display an error message
+        echo '<p class="error">An account already exists for this username. Please use a different address.</p>';
+        $username = "";
+      }
+    }
+    else {
+      echo "<font color='red'>Missing fields.<br/></font>";
+    
+      if ($password1 != $password2) {
+          echo "<font color='red'>Password fields must be the same.</font>";
+      }
+       
+    }
+  }
+//  echo 'form not submitted';
+  mysql_close($connection);
+?>
+
+
+
+<form class="form-inline" role="form" method="post">
   <div class="form-group">
-    <label for="exampleInputEmail2">First Name</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="First Name">
+    <label for="firstName">First Name</label>
+    <input type="string" class="form-control" name="firstname" placeholder="First Name">
   </div>
+    
   <div class="form-group">
-    <label for="exampleInputPassword2">Last Name</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Last Name">
+    <label for="lastName">Last Name</label>
+    <input type="string" class="form-control" name="lastname" placeholder="Last Name">
   </div>
+    
+  <div class="form-group">
+    <label for="licenseNum">License #</label>
+    <input type="string" class="form-control" name="licensenum" placeholder="License Number">
+  </div>    
+    
 </form>
 
 <form class="form-inline" role="form">
   <div class="form-group">
     <label for="exampleInputEmail2">Address</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address">
+    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Address">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">City</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="City">
+    <input type="text" class="form-control" id="exampleInputPassword2" placeholder="City">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">State</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="State">
+    <input type="text" class="form-control" id="exampleInputPassword2" placeholder="State">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">Zipcode</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Zipcode">
+    <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Zipcode">
   </div>
 
 </form>
@@ -64,38 +140,23 @@
 
 
 
-<form role="form-inline" role="form">
+<form role="form-inline" role="form" method="post">
   <div class="form-group">
-    <label for="exampleInputEmail1">First Name</label>
-    <input type="first" class="form-control" id="exampleInputEmail1" placeholder="First Name">
-  </div>
-  <div class="form-group>
-    <label for="exampleInputEmail1">Last Name</label>
-    <input type="last" class="form-control" id="exampleInputEmail1" placeholder="Last Name">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="dentistUsername">Username</label>
+    <input type="text" class="form-control input-small" name="username" placeholder="User name">
   </div>
   <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">Example block-level help text here.</p>
+    <label for="dentistPassword">Password</label>
+    <input type="password" class="form-control input-small"  name="password1" placeholder="Password">
   </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
+
+  <div class="form-group">
+    <label for="dentistVerifyPwd">Password (Verify) </label>
+    <input type="password" class="form-control input-small" name="password2" placeholder="Verify Password">
   </div>
-       <p><a href="selection_page.html" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
 
-
-
-
-
-
-
+  <input type="submit" value="Register" id="submit" name="submit" />
+  </form>
 
 <br><br><hr>
 

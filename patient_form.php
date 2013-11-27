@@ -26,10 +26,8 @@
   <body>
   <div class="container">
 
-
       <?php include("header_bar.php"); ?>
         
-
     <hr>
 
 <h2 align="center"> Patient Form </h2>
@@ -134,7 +132,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">Email Address</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
+    <input type="email" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
   </div>
 </form>
 
