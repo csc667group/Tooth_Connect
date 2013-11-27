@@ -89,6 +89,7 @@ and open the template in the editor.
     <!-- HTML code from Bootply.com editor -->
     
 <body>
+        <div class="container">
 <?php
  //session_start();
 
@@ -108,8 +109,11 @@ and open the template in the editor.
     echo 'Cannot access this page. You are not a dentist!';
     exit();
   }
+  if (isset($_SESSION['user_id'])) {   
+    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+  }
 ?>
-     <div class="container">
+
             <?php include("header_bar.php"); ?>
     <hr>
          
@@ -141,33 +145,91 @@ and open the template in the editor.
                                 </li>
                                 <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
                                 </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">My History</a>
+                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                                 </li>
-                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Appointments</a>
+                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
+                                
+     
+                                
                                 <div class="tab-pane active" id="a">
-                                    <?php
-                                    
-                                    echo 'Name: ' . $_GET() 
-                                    
+                                <?php
+                                
+                                /*  TO DO: CONNECT WITH DENTIST_DATA
+                                      I tried my best to implement this (4 hours), but it still doesnt work...
+                                 *    Also, how are we going to be implementing dentist log in? 
+                                 *      i saw that you had a check for user_id < 1000?
+                                 *      but we have seperate ids for dentist and users for the purpose
+                                 *      of connecting the two together in order to "interact"
+                                 * 
+                                */
+                                    require_once('connectvars.php');
+
+                                    // Connect to the database
+                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
+                                    if (!$connection) {
+                                      die("Database connection failed:" . mysql_error());
+                                    }
+/*
+                                    $database = mysql_select_db(DB_NAME, $connection);
+                                    if (!$database) {
+                                      die("Database selection failed:" . mysql_error());
+                                    }                                
+  */                             
+                                /******** replace 1 with actual d_user_id that is logged in   */
+                                $result = mysql_query("SELECT * FROM dentist_data WHERE d_user_id = 1")  or die('error'); 
+                                
+                                //grabbing that row
+                                 //$row = mysql_fetch_assoc($result);
+                                 
+                                 //echoing info
+                                   // echo 'Name: ' . $row['d_firstName'];
+                                
+                                //should only do once, since d_user_id is specific for only 1 dentist
+                            while ($row = mysqli_fetch_array($result)) {
+                                 echo "Name: " . htmlentities($row['d_firstName']) . " ";
+                                 echo htmlentities($row['d_lastName']) . "\n\n";
+                                 
+                                 echo "License #: " . htmlentities($row['d_licenseNumber']) . "\n\n";
+                                 echo "Address: " . htmlentities($row['d_address']) . "\n\n";
+                                 echo "Telephone #: " . htmlentities($row['d_telephoneNumber']) . "\n\n";
+                                 echo "Email: " . htmlentities($row['d_email']) . "\n\n";
+                                 echo "Specialties: " . htmlentities($row['d_specialties']) . "\n\n";  
+                             }
                                     ?>
                                 
+                                </div>
+                                
+                                <div class="tab-pane" id="b">List of patients 
                                     
+                                    <!-- Here, dentist is able to see a list of patients (user_id, name, 
+                                         and be able to modify patients' "medical records"
+                                         i.e. update patient's history with checkup/wisdom teeth removal, etc
+                                    -->
+                                
+                                </div>
+                                
+                                <div class="tab-pane" id="c">Past appointments
+                                    
+                                    <!-- 
+                                        Here, dentist is able to see a list of past appointments
+                                        from his patients' history.
+                                    -->
                                     
                                 </div>
                                 
-                                <div class="tab-pane" id="b">My Dentist Information will go here.
+                                <div class="tab-pane" id="d">Future appointments
                                 
-                                </div>
-                                
-                                <div class="tab-pane" id="c">My History will go here.
-                                
-                                </div>
-                                
-                                <div class="tab-pane" id="d">My Appointments will go here.
-                                
+                                    <!-- 
+                                        Dentist can assign patient future appointment date,
+                                        details for the appointment, etc.
+                                    
+                                    -->
+                                    
                                 </div>
                             </div>
                         </div>
