@@ -26,14 +26,7 @@
   <body>
   <div class="container">
 
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="home_page.html"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-    </div>
+             <?php include("header_bar.php"); ?>
     <hr>
 
 <h2 align="center"> Patient Form </h2>
@@ -74,7 +67,7 @@
         mysql_query($query);
 
         // Confirm success with the user
-        echo '<p>Your new account has been successfully created. You\'re now ready to <a href="login.php">log in</a>.</p>';
+        echo '<p>Your new account has been successfully created. You\'re now ready to <a href="index.php">log in</a>.</p>';
 
         mysql_close($connection);
         exit();
