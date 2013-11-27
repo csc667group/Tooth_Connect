@@ -1,4 +1,15 @@
-<!--
+<?php
+  session_start();
+
+  // If the session vars aren't set, try to set them with a cookie
+  if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+    }
+  }
+?>
+  <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
@@ -21,6 +32,7 @@ and open the template in the editor.
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <!-- add backgrouond -->
         <link type="text/css" rel="stylesheet" href="home_page.css" />
+        <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
  <!-- CSS code from Bootply.com editor -->     
         <style type="text/css">
             /* custom inclusion of left tab */
@@ -86,14 +98,32 @@ and open the template in the editor.
     <!-- HTML code from Bootply.com editor -->
     
 <body>
+    
+<?php
+  if (!isset($_SESSION['user_id']) && ($_SESSION['user_id'] < 1000)) {
+    echo '<p class="login">Please <a href="index.php">log in</a> to access this page.</p>';
+    exit();
+  }
+
+?>  
      <div class="container">
 
-             <?php include("header_bar.php"); ?>
+             <!-- HEADER BAR -->
 
+<div class="masthead">
+	<ul class="nav nav-pills pull-right">
+	  <li class="active"><a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a></li>
+	  <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
+	  <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
+	</ul>
+	<h3 class="muted">Website name</h3>
+  </div>
       <hr>
     <ul style="list-style-type: none;" style="width: 275px;">
         <li>
-            <h4>Welcome David, </h4>
+          <?php 
+            echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+          ?>
         </li>
         <li>
             <img src="images/img1.jpg" id="profilepic">

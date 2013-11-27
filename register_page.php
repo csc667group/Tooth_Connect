@@ -1,6 +1,11 @@
+<?php
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
 
-<!DOCTYPE html>
 <html>
   <head>
     <title>Bootstrap 101 Template</title>
@@ -19,16 +24,12 @@
 		<link type="text/css" rel="stylesheet" href="home_page.css" />
 <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
 
- </head>
+  </head>
 
 
 
   <body>
-
-
-
-
- <div class="container">
+  <div class="container">
 
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
@@ -45,34 +46,58 @@
              }
           ?>
           </li>
-          <li class="active"><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
+          <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
           <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
         </ul>
         <h3 class="muted">Website name</h3>
-      </div>
+    </div>
+    <hr>
 
-      <hr>
-
-
-<div class="jumbotron">
-  <h1>About Us</h1>
-  <p>...</p>
-
-<a class="btn btn-primary " href="selection_page.php"><i class="fa fa-pencil"></i> Sign up today</a>
-
-
-</div>
+<h2 align="center"> Register </h2>
 
 
 
-<hr>
+
+<form role="form-inline" role="form">
+  <div class="form-group">
+    <label for="exampleInputEmail1">First Name</label>
+    <input type="first" class="form-control" id="exampleInputEmail1" placeholder="First Name">
+  </div>
+  <div class="form-group>
+    <label for="exampleInputEmail1">Last Name</label>
+    <input type="last" class="form-control" id="exampleInputEmail1" placeholder="Last Name">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+       <p><a href="selection_page.html" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
+
+
+
+
+
+
+
+
+<br><br><hr>
 
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>
 
 </div>
-
 
 
 

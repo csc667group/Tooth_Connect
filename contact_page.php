@@ -28,7 +28,27 @@
 
  <div class="container">
 
-      <?php include("header_bar.php"); ?>
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li>
+          <?php session_start();
+             if (isset($_SESSION['user_id'])) {
+                 if($_SESSION['user_id'] < 1000) {          
+                    echo '<a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a>';
+                 } else if ($_SESSION['user_id'] > 1000) {
+                    echo '<a href="Dentist_Profile.php"><i class="fa fa-home"></i> Home</a>';
+                 }
+             } else {
+                 echo '<a href="index.php"><i class="fa fa-home"></i> Home</a>';
+             }
+          ?>
+          </li>
+
+          <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
+          <li class="active"><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
+        </ul>
+        <h3 class="muted">Website name</h3>
+      </div>
 
       <hr>
 
@@ -36,9 +56,7 @@
 <div class="jumbotron">
   <h1>Contact Us</h1>
   <p>...</p>
-  <p><a class="btn btn-primary btn-lg" role="button"><i class="icon-truck"></i>Learn more</a></p>
-<a class="btn btn-large btn-success" href="#"><i class="fa fa-camera-retro"></i>Sign up today</a>
-
+  
 
 </div>
 

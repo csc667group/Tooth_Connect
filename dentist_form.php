@@ -22,12 +22,11 @@
 
 
   <body>
-      
- 
   <div class="container">
 
-  <?php include("header_bar.php"); ?>
-      <hr>
+      <?php include("header_bar.php"); ?>
+      
+    <hr>
 
 <h2 align="center"> Dentist Form </h2>
 <form class="form-inline" role="form">
@@ -89,7 +88,7 @@
       <input type="checkbox"> Check me out
     </label>
   </div>
-       <p><a href="selection_page.php" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
+       <p><a href="selection_page.html" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
 
 
 

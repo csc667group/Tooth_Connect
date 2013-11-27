@@ -1,3 +1,15 @@
+<?php
+  session_start();
+
+  // If the session vars aren't set, try to set them with a cookie
+  if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+    }
+  }
+?>
+
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
@@ -7,7 +19,7 @@ and open the template in the editor.
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
         <meta charset="utf-8">
-        <title>Dentist Profile</title>
+        <title>Patient Profile</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +33,7 @@ and open the template in the editor.
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <!-- add backgrouond -->
         <link type="text/css" rel="stylesheet" href="home_page.css" />
+        <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
  <!-- CSS code from Bootply.com editor -->     
         <style type="text/css">
             /* custom inclusion of left tab */
@@ -86,7 +99,13 @@ and open the template in the editor.
     <!-- HTML code from Bootply.com editor -->
     
 <body>
+<?php
+  if (!isset($_SESSION['user_id'])) {
+    echo '<p class="login">Please <a href="index.php">log in</a> to access this page.</p>';
+    exit();
+  }
 
+?>
      <div class="container">
             <?php include("header_bar.php"); ?>
     <hr>
@@ -95,7 +114,9 @@ and open the template in the editor.
          
          <ul style="list-style-type: none;" style="width: 275px;">
         <li>
-            <h4>Welcome David, </h4>
+          <?php 
+            echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+          ?>
         </li>
         <li>
             <img src="images/img1.jpg" id="profilepic">
@@ -117,27 +138,15 @@ and open the template in the editor.
                                 </li>
                                 <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
                                 </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Work History</a>
+                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">My History</a>
                                 </li>
                                 <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Appointments</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="a">
-                                    <?php 
-                                    
-                                    echo hi
-                                    
-                                    ?>
-                                    
-                                    
-                                    
-                                </div>
-                                
+                                <div class="tab-pane active" id="a">My Information will go here.</div>
                                 <div class="tab-pane" id="b">My Dentist Information will go here.</div>
-                                
                                 <div class="tab-pane" id="c">My History will go here.</div>
-                                
                                 <div class="tab-pane" id="d">My Appointments will go here.</div>
                             </div>
                         </div>

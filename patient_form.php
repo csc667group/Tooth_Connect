@@ -26,7 +26,10 @@
   <body>
   <div class="container">
 
-    <?php include("header_bar.php"); ?>
+
+      <?php include("header_bar.php"); ?>
+        
+
     <hr>
 
 <h2 align="center"> Patient Form </h2>
