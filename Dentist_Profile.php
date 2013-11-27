@@ -7,7 +7,7 @@ and open the template in the editor.
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
         <meta charset="utf-8">
-        <title>Patient Profile</title>
+        <title>Dentist Profile</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
@@ -117,15 +117,27 @@ and open the template in the editor.
                                 </li>
                                 <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
                                 </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">My History</a>
+                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Work History</a>
                                 </li>
                                 <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Appointments</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="a">My Information will go here.</div>
+                                <div class="tab-pane active" id="a">
+                                    <?php 
+                                    
+                                    echo hi
+                                    
+                                    ?>
+                                    
+                                    
+                                    
+                                </div>
+                                
                                 <div class="tab-pane" id="b">My Dentist Information will go here.</div>
+                                
                                 <div class="tab-pane" id="c">My History will go here.</div>
+                                
                                 <div class="tab-pane" id="d">My Appointments will go here.</div>
                             </div>
                         </div>

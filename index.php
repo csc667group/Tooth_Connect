@@ -33,7 +33,7 @@
         echo 'value of password is ' . $user_password. ' ' ;
       if (!empty($user_username) && !empty($user_password)) {
         // Look up the username and password in the database
-        $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password=SHA('$user_password')";
+        $query = "SELECT username,password FROM patient_data WHERE username='$user_username' AND password='$user_password'";
         $data = mysql_query($query);
         if (!$data) {
             die("query failed" . mysql_error());
@@ -47,7 +47,7 @@
           $_SESSION['username'] = $row['username'];
           setcookie('user_id', $row['user_id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
           setcookie('username', $row['username'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
-          $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+          $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/patient_profile.php';
           header('Location: ' . $home_url);
           echo 'user is logged in successfully';
         }
@@ -60,6 +60,8 @@
         // The username/password weren't entered so set an error message
         echo ' Sorry, you must enter your username and password to log in.';
       }
+    } else {
+        echo 'submit not working';
     }
   } else {
     echo('<p class="login"><h2 style = "align=right;">You are logged in as</h2> ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
@@ -95,7 +97,7 @@
 
   <div class="container">
 
-   <?php include("header_bar.php"); ?>
+              <?php include("header_bar.php"); ?>
       <hr>
 
 
@@ -171,8 +173,8 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-          <input type="submit" value="Sign in" id="submit" name="submit" />
-          <a href="selection_page.html"><input type="button" value="Register" id="submit" name="submit" onclick="selection_page.html"/></a>
+          <input type="submit" value="Sign in" name="submit" />
+          <a href="selection_page.php;"><input type="button" value="Register"  onclick="selection_page.php"/></a>
 <!-- <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Sign in</a>
 <a href="selection_page.html" class="btn btn-info"><i class="fa fa-book"></i> Register</a>     
 -->

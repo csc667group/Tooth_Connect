@@ -26,7 +26,7 @@
   <body>
   <div class="container">
 
-             <?php include("header_bar.php"); ?>
+    <?php include("header_bar.php"); ?>
     <hr>
 
 <h2 align="center"> Patient Form </h2>
@@ -63,7 +63,7 @@
       $data = mysql_query($query);
       if (mysql_num_rows($data) == 0) {
         // The username is unique, so insert the data into the database
-        $query = "INSERT INTO patient_data VALUES ('$username', SHA('$password1') )";
+        $query = "INSERT INTO patient_data (username,password) VALUES ('$username', SHA('$password1') )";
         mysql_query($query);
 
         // Confirm success with the user
