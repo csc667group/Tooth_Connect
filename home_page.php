@@ -24,17 +24,11 @@
 
 
 
+
   <div class="container">
 
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="home_page.html"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-      </div>
-      <hr>
+              <?php include("header_bar.php"); ?>
+      <hr>  
 
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -110,7 +104,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
 <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Sign in</a>
-<a href="selection_page.html" class="btn btn-info"><i class="fa fa-book"></i> Register</a>     
+<a href="selection_page.php" class="btn btn-info"><i class="fa fa-book"></i> Register</a>     
     </div>
   </div>
 </form>

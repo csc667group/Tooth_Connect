@@ -24,14 +24,7 @@
   <body>
   <div class="container">
 
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="home_page.html"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-    </div>
+             <?php include("header_bar.php"); ?>
     <hr>
 
 <h2 align="center"> Patient Form </h2>
@@ -94,7 +87,7 @@
       <input type="checkbox"> Check me out
     </label>
   </div>
-       <p><a href="selection_page.html" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
+       <p><a href="selection_page.php" class="btn btn-primary" role="button" class="icon basket">Submit</a>      </form>
 
 
 

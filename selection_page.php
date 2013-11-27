@@ -24,14 +24,8 @@
   <body>
   <div class="container">
 
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="home_page.html"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-      </div>
+              <?php include("header_bar.php"); ?>
+      
       <hr>
 
 
@@ -46,7 +40,7 @@
       <img src="http://www.emergencydentist247.com/images/pain-cartoon.jpg" alt="..." height="120" width="155">
       <div class="caption">
         <h3>Register as a Patient</h3>
-       <p><a href="patient_form.html" class="btn btn-primary" role="button">Register</a>      </div>
+       <p><a href="patient_form.php" class="btn btn-primary" role="button">Register</a>      </div>
     </div>
   </div>
 
@@ -57,7 +51,7 @@
       <img src="http://t2conline.com/wp-content/uploads/2011/12/Dentist_-_Cartoon.jpg" alt="..." height="300" width="200">
       <div class="caption">
         <h3>Register as a Dentist</h3>
-       <p><a href="dentist_form.html" class="btn btn-primary" role="button" class="icon basket">Register</a>      </div>
+       <p><a href="dentist_form.php" class="btn btn-primary" role="button" class="icon basket">Register</a>      </div>
     </div>
   </div>
 

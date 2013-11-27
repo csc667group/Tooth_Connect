@@ -86,19 +86,14 @@ and open the template in the editor.
     <!-- HTML code from Bootply.com editor -->
     
 <body>
+
      <div class="container">
-
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="home_page.html"><i class="fa fa-home"></i> Home</a></li>
-          <li class="active"><a href="about_page.html"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.html"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-      </div>
-
-      <hr>
-    <ul style="list-style-type: none;" style="width: 275px;">
+            <?php include("header_bar.php"); ?>
+    <hr>
+         
+         
+         
+         <ul style="list-style-type: none;" style="width: 275px;">
         <li>
             <h4>Welcome David, </h4>
         </li>
