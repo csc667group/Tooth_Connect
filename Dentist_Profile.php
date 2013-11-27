@@ -1,14 +1,4 @@
-<?php
-  session_start();
 
-  // If the session vars aren't set, try to set them with a cookie
-  if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
-      $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
-    }
-  }
-?>
 
 <!--
 To change this template, choose Tools | Templates
@@ -100,11 +90,24 @@ and open the template in the editor.
     
 <body>
 <?php
+ //session_start();
+
+  // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+    }
+  }
+
+  if (!isset($_SESSION['user_id']) ) { 
     echo '<p class="login">Please <a href="index.php">log in</a> to access this page.</p>';
     exit();
   }
-
+  if ($_SESSION['user_id'] < 1000) {
+    echo 'Cannot access this page. You are not a dentist!';
+    exit();
+  }
 ?>
      <div class="container">
             <?php include("header_bar.php"); ?>
@@ -144,10 +147,28 @@ and open the template in the editor.
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="a">My Information will go here.</div>
-                                <div class="tab-pane" id="b">My Dentist Information will go here.</div>
-                                <div class="tab-pane" id="c">My History will go here.</div>
-                                <div class="tab-pane" id="d">My Appointments will go here.</div>
+                                <div class="tab-pane active" id="a">
+                                    <?php
+                                    
+                                    echo 'Name: ' . $_GET() 
+                                    
+                                    ?>
+                                
+                                    
+                                    
+                                </div>
+                                
+                                <div class="tab-pane" id="b">My Dentist Information will go here.
+                                
+                                </div>
+                                
+                                <div class="tab-pane" id="c">My History will go here.
+                                
+                                </div>
+                                
+                                <div class="tab-pane" id="d">My Appointments will go here.
+                                
+                                </div>
                             </div>
                         </div>
     <!-- /tabs -->

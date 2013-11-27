@@ -153,7 +153,7 @@
         }
         else {
           // The username/password are incorrect so set an error message
-          echo "<font color='red'>You must enter a valid username and password to log in.<font color='red'>";
+          echo "<font color='red'>You must enter a valid username and password to log in.</font>";
         }
       }
       else {
@@ -163,7 +163,7 @@
                echo "<font color='red'>Password field is empty.</font>";
            } else {
         // The username/password weren't entered so set an error message
-             echo "<font color='red'>Username field is empty. Password field is empty.</font>";
+             echo "<font color='red'>Username and Password field are empty.</font>";
            }
       }
     } else {
@@ -210,6 +210,7 @@
     </div>
   </div>
 </form>
+
 <hr>
 
      <div class="footer">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,11 +28,25 @@
 
 
  <div class="container">
-
+<?php
+  session_start();
+  // If the session vars aren't set, try to set them with a cookie
+  if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+      
+    }
+  }
+  if (isset($_SESSION['user_id'])) {   
+    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [Profile] </a>     ' . '<a href="logout.php">[Log out]</a></p>');
+  }        
+?>
+     
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li>
-          <?php session_start();
+          <?php 
              if (isset($_SESSION['user_id'])) {
                  if($_SESSION['user_id'] < 1000) {          
                     echo '<a href="Patient_Profile.php"><i class="fa fa-home"></i> Home</a>';

@@ -131,16 +131,16 @@
 <form role="form-inline" role="form" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control input-small" id="exampleInputEmail1" name="username" placeholder="First Name">
+    <input type="text" class="form-control input-small" name="username" placeholder="First Name">
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Password</label>
-    <input type="password" class="form-control input-small" id="password1" name="password1" placeholder="Password">
+    <input type="password" class="form-control input-small"  name="password1" placeholder="Password">
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Password (Verify) </label>
-    <input type="password" class="form-control input-small" id="password2" name="password2" placeholder="Verify Password">
+    <input type="password" class="form-control input-small" name="password2" placeholder="Verify Password">
   </div>
 
   <input type="submit" value="Register" id="submit" name="submit" />
