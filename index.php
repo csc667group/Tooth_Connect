@@ -125,8 +125,7 @@
 //  session_start();
 
   // Clear the error message
-  $error_msg = "";  
- 
+  
   // If the user isn't logged in, try to log them in
   if (!isset($_SESSION['user_id'])) {
   //  echo '<h2 style = "align=right;">Currently not logged in</h2>';

@@ -189,22 +189,37 @@ and open the template in the editor.
                                     
                                 echo"</div>";
                                 
-                                //SECOND TAB: My dentist
+                                //SECOND TAB: My dentists
                                 echo "<div class=\"tab-pane\" id=\"b\">My Dentist(s)<br><br>";
                                 
-                                //undefined index for my_dentist_id (in patient_data from database)...? How to set it?
+                                /*
+                                 * From current patient's user_id, it is sent to be searched in 
+                                 * "list_of_patients" in order to find dentists that patient is
+                                 * associated with.
+                                 * 
+                                 * Afterwards, while loop reads through dentist_id from "list_of_patients"
+                                 * and prints out info of each of the patient's dentists
+                                 */
                                 
-                                $query = "SELECT * FROM dentist_data WHERE d_user_id = '$_SESSION[my_dentist_id]' ";
-                                $data = mysql_query($query);  
-                                if (!$data) {
+                                $queryx = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
+                                $datax = mysql_query($queryx);  
+                                if (!$datax) {
                                     die("query failed" . mysql_error());
                                 }                                 
                                                              
                                 
-                                //should only do once, since d_user_id is specific for only 1 dentist
-                                if (mysql_num_rows($data) == 1) {
+                                //
+                                while ($rowx = mysql_fetch_array($datax)) {
 
-                                     $row = mysql_fetch_array($data);
+                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowx[dentist_id]' ";
+                                    
+                                    $data = mysql_query($query);
+                                    if (!$data) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $row = mysql_fetch_array($data);
+                                     
                                      echo "Name: " . ($row['d_firstName']) . " ";
                                      echo ($row['d_lastName']) . "<br><br>";
 
@@ -212,7 +227,8 @@ and open the template in the editor.
                                      echo "Address: " . ($row['d_address']) . "<br><br>";
                                      echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
                                      echo "Email: " . ($row['d_email']) . "<br><br>";
-                                     echo "Email: " . ($row['d_specialties']) . "<br><br>";                                     
+                                     echo "Email: " . ($row['d_specialties']) . "<br><br>"; 
+                                     echo "<br>";
                                  }                                  
                                 
                                 
