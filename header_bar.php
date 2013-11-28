@@ -6,5 +6,5 @@
 	  <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
 	  <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
 	</ul>
-	<h3 class="muted">Website name</h3>
+	<h3 class="muted">Wkkmkbsite name</h3>
   </div>

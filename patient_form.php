@@ -79,8 +79,8 @@
     $username = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    
-    if (!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
+    $email = $_POST['email'];
+    if (!empty($username) && !empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
       // Make sure someone isn't already registered using this username
       $query = "SELECT * FROM patient_data WHERE username = '$username'";
       $data = mysql_query($query);
@@ -90,7 +90,7 @@
         mysql_query($query);
 
         // Confirm success with the user
-        echo '<p>Your new account has been successfully created. You\'re now ready to <a href="index.php">log in</a>.</p>';
+        echo '<p>Your new account has been successfully created. You\'re now ready to <a href="index.php#signin">log in</a>.</p>';
 
         mysql_close($connection);
         exit();
@@ -98,15 +98,19 @@
 
       else {
         // An account already exists for this username, so display an error message
-        echo '<p class="error">An account already exists for this username. Please use a different address.</p>';
+        echo "<font color='red'>An account already exists for this username. Please use a different address.</font>";
         $username = "";
       }
     }
     else {
-      echo "<font color='red'>Missing fields.<br/></font>";
-    
+      if (empty($username) || empty($password1) || empty($password2) || empty($email)) {
+        echo "<font color='red'>Missing fields.<br/></font>";
+      }
       if ($password1 != $password2) {
-          echo "<font color='red'>Password fields must be the same.</font>";
+          echo "<font color='red'>Password fields must be the same.<br/></font>";
+      }
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          echo "<font color='red'> Enter a valid email.</font>";
       }
        
     }
@@ -118,58 +122,58 @@
 
 <form class="form-inline" role="form">
   <div class="form-group">
-    <label for="exampleInputEmail2">First Name</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="First Name">
+    <label for="firstname">First Name</label>
+    <input type="text" class="form-control" name="firstname" placeholder="First Name">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword2">Last Name</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Last Name">
+    <label for="lastname">Last Name</label>
+    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
   </div>
 </form>
 
 <form class="form-inline" role="form">
   <div class="form-group">
-    <label for="exampleInputEmail2">Address</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address">
+    <label for="address">Address</label>
+    <input type="text" class="form-control" name="address" placeholder="Address">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword2">City</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="City">
+    <label for="city">City</label>
+    <input type="text" class="form-control" name="city" placeholder="City">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword2">State</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="State">
+    <label for="state">State</label>
+    <input type="text" class="form-control" name="state" maxlength="2" placeholder="State">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword2">Zipcode</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Zipcode">
+    <label for="zipcode">Zipcode</label>
+    <input type="text" class="form-control" width ="30" name="zipcode" placeholder="Zipcode">
   </div>
 </form>
 
 
 <form class="form-inline" role="form">
   <div class="form-group">
-    <label for="exampleInputEmail2">Phone Number</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Phone Number">
+    <label for="phone">Phone Number</label>
+    <input type="text" class="form-control" name="phone" placeholder="Phone Number">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword2">Email Address</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
+    <label for="email">Email Address</label>
+    <input type="email" class="form-control" name="email" placeholder="Email Address">
   </div>
 </form>
 
 <form role="form-inline" role="form" method="post">
   <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
+    <label for="username">Username</label>
     <input type="text" class="form-control input-small" name="username" placeholder="User name">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Password</label>
+    <label for="password1">Password</label>
     <input type="password" class="form-control input-small"  name="password1" placeholder="Password">
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Password (Verify) </label>
+    <label for="password2">Password (Verify) </label>
     <input type="password" class="form-control input-small" name="password2" placeholder="Verify Password">
   </div>
 
