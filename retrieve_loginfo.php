@@ -59,7 +59,7 @@
           require_once('connectvars.php');
  
           $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-          if (!$connection) {
+          if (!$connection) {  
              die("Database connection failed:" . mysql_error());
           }
           $database = mysql_select_db(DB_NAME, $connection);
@@ -67,7 +67,7 @@
              die("Database selection failed:" . mysql_error());
           }
    ?>       
-      <form role="form-inline" role="form" method="post" action="retrieve_loginfo.php">
+      <form role="form-inline" role="form" method="post" action="retrieve_loginfo.php"
       <?php
           if (isset($_POST['submit'])) {
             $email = $_POST['email'];
@@ -79,18 +79,18 @@
                 }       
     //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
                 if (mysql_num_rows($data) == 0) {
-                   // echo "> <p><font color='red'>Email does not exist.</font></p>";
+                    echo "> <p><font color='red'>Email does not exist.</font></p>";
                 } else {
-                   // echo "action=mail_user.php >";
+                    echo "action=mail_user.php >";
                 }
             
-            } else {
+            } else { 
                 echo "<p><font color='red'>Email field is empty.</font></p>";
             }
           } else {
-             // echo '>';
+              echo '>';
           }
-      ?>
+      ?> 
       
   
   <div class="form-group">

@@ -120,7 +120,7 @@
 ?>
 
 
-<form class="form-inline" role="form">
+<form class="form-inline" role="form" method="post">
   <div class="form-group">
     <label for="firstname">First Name</label>
     <input type="text" class="form-control" name="firstname" placeholder="First Name">
@@ -131,7 +131,7 @@
   </div>
 </form>
 
-<form class="form-inline" role="form">
+<form class="form-inline" role="form" method="post">
   <div class="form-group">
     <label for="address">Address</label>
     <input type="text" class="form-control" name="address" placeholder="Address">
@@ -146,24 +146,27 @@
   </div>
   <div class="form-group">
     <label for="zipcode">Zipcode</label>
-    <input type="text" class="form-control" width ="30" name="zipcode" placeholder="Zipcode">
+    <input type="text" class="form-control" name="zipcode" maxlength="5" placeholder="Zipcode">
   </div>
 </form>
 
 
-<form class="form-inline" role="form">
+
+
+<form role="form-inline" role="form" method="post">
+
   <div class="form-group">
     <label for="phone">Phone Number</label>
-    <input type="text" class="form-control" name="phone" placeholder="Phone Number">
+    <input type="text" class="form-control input-small" name="phone" placeholder="Phone Number">
   </div>
   <div class="form-group">
     <label for="email">Email Address</label>
-    <input type="email" class="form-control" name="email" placeholder="Email Address">
+    <input type="text" class="form-control input-small" name="email" placeholder="Email Address">
   </div>
-</form>
 
-<form role="form-inline" role="form" method="post">
-  <div class="form-group">
+    
+    
+    <div class="form-group">
     <label for="username">Username</label>
     <input type="text" class="form-control input-small" name="username" placeholder="User name">
   </div>

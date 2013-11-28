@@ -175,7 +175,7 @@ and open the template in the editor.
                                 }                                 
                                                              
                                 
-                                //should only do once, since d_user_id is specific for only 1 dentist
+                                //should only do once, since user_id is specific for only 1 patient
                                 if (mysql_num_rows($data) == 1) {
 
                                      $row = mysql_fetch_array($data);
@@ -223,21 +223,57 @@ and open the template in the editor.
                                      echo "Name: " . ($row['d_firstName']) . " ";
                                      echo ($row['d_lastName']) . "<br><br>";
 
-                                     echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";                                     
-                                     echo "Address: " . ($row['d_address']) . "<br><br>";
-                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
-                                     echo "Email: " . ($row['d_email']) . "<br><br>";
-                                     echo "Email: " . ($row['d_specialties']) . "<br><br>"; 
-                                     echo "<br>";
+                                     echo "License #: " . ($row['d_licenseNumber']) . "<br>";                                     
+                                     echo "Address: " . ($row['d_address']) . "<br>";
+                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
+                                     echo "Email: " . ($row['d_email']) . "<br>";
+                                     echo "Specialties: " . ($row['d_specialties']) . "<br>"; 
+                                     echo "<br><br>";
                                  }                                  
-                                
-                                
                                 
                                 echo "</div>";
                                 
                                 //THIRD TAB: My Past APpointments
                                 echo "<div class=\"tab-pane\" id=\"c\">";
+                                
+                                $queryx = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                $datax = mysql_query($queryx);  
+                                if (!$datax) {
+                                    die("query failed" . mysql_error());
+                                }   
+                                
+                                //Reading each appointment
+                                while ($rowx = mysql_fetch_array($datax)) {
+
+                                    //TODO: PRINT ONLY IF PAST APPOINTMENTS
+                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowx[d_user_id]' ";
+                                    
+                                    $data = mysql_query($query);
+                                    if (!$data) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $row = mysql_fetch_array($data);
+                                     
+                                     echo "Appointment with: " . ($row['d_firstName']) . " ";
+                                     echo ($row['d_lastName']) . "<br><br>";
+
+                                     echo "Date: " . ($rowx['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowx['appt_Time']) . "<br>";
+                                     echo "Purpose: " . ($rowx['purpose']) . "<br>";
+                                      
+                                     echo "Address: " . ($row['d_address']) . "<<br>";
+                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
+                                     echo "Email: " . ($row['d_email']) . "<br>";
+
+                                     echo "<br>";
+                                 }                                      
+                                
+                                
+                                
+                                
                                 echo "</div>";
+                                
                                 
                                 //FOURTH TAB: My Future Appointments
                                 echo "<div class=\"tab-pane\" id=\"d\">";
