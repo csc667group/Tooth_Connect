@@ -48,14 +48,7 @@
       echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
   }     
 ?>
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class='active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
-          <li><a href="about_page.php"><i class="fa fa-book"></i> About</a></li>
-          <li><a href="contact_page.php"><i class="fa fa-phone"></i> Contact</a></li>
-        </ul>
-        <h3 class="muted">Website name</h3>
-      </div>
+    <?php include 'header_bar.php' ?>
       <hr>
 
 

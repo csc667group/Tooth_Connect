@@ -79,7 +79,6 @@ and open the template in the editor.
             #profilepic
             {
                 width: 250px;
-                height: 250px;
             }
         </style>
         
