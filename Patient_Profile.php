@@ -236,17 +236,17 @@ and open the template in the editor.
                                 //THIRD TAB: My Past APpointments
                                 echo "<div class=\"tab-pane\" id=\"c\">";
                                 
-                                $queryx = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
-                                $datax = mysql_query($queryx);  
-                                if (!$datax) {
+                                $queryy = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                $datay = mysql_query($queryy);  
+                                if (!$datay) {
                                     die("query failed" . mysql_error());
                                 }   
                                 
                                 //Reading each appointment
-                                while ($rowx = mysql_fetch_array($datax)) {
+                                while ($rowy = mysql_fetch_array($datay)) {
 
                                     //TODO: PRINT ONLY IF PAST APPOINTMENTS
-                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowx[d_user_id]' ";
+                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowy[d_user_id]' ";
                                     
                                     $data = mysql_query($query);
                                     if (!$data) {
@@ -258,9 +258,9 @@ and open the template in the editor.
                                      echo "Appointment with: " . ($row['d_firstName']) . " ";
                                      echo ($row['d_lastName']) . "<br><br>";
 
-                                     echo "Date: " . ($rowx['appt_Date']) . "<br>";
-                                     echo "Time: " . ($rowx['appt_Time']) . "<br>";
-                                     echo "Purpose: " . ($rowx['purpose']) . "<br>";
+                                     echo "Date: " . ($rowy['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowy['appt_Time']) . "<br>";
+                                     echo "Purpose: " . ($rowy['purpose']) . "<br>";
                                       
                                      echo "Address: " . ($row['d_address']) . "<<br>";
                                      echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
