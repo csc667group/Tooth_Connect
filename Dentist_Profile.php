@@ -79,7 +79,7 @@ and open the template in the editor.
             #profilepic
             {
                 width: 250px;
-                heigth: 250px;
+                height: 250px;
             }
         </style>
         
@@ -122,7 +122,7 @@ and open the template in the editor.
          <ul style="list-style-type: none; width: 275px;">
         <li>
           <?php 
-            echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+            //echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
           ?>
         </li>
         <li>
@@ -162,7 +162,8 @@ and open the template in the editor.
                                  *      of connecting the two together in order to "interact"
                                  * 
                                 */
-                                    require_once('connectvars.php');
+
+/*                                    require_once('connectvars.php');
 
                                     // Connect to the database
                                     $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
@@ -177,13 +178,13 @@ and open the template in the editor.
                                       die("Database selection failed:" . mysql_error());
                                     }  
                                 
-                                
+*/                                
                                 //FIRST TAB: Dentist info
                                 echo "<div class=\"tab-pane active\" id=\"a\">";
                               
                               
                                 /******** replace 1 with actual d_user_id that is logged in   */
-                                $query = "SELECT * FROM dentist_data WHERE d_user_id = 1"; //'$_SESSION[user_id]' ";
+/*                                $query = "SELECT * FROM dentist_data WHERE d_user_id = 1"; //'$_SESSION[user_id]' ";
                                 $data = mysql_query($query); 
                      
                                 if (!$data) {
@@ -200,7 +201,7 @@ and open the template in the editor.
                                     echo "Email: " . ($row['d_email']) . "<br><br>";
                                     echo "Specialties: " . ($row['d_specialties']) . "<br><br>";  
                                 }
-                                    
+*/                                    
                                 
                                 echo "</div>";
                                 
@@ -238,7 +239,15 @@ and open the template in the editor.
                                     
                                 echo "</div>"
                                 
-                                ?>
+                                ?><!--<div class="tab-pane active" id="a">Lorem ipsum dolor sit amet, charetra varius quam sit amet vulputate. Quisque
+                    mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</div>
+                <div
+                class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor
+                    accumsan. Aliquam in felis sit amet augue.</div>
+            <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra
+                varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
+                condimentum vitae.</div>-->
+
 
                             </div>
                         </div>
