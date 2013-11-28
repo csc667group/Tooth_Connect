@@ -152,9 +152,6 @@ and open the template in the editor.
                             </ul>
                             <div class="tab-content">
                                 
-     
-                                
-                                <div class="tab-pane active" id="a">
                                 <?php
                                 
                                 /*  TO DO: CONNECT WITH DENTIST_DATA
@@ -174,64 +171,75 @@ and open the template in the editor.
                                     if (!$connection) {
                                       die("Database connection failed:" . mysql_error());
                                     }
-/*
+
                                     $database = mysql_select_db(DB_NAME, $connection);
                                     if (!$database) {
                                       die("Database selection failed:" . mysql_error());
-                                    }                                
-  */                             
+                                    }  
+                                
+                                
+                                //FIRST TAB: Dentist info
+                                echo "<div class=\"tab-pane active\" id=\"a\">";
+                              
+                              
                                 /******** replace 1 with actual d_user_id that is logged in   */
-                                $result = mysql_query("SELECT * FROM dentist_data WHERE d_user_id = 1")  or die('error'); 
-                                
-                                //grabbing that row
-                                 //$row = mysql_fetch_assoc($result);
-                                 
-                                 //echoing info
-                                   // echo 'Name: ' . $row['d_firstName'];
-                                
+                                $query = "SELECT * FROM dentist_data WHERE d_user_id = 1"; //'$_SESSION[user_id]' ";
+                                $data = mysql_query($query); 
+                     
+                                if (!$data) {
+                                    die("query failed" . mysql_error());
+                                }               
                                 //should only do once, since d_user_id is specific for only 1 dentist
-                            while ($row = mysqli_fetch_array($result)) {
-                                 echo "Name: " . htmlentities($row['d_firstName']) . " ";
-                                 echo htmlentities($row['d_lastName']) . "\n\n";
-                                 
-                                 echo "License #: " . htmlentities($row['d_licenseNumber']) . "\n\n";
-                                 echo "Address: " . htmlentities($row['d_address']) . "\n\n";
-                                 echo "Telephone #: " . htmlentities($row['d_telephoneNumber']) . "\n\n";
-                                 echo "Email: " . htmlentities($row['d_email']) . "\n\n";
-                                 echo "Specialties: " . htmlentities($row['d_specialties']) . "\n\n";  
-                             }  mysql_close($connection);
-                                    ?>
+                                if (mysql_num_rows($data) == 1) {
+                                    echo "Name: " . ($row['d_firstName']) . " ";
+                                    echo ($row['d_lastName']) . "<br><br>";
+
+                                    echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";
+                                    echo "Address: " . ($row['d_address']) . "<br><br>";
+                                    echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
+                                    echo "Email: " . ($row['d_email']) . "<br><br>";
+                                    echo "Specialties: " . ($row['d_specialties']) . "<br><br>";  
+                                }
                                     
                                 
-                                </div>
+                                echo "</div>";
                                 
-                                <div class="tab-pane" id="b">List of patients 
+                                //SECOND TAB: List of dentist's patients
+                                echo "<div class=\"tab-pane\" id=\"b\">";
                                     
-                                    <!-- Here, dentist is able to see a list of patients (user_id, name, 
-                                         and be able to modify patients' "medical records"
-                                         i.e. update patient's history with checkup/wisdom teeth removal, etc
-                                    -->
+                                    // Here, dentist is able to see a list of patients (user_id, name, 
+                                    //   and be able to modify patients' "medical records"
+                                    //   i.e. update patient's history with checkup/wisdom teeth removal, etc
                                 
-                                </div>
                                 
-                                <div class="tab-pane" id="c">Past appointments
+                                
                                     
-                                    <!-- 
-                                        Here, dentist is able to see a list of past appointments
-                                        from his patients' history.
-                                    -->
+                                
+                                echo "</div>";
+                                
+                                //THIRD TAB: Past appointments
+                                echo "<div class=\"tab-pane\" id=\"c\">";
                                     
-                                </div>
+                                     
+                                        //Here, dentist is able to see a list of past appointments
+                                        //from his patients' history.
+                                    
+                                    
+                                echo "</div>";
                                 
-                                <div class="tab-pane" id="d">Future appointments
+                                //FOURTH TAB: Future appointments
+                                echo "<div class=\"tab-pane\" id=\"d\">";
                                 
-                                    <!-- 
+                                    /* 
                                         Dentist can assign patient future appointment date,
                                         details for the appointment, etc.
                                     
-                                    -->
+                                    */
                                     
-                                </div>
+                                echo "</div>"
+                                
+                                ?>
+
                             </div>
                         </div>
     <!-- /tabs -->

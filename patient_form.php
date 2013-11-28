@@ -25,9 +25,31 @@
 
   <body>
   <div class="container">
+<?php
+  session_start();
+  // If the session vars aren't set, try to set them with a cookie
+  if (!isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+      $_SESSION['user_id'] = $_COOKIE['user_id'];
+      $_SESSION['username'] = $_COOKIE['username'];
+      
+    }
+  }
+  if (isset($_SESSION['user_id'])) {   
+                    
+    if($_SESSION['user_id'] < 1000) {          
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      } else {
+      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      }
+  } else {
+      echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
+  } 
+?>
 
       <?php include("header_bar.php"); ?>
         
+
     <hr>
 
 <h2 align="center"> Patient Form </h2>
@@ -132,7 +154,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword2">Email Address</label>
-    <input type="email" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Email Address">
   </div>
 </form>
 

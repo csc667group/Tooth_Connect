@@ -141,16 +141,92 @@ and open the template in the editor.
                                 </li>
                                 <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
                                 </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">My History</a>
+                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                                 </li>
-                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">My Appointments</a>
+                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="a">My Information will go here.</div>
-                                <div class="tab-pane" id="b">My Dentist Information will go here.</div>
-                                <div class="tab-pane" id="c">My History will go here.</div>
-                                <div class="tab-pane" id="d">My Appointments will go here.</div>
+                                <?php
+                                    require_once('connectvars.php');
+
+                                    // Connect to the database
+                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
+                                    if (!$connection) {
+                                      die("Database connection failed:" . mysql_error());
+                                    }
+
+                                    $database = mysql_select_db(DB_NAME, $connection);
+                                    if (!$database) {
+                                      die("Database selection failed:" . mysql_error());
+                                    }                                 
+                                
+                                
+                                //FIRST TAB: My Info
+                                echo "<div class=\"tab-pane active\" id=\"a\">";
+                                
+                                /******** using user's user_id that is logged in   */
+                                $query = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
+                                $data = mysql_query($query);  
+                                if (!$data) {
+                                    die("query failed" . mysql_error());
+                                }                                 
+                                                             
+                                
+                                //should only do once, since d_user_id is specific for only 1 dentist
+                                if (mysql_num_rows($data) == 1) {
+
+                                     $row = mysql_fetch_array($data);
+                                     echo "Name: " . ($row['firstName']) . " ";
+                                     echo ($row['lastName']) . "<br><br>";
+
+                                     echo "Address: " . ($row['address']) . "<br><br>";
+                                     echo "Telephone #: " . ($row['telephoneNumber']) . "<br><br>";
+                                     echo "Email: " . ($row['email']) . "<br><br>";
+                                 }                                
+                                    
+                                echo"</div>";
+                                
+                                //SECOND TAB: My dentist
+                                echo "<div class=\"tab-pane\" id=\"b\">My Dentist(s)<br><br>";
+                                
+                                //undefined index for my_dentist_id (in patient_data from database)...? How to set it?
+                                
+                                $query = "SELECT * FROM dentist_data WHERE d_user_id = '$_SESSION[my_dentist_id]' ";
+                                $data = mysql_query($query);  
+                                if (!$data) {
+                                    die("query failed" . mysql_error());
+                                }                                 
+                                                             
+                                
+                                //should only do once, since d_user_id is specific for only 1 dentist
+                                if (mysql_num_rows($data) == 1) {
+
+                                     $row = mysql_fetch_array($data);
+                                     echo "Name: " . ($row['d_firstName']) . " ";
+                                     echo ($row['d_lastName']) . "<br><br>";
+
+                                     echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";                                     
+                                     echo "Address: " . ($row['d_address']) . "<br><br>";
+                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
+                                     echo "Email: " . ($row['d_email']) . "<br><br>";
+                                     echo "Email: " . ($row['d_specialties']) . "<br><br>";                                     
+                                 }                                  
+                                
+                                
+                                
+                                echo "</div>";
+                                
+                                //THIRD TAB: My Past APpointments
+                                echo "<div class=\"tab-pane\" id=\"c\">";
+                                echo "</div>";
+                                
+                                //FOURTH TAB: My Future Appointments
+                                echo "<div class=\"tab-pane\" id=\"d\">";
+                                echo "</div>";
+                                ?>
                             </div>
                         </div>
     <!-- /tabs -->

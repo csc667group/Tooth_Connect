@@ -46,6 +46,8 @@
       } else {
        echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
+  } else {
+       echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
   }        
 ?>
     <div class="masthead">

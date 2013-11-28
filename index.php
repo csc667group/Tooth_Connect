@@ -16,8 +16,8 @@
     <![endif]-->
 
 
-		<link type="text/css" rel="stylesheet" href="home_page.css" />
-<link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="home_page.css" />
+    <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
   </head>
 
 
@@ -44,7 +44,9 @@
       } else {
       echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
-  }        
+  } else {
+      echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
+  }     
 ?>
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
@@ -102,7 +104,7 @@
 
 
 
-<hr>
+      <a id="signin"><hr></a>
 
 <?php
   require_once('connectvars.php');
@@ -208,12 +210,13 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-          <input type="submit" value="Sign in" name="submit" />
-          <a href="selection_page.php"><input type="button" value="Register"  onclick="selection_page.html"/></a>
+        <input type="submit" value="Sign in" name="submit" />
+        <a href="selection_page.php"><input type="button" value="Register"  onclick="selection_page.html"/></a>
 <!-- <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Sign in</a>
 <a href="selection_page.html" class="btn btn-info"><i class="fa fa-book"></i> Register</a>     
 -->
-
+        <br><br>
+        <p><a href="retrieve_loginfo.php">Forgot username or password?</a></p>
     </div>
   </div>
 </form>
