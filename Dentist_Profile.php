@@ -9,7 +9,7 @@ and open the template in the editor.
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
         <meta charset="utf-8">
-        <title>Patient Profile</title>
+        <title>Dentist Profile</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
@@ -90,7 +90,7 @@ and open the template in the editor.
     
 <body>
         <div class="container">
-<?php
+<?php/*
  //session_start();
 
   // If the session vars aren't set, try to set them with a cookie
@@ -111,7 +111,7 @@ and open the template in the editor.
   }
   if (isset($_SESSION['user_id'])) {   
     echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
-  }
+  }*/
 ?>
 
             <?php include("header_bar.php"); ?>
@@ -119,7 +119,7 @@ and open the template in the editor.
          
          
          
-         <ul style="list-style-type: none;" style="width: 275px;">
+         <ul style="list-style-type: none; width: 275px;">
         <li>
           <?php 
             echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
@@ -131,7 +131,7 @@ and open the template in the editor.
     </ul>
     
 
-        <div class="container">
+       <!-- <div class="container">-->
         <!-- /row -->
           
             <div class="row">
@@ -261,6 +261,5 @@ and open the template in the editor.
             });
         
         </script>
-        
     </body>
 </html>

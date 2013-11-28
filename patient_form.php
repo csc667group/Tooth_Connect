@@ -76,17 +76,28 @@
 //    $username = mysqli_real_escape_string($connection, trim($_POST['username']));
 //    $password1 = mysql_real_escape_string($connection, trim($_POST['password1']));
 //    $password2 = mysql_real_escape_string($connection, trim($_POST['password2']));
+
+    $firstname = $_POST['firstname'];  
+    $lastname = $_POST['lastname'];  
+    $address = $_POST['address'];      
+    $city = $_POST['city'];      
+    $state = $_POST['state'];      
+    $zipcode = $_POST['zipcode'];      
+    $phone = $_POST['phone'];  
+    $email = $_POST['email'];  
+    
     $username = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    $email = $_POST['email'];
+  
     if (!empty($username) && !empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
       // Make sure someone isn't already registered using this username
       $query = "SELECT * FROM patient_data WHERE username = '$username'";
       $data = mysql_query($query);
       if (mysql_num_rows($data) == 0) {
         // The username is unique, so insert the data into the database
-        $query = "INSERT INTO patient_data (username,password) VALUES ('$username', SHA('$password1') )";
+        $query = "INSERT INTO patient_data (username,password,firstname,lastname,address,city,state,zipcode,email,phone)
+            VALUES ( '$username', SHA('$password1'), '$firstname','$lastname','$address','$city','$state','$zipcode','$email','$phone')";
         mysql_query($query);
 
         // Confirm success with the user
@@ -120,55 +131,45 @@
 ?>
 
 
-<form class="form-inline" role="form" method="post">
+<form role="form-inline" role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   <div class="form-group">
     <label for="firstname">First Name</label>
-    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+    <input type="text" class="form-control input-small" id="firstname" name="firstname" value="<?php if (!empty($firstname)) {echo $firstname;} ?>"  placeholder="First Name">
   </div>
   <div class="form-group">
     <label for="lastname">Last Name</label>
-    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-  </div>
-</form>
-
-<form class="form-inline" role="form" method="post">
+    <input type="text" class="form-control input-small" name="lastname" value="<?php if (!empty($lastname)) {echo $lastname;} ?>"placeholder="Last Name">
+  </div>    
   <div class="form-group">
     <label for="address">Address</label>
-    <input type="text" class="form-control" name="address" placeholder="Address">
+    <input type="text" class="form-control input-small" name="address" value="<?php if (!empty($address)) {echo $address;} ?>" placeholder="Address">
   </div>
   <div class="form-group">
     <label for="city">City</label>
-    <input type="text" class="form-control" name="city" placeholder="City">
+    <input type="text" class="form-control input-small" name="city" value="<?php if (!empty($city)) {echo $city;} ?>" placeholder="City">
   </div>
   <div class="form-group">
     <label for="state">State</label>
-    <input type="text" class="form-control" name="state" maxlength="2" placeholder="State">
+    <input type="text" class="form-control input-small" name="state" value="<?php if (!empty($state)) {echo $state;} ?>" maxlength="2" placeholder="State">
   </div>
   <div class="form-group">
     <label for="zipcode">Zipcode</label>
-    <input type="text" class="form-control" name="zipcode" maxlength="5" placeholder="Zipcode">
+    <input type="text" class="form-control input-small" name="zipcode" value="<?php if (!empty($zipcode)) {echo $zipcode;} ?>" maxlength="5" placeholder="Zipcode">
   </div>
-</form>
-
-
-
-
-<form role="form-inline" role="form" method="post">
-
   <div class="form-group">
     <label for="phone">Phone Number</label>
-    <input type="text" class="form-control input-small" name="phone" placeholder="Phone Number">
+    <input type="text" class="form-control input-small" name="phone" value="<?php if (!empty($phone)) {echo $phone;} ?>" placeholder="Phone Number">
   </div>
   <div class="form-group">
     <label for="email">Email Address</label>
-    <input type="text" class="form-control input-small" name="email" placeholder="Email Address">
+    <input type="text" class="form-control input-small" name="email" value="<?php if (!empty($email)) {echo $email;} ?>" placeholder="Email Address">
   </div>
 
     
     
     <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" class="form-control input-small" name="username" placeholder="User name">
+    <input type="text" class="form-control input-small" name="username" value="<?php if (!empty($username)) {echo $username;} ?>" placeholder="User name">
   </div>
   <div class="form-group">
     <label for="password1">Password</label>

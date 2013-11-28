@@ -223,18 +223,27 @@ and open the template in the editor.
                                      echo "Name: " . ($row['d_firstName']) . " ";
                                      echo ($row['d_lastName']) . "<br><br>";
 
-                                     echo "License #: " . ($row['d_licenseNumber']) . "<br>";                                     
-                                     echo "Address: " . ($row['d_address']) . "<br>";
-                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
-                                     echo "Email: " . ($row['d_email']) . "<br>";
-                                     echo "Specialties: " . ($row['d_specialties']) . "<br>"; 
-                                     echo "<br><br>";
+                                     echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";                                     
+                                     echo "Address: " . ($row['d_address']) . "<br><br>";
+                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
+                                     echo "Email: " . ($row['d_email']) . "<br><br>";
+                                     echo "pecialties: " . ($row['d_specialties']) . "<br><br>"; 
+                                     echo "<br>";
                                  }                                  
+                                
+                                
                                 
                                 echo "</div>";
                                 
-                                //THIRD TAB: My Past APpointments
+                                /*THIRD TAB: My Past APpointments
+                                
+                                    Search user_id in appointments, and list them in query
+                                 * IF appt_Date < today, post here
+                                
+                                *******************************/                                
+                                
                                 echo "<div class=\"tab-pane\" id=\"c\">";
+                                
                                 
                                 $queryy = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
                                 $datay = mysql_query($queryy);  
@@ -244,8 +253,9 @@ and open the template in the editor.
                                 
                                 //Reading each appointment
                                 while ($rowy = mysql_fetch_array($datay)) {
-
+                                
                                     //TODO: PRINT ONLY IF PAST APPOINTMENTS
+                                    
                                     $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowy[d_user_id]' ";
                                     
                                     $data = mysql_query($query);
@@ -269,15 +279,54 @@ and open the template in the editor.
                                      echo "<br>";
                                  }                                      
                                 
-                                
-                                
-                                
                                 echo "</div>";
                                 
                                 
-                                //FOURTH TAB: My Future Appointments
+                                /******FOURTH TAB: My Future Appointments
+                                
+                                    Search user_id in appointments, and list them in query
+                                 * IF appt_Date >= today && appt_Time >= currentTime,
+                                 * post here
+                                
+                                *******************************/
                                 echo "<div class=\"tab-pane\" id=\"d\">";
+                                $queryz = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataz = mysql_query($queryz);  
+                                if (!$dataz) {
+                                    die("query failed" . mysql_error());
+                                }   
+                                
+                                //Reading each appointment
+                                while ($rowz = mysql_fetch_array($dataz)) {
+                                
+                                    //TODO: PRINT ONLY IF FUTURE APPOINTMENTS
+                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowz[d_user_id]' ";
+                                    
+                                    $data = mysql_query($query);
+                                    if (!$data) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $row = mysql_fetch_array($data);
+                                    
+                                    
+                                     echo "Appointment with: " . ($row['d_firstName']) . " ";
+                                     echo ($row['d_lastName']) . "<br><br>";
+
+                                     echo "Date: " . ($rowz['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowz['appt_Time']) . "<br>";
+                                     echo "Purpose: " . ($rowz['purpose']) . "<br>";
+                                      
+                                     echo "Address: " . ($row['d_address']) . "<<br>";
+                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
+                                     echo "Email: " . ($row['d_email']) . "<br>";
+
+                                     echo "<br>";
+                                 }                                  
+                                
+                                
                                 echo "</div>";
+                                
                                 ?>
                             </div>
                         </div>
