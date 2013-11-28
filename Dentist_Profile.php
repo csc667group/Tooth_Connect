@@ -154,12 +154,20 @@ and open the template in the editor.
                                 <?php
                                 
                                 /*  TO DO: CONNECT WITH DENTIST_DATA
+                                 *      11/26/13:
                                       I tried my best to implement this (4 hours), but it still doesnt work...
                                  *    Also, how are we going to be implementing dentist log in? 
                                  *      i saw that you had a check for user_id < 1000?
                                  *      but we have seperate ids for dentist and users for the purpose
                                  *      of connecting the two together in order to "interact"
                                  * 
+                                 *      11/27/13:
+                                 *          Steven will be working on this page (with me)
+                                 *              Quite similar to patient profile.
+                                 *              Since patient and dentist both use "user_id",
+                                 *                  it is ok to use it instead of hardcode id
+                                 *                  For now, TO DO: edit dentist_profile to 
+                                 *                  run similar features patient_profile has
                                 */
 
 /*                                    require_once('connectvars.php');

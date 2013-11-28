@@ -148,6 +148,17 @@ and open the template in the editor.
                             </ul>
                             <div class="tab-content">
                                 <?php
+                                
+                                
+                                /*
+                                 * TO DO: Figure out what's wrong with tabs...
+                                 *   -Maybe it has to do with change of variables? (NO)
+                                 *   -Steven says it has to do with php code (syntax?)
+                                 *      -Test: comment out php besides tabs code, 
+                                 *          Then go through the code to debug
+                                 * 
+                                 * NOTE: DID NOT TOUCH CSS
+                                 */
                                     require_once('connectvars.php');
 
                                     // Connect to the database
@@ -179,11 +190,11 @@ and open the template in the editor.
                                 if (mysql_num_rows($data) == 1) {
 
                                      $row = mysql_fetch_array($data);
-                                     echo "Name: " . ($row['firstName']) . " ";
-                                     echo ($row['lastName']) . "<br><br>";
+                                     echo "Name: " . ($row['firstname']) . " ";
+                                     echo ($row['lastname']) . "<br><br>";
 
                                      echo "Address: " . ($row['address']) . "<br><br>";
-                                     echo "Telephone #: " . ($row['telephoneNumber']) . "<br><br>";
+                                     echo "Telephone #: " . ($row['phone']) . "<br><br>";
                                      echo "Email: " . ($row['email']) . "<br><br>";
                                  }                                
                                     
@@ -220,13 +231,13 @@ and open the template in the editor.
                                     
                                     $row = mysql_fetch_array($data);
                                      
-                                     echo "Name: " . ($row['d_firstName']) . " ";
-                                     echo ($row['d_lastName']) . "<br><br>";
+                                     echo "Name: " . ($row['firstname']) . " ";
+                                     echo ($row['lastname']) . "<br><br>";
 
-                                     echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";                                     
-                                     echo "Address: " . ($row['d_address']) . "<br><br>";
-                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
-                                     echo "Email: " . ($row['d_email']) . "<br><br>";
+                                     echo "License #: " . ($row['licensenumber']) . "<br><br>";                                     
+                                     echo "Address: " . ($row['address']) . "<br><br>";
+                                     echo "Telephone #: " . ($row['phone']) . "<br><br>";
+                                     echo "Email: " . ($row['email']) . "<br><br>";
                                      echo "pecialties: " . ($row['d_specialties']) . "<br><br>"; 
                                      echo "<br>";
                                  }                                  
@@ -265,16 +276,16 @@ and open the template in the editor.
                                     
                                     $row = mysql_fetch_array($data);
                                      
-                                     echo "Appointment with: " . ($row['d_firstName']) . " ";
-                                     echo ($row['d_lastName']) . "<br><br>";
+                                     echo "Appointment with: " . ($row['firstname']) . " ";
+                                     echo ($row['lastname']) . "<br><br>";
 
                                      echo "Date: " . ($rowy['appt_Date']) . "<br>";
                                      echo "Time: " . ($rowy['appt_Time']) . "<br>";
                                      echo "Purpose: " . ($rowy['purpose']) . "<br>";
                                       
-                                     echo "Address: " . ($row['d_address']) . "<<br>";
-                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
-                                     echo "Email: " . ($row['d_email']) . "<br>";
+                                     echo "Address: " . ($row['address']) . "<<br>";
+                                     echo "Telephone #: " . ($row['phone']) . "<br>";
+                                     echo "Email: " . ($row['email']) . "<br>";
 
                                      echo "<br>";
                                  }                                      
@@ -310,16 +321,16 @@ and open the template in the editor.
                                     $row = mysql_fetch_array($data);
                                     
                                     
-                                     echo "Appointment with: " . ($row['d_firstName']) . " ";
-                                     echo ($row['d_lastName']) . "<br><br>";
+                                     echo "Appointment with: " . ($row['firstname']) . " ";
+                                     echo ($row['lastname']) . "<br><br>";
 
                                      echo "Date: " . ($rowz['appt_Date']) . "<br>";
                                      echo "Time: " . ($rowz['appt_Time']) . "<br>";
                                      echo "Purpose: " . ($rowz['purpose']) . "<br>";
                                       
-                                     echo "Address: " . ($row['d_address']) . "<<br>";
-                                     echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br>";
-                                     echo "Email: " . ($row['d_email']) . "<br>";
+                                     echo "Address: " . ($row['address']) . "<<br>";
+                                     echo "Telephone #: " . ($row['phone']) . "<br>";
+                                     echo "Email: " . ($row['email']) . "<br>";
 
                                      echo "<br>";
                                  }                                  
