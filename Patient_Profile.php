@@ -258,8 +258,9 @@ and open the template in the editor.
                                 
                                 echo "<div class=\"tab-pane\" id=\"c\">";
                                 
-                                
-                                $queryC = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                //GETTING ONLY PAST APPOINTMENTS                               
+                                $queryC = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' 
+                                                    AND appt_Date < CURRENT_DATE";
                                 $dataC = mysql_query($queryC);  
                                 if (!$dataC) {
                                     die("query failed" . mysql_error());
@@ -268,8 +269,6 @@ and open the template in the editor.
                                 //Reading each appointment
                                 while ($rowC = mysql_fetch_array($dataC)) {
                                 
-                                    //TODO: PRINT ONLY IF PAST APPOINTMENTS
-                                    
                                     $queryY = "SELECT * FROM dentist_data WHERE user_id = '$rowC[d_user_id]' ";
                                     
                                     $dataY = mysql_query($queryY);
@@ -290,7 +289,7 @@ and open the template in the editor.
                                      echo "Email: " . ($rowY['email']) . "<br>";
                                      
                                      echo "Purpose: " . ($rowC['purpose']) . "<br>";                                     
-
+                                    
                                      echo "<br>";
                                  }                                      
                                 
@@ -305,16 +304,18 @@ and open the template in the editor.
                                 
                                 *******************************/
                                 echo "<div class=\"tab-pane\" id=\"d\">";
-                                $queryD = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
-                                $dataD = mysql_query($queryC);  
+                                
+                                
+                                //GETTING ONLY FUTURE APPOINTMENTS
+                                $queryD = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' 
+                                            AND appt_Date > CURRENT_DATE";
+                                $dataD = mysql_query($queryD);  
                                 if (!$dataD) {
                                     die("query failed" . mysql_error());
                                 }   
                                 
                                 //Reading each appointment
                                 while ($rowD = mysql_fetch_array($dataD)) {
-                                
-                                    //TODO: PRINT ONLY IF FUTURE APPOINTMENTS
                                     
                                     $queryZ = "SELECT * FROM dentist_data WHERE user_id = '$rowD[d_user_id]' ";
                                     

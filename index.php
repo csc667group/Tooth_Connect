@@ -132,13 +132,18 @@
   //      echo 'value of user_username is ' . $user_username. ' ' ;
   //      echo 'value of password is ' . $user_password. ' ' ;
       if (!empty($user_username) && !empty($user_password)) {
-        // Look up the username and password in the database
+        // Look up the patient username and password in the database 
+
         $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password=SHA('$user_password')";
         $data = mysql_query($query);
+        if(mysql_num_rows($data) == 0){
+            $query = "SELECT * FROM dentist_data WHERE username='$user_username' AND password=SHA('$user_password')";
+            $data = mysql_query($query);
+        } 
         if (!$data) {
             die("query failed" . mysql_error());
-        }       
-    //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
+        }
+   //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
         if (mysql_num_rows($data) == 1) {
           echo '<br/> more than one row of data ';
           // The log-in is OK so set the user ID and username session vars (and cookies), and redirect to the home page
@@ -147,7 +152,11 @@
           $_SESSION['username'] = $row['username'];
           setcookie('user_id', $row['user_id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
           setcookie('username', $row['username'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
-          $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Patient_Profile.php';
+          if($_SESSION['user_id'] < 1000) {   
+            $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Patient_Profile.php';
+          } else {
+              $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Dentist_Profile.php';
+          }
           header('Location: ' . $home_url);
       //    echo 'user is logged in successfully';
         }

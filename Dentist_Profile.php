@@ -89,7 +89,7 @@ and open the template in the editor.
     
 <body>
         <div class="container">
-<?php/*
+<?php
  //session_start();
 
   // If the session vars aren't set, try to set them with a cookie
@@ -110,7 +110,7 @@ and open the template in the editor.
   }
   if (isset($_SESSION['user_id'])) {   
     echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
-  }*/
+  }
 ?>
 
             <?php include("header_bar.php"); ?>
