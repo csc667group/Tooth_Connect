@@ -179,29 +179,32 @@ and open the template in the editor.
                                 echo "<div class=\"tab-pane active\" id=\"a\">";
                                 
                                 /******** using user's user_id that is logged in   */
-                                $query = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
-                                $data = mysql_query($query);  
-                                if (!$data) {
+                                $queryA = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataA = mysql_query($queryA);  
+                                if (!$dataA) {
                                     die("query failed" . mysql_error());
                                 }                                 
                                                              
                                 
                                 //should only do once, since user_id is specific for only 1 patient
-                                if (mysql_num_rows($data) == 1) {
+                                if (mysql_num_rows($dataA) == 1) {
 
-                                     $row = mysql_fetch_array($data);
-                                     echo "Name: " . ($row['firstname']) . " ";
-                                     echo ($row['lastname']) . "<br><br>";
+                                     $rowA = mysql_fetch_array($dataA);
+                                     echo "USER_ID = " . ($rowA['user_id']) . "<br>";
+                                     echo "Name: " . ($rowA['firstname']) . " ";
+                                     echo ($rowA['lastname']) . "<br>";
 
-                                     echo "Address: " . ($row['address']) . "<br><br>";
-                                     echo "Telephone #: " . ($row['phone']) . "<br><br>";
-                                     echo "Email: " . ($row['email']) . "<br><br>";
+                                     echo "Address: " . ($rowA['address']) . ", ";
+                                     echo ($rowA['city']) . ", "; 
+                                     echo ($rowA['state']) . " " . ($rowA['zipcode']) . "<br>";
+                                     echo "Telephone #: " . ($rowA['phone']) . "<br>";
+                                     echo "Email: " . ($rowA['email']) . "<br>";
                                  }                                
                                     
                                 echo"</div>";
                                 
                                 //SECOND TAB: My dentists
-                                echo "<div class=\"tab-pane\" id=\"b\">My Dentist(s)<br><br>";
+                                echo "<div class=\"tab-pane\" id=\"b\">";
                                 
                                 /*
                                  * From current patient's user_id, it is sent to be searched in 
@@ -212,33 +215,33 @@ and open the template in the editor.
                                  * and prints out info of each of the patient's dentists
                                  */
                                 
-                                $queryx = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
-                                $datax = mysql_query($queryx);  
-                                if (!$datax) {
+                                $queryB = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
+                                $dataB = mysql_query($queryB);  
+                                if (!$dataB) {
                                     die("query failed" . mysql_error());
                                 }                                 
                                                              
                                 
-                                //
-                                while ($rowx = mysql_fetch_array($datax)) {
+                                
+                                while ($rowB = mysql_fetch_array($dataB)) {
 
-                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowx[dentist_id]' ";
+                                    $queryX = "SELECT * FROM dentist_data WHERE user_id = '$rowB[dentist_id]' ";
                                     
-                                    $data = mysql_query($query);
-                                    if (!$data) {
+                                    $dataX = mysql_query($queryX);
+                                    if (!$dataX) {
                                         die("query failed" . mysql_error());
                                     }  
                                     
-                                    $row = mysql_fetch_array($data);
+                                    $rowX = mysql_fetch_array($dataX);
                                      
-                                     echo "Name: " . ($row['firstname']) . " ";
-                                     echo ($row['lastname']) . "<br><br>";
+                                     echo "<strong>Name: " . ($rowX['firstname']) . " ";
+                                     echo ($rowX['lastname']) . "</strong><br>";
 
-                                     echo "License #: " . ($row['licensenumber']) . "<br><br>";                                     
-                                     echo "Address: " . ($row['address']) . "<br><br>";
-                                     echo "Telephone #: " . ($row['phone']) . "<br><br>";
-                                     echo "Email: " . ($row['email']) . "<br><br>";
-                                     echo "pecialties: " . ($row['d_specialties']) . "<br><br>"; 
+                                     echo "License #: " . ($rowX['licensenumber']) . "<br>";                                     
+                                     echo "Address: " . ($rowX['address']) . "<br>";
+                                     echo "Telephone #: " . ($rowX['phone']) . "<br>";
+                                     echo "Email: " . ($rowX['email']) . "<br>";
+                                     echo "Specialties: " . ($rowX['d_specialties']) . "<br>"; 
                                      echo "<br>";
                                  }                                  
                                 
@@ -256,36 +259,37 @@ and open the template in the editor.
                                 echo "<div class=\"tab-pane\" id=\"c\">";
                                 
                                 
-                                $queryy = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
-                                $datay = mysql_query($queryy);  
-                                if (!$datay) {
+                                $queryC = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataC = mysql_query($queryC);  
+                                if (!$dataC) {
                                     die("query failed" . mysql_error());
                                 }   
                                 
                                 //Reading each appointment
-                                while ($rowy = mysql_fetch_array($datay)) {
+                                while ($rowC = mysql_fetch_array($dataC)) {
                                 
                                     //TODO: PRINT ONLY IF PAST APPOINTMENTS
                                     
-                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowy[d_user_id]' ";
+                                    $queryY = "SELECT * FROM dentist_data WHERE user_id = '$rowC[d_user_id]' ";
                                     
-                                    $data = mysql_query($query);
-                                    if (!$data) {
+                                    $dataY = mysql_query($queryY);
+                                    if (!$dataY) {
                                         die("query failed" . mysql_error());
                                     }  
                                     
-                                    $row = mysql_fetch_array($data);
+                                    $rowY = mysql_fetch_array($dataY);
                                      
-                                     echo "Appointment with: " . ($row['firstname']) . " ";
-                                     echo ($row['lastname']) . "<br><br>";
+                                     echo "<strong>Appointment with: " . ($rowY['firstname']) . " ";
+                                     echo ($rowY['lastname']) . "</strong><br>";
 
-                                     echo "Date: " . ($rowy['appt_Date']) . "<br>";
-                                     echo "Time: " . ($rowy['appt_Time']) . "<br>";
-                                     echo "Purpose: " . ($rowy['purpose']) . "<br>";
-                                      
-                                     echo "Address: " . ($row['address']) . "<<br>";
-                                     echo "Telephone #: " . ($row['phone']) . "<br>";
-                                     echo "Email: " . ($row['email']) . "<br>";
+                                     echo "Date: " . ($rowC['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowC['appt_Time']) . "<br>";
+                                     
+                                     echo "Address: " . ($rowY['address']) . "<br>";
+                                     echo "Telephone #: " . ($rowY['phone']) . "<br>";
+                                     echo "Email: " . ($rowY['email']) . "<br>";
+                                     
+                                     echo "Purpose: " . ($rowC['purpose']) . "<br>";                                     
 
                                      echo "<br>";
                                  }                                      
@@ -301,39 +305,41 @@ and open the template in the editor.
                                 
                                 *******************************/
                                 echo "<div class=\"tab-pane\" id=\"d\">";
-                                $queryz = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
-                                $dataz = mysql_query($queryz);  
-                                if (!$dataz) {
+                                $queryD = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataD = mysql_query($queryC);  
+                                if (!$dataD) {
                                     die("query failed" . mysql_error());
                                 }   
                                 
                                 //Reading each appointment
-                                while ($rowz = mysql_fetch_array($dataz)) {
+                                while ($rowD = mysql_fetch_array($dataD)) {
                                 
                                     //TODO: PRINT ONLY IF FUTURE APPOINTMENTS
-                                    $query = "SELECT * FROM dentist_data WHERE d_user_id = '$rowz[d_user_id]' ";
                                     
-                                    $data = mysql_query($query);
-                                    if (!$data) {
+                                    $queryZ = "SELECT * FROM dentist_data WHERE user_id = '$rowD[d_user_id]' ";
+                                    
+                                    $dataZ = mysql_query($queryZ);
+                                    if (!$dataZ) {
                                         die("query failed" . mysql_error());
                                     }  
                                     
-                                    $row = mysql_fetch_array($data);
-                                    
-                                    
-                                     echo "Appointment with: " . ($row['firstname']) . " ";
-                                     echo ($row['lastname']) . "<br><br>";
+                                    $rowZ = mysql_fetch_array($dataZ);
+                                     
+                                     echo "<strong>Appointment with: " . ($rowZ['firstname']) . " ";
+                                     echo ($rowZ['lastname']) . "</strong><br>";
 
-                                     echo "Date: " . ($rowz['appt_Date']) . "<br>";
-                                     echo "Time: " . ($rowz['appt_Time']) . "<br>";
-                                     echo "Purpose: " . ($rowz['purpose']) . "<br>";
-                                      
-                                     echo "Address: " . ($row['address']) . "<<br>";
-                                     echo "Telephone #: " . ($row['phone']) . "<br>";
-                                     echo "Email: " . ($row['email']) . "<br>";
+                                     echo "Date: " . ($rowD['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowD['appt_Time']) . "<br>";
+                                     
+                                     echo "Address: " . ($rowZ['address']) . "<br>";
+                                     echo "Telephone #: " . ($rowZ['phone']) . "<br>";
+                                     echo "Email: " . ($rowZ['email']) . "<br>";
+                                     
+                                     echo "Purpose: " . ($rowD['purpose']) . "<br>";                                     
 
                                      echo "<br>";
-                                 }                                  
+                                 }                                      
+                                                    
                                 
                                 
                                 echo "</div>";
