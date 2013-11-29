@@ -67,34 +67,12 @@
              die("Database selection failed:" . mysql_error());
           }
    ?>       
-      <form role="form-inline" role="form" method="post" action="retrieve_loginfo.php"
-      <?php
-          if (isset($_POST['submit'])) {
-            $email = $_POST['email'];
-            if (!empty($email)) {
-                $query = "SELECT email FROM patient_data WHERE email='$email'";
-                $data = mysql_query($query);
-                if (!$data) {
-                    die("query failed" . mysql_error());
-                }       
-    //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
-                if (mysql_num_rows($data) == 0) {
-                    echo "> <p><font color='red'>Email does not exist.</font></p>";
-                } else {
-                    echo "action=mail_user.php >";
-                }
-            
-            } else { 
-                echo "<p><font color='red'>Email field is empty.</font></p>";
-            }
-          } else {
-              echo '>';
-          }
-      ?> 
+      <form role="form-inline" role="form" method="post" action="mail_user.php">
+    
       
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Enter your Email Address:</label>
+    <label for="email">Enter your Email Address:</label>
     <input type="text" class="form-control input-small" name="email" placeholder="email ">
   </div>
 

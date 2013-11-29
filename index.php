@@ -136,6 +136,7 @@
 
         $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password=SHA('$user_password')";
         $data = mysql_query($query);
+        //if user isn't a patient check if they are a dentist
         if(mysql_num_rows($data) == 0){
             $query = "SELECT * FROM dentist_data WHERE username='$user_username' AND password=SHA('$user_password')";
             $data = mysql_query($query);

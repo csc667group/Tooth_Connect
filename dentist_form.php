@@ -92,9 +92,11 @@
     if (!empty($username) && !empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
       // Make sure someone isn't already registered using this username
       $query = "SELECT * FROM dentist_data WHERE username = '$username'";
+      $query2 = "SELECT * FROM patient_data WHERE username = '$username'";
       $data = mysql_query($query);
-      if (mysql_num_rows($data) == 0) {
-        // The username is unique, so insert the data into the database
+      $data2 = mysql_query($query2);
+      if (mysql_num_rows($data) == 0 && mysql_num_rows($data2) == 0) {
+        // The username is unique to patients and dentists, so insert the data into the database
         $query = "INSERT INTO dentist_data (username,password,firstname,lastname,address,email,phone)
             VALUES ( '$username', SHA('$password1'), '$firstname','$lastname','$address','$email','$phone')";
         mysql_query($query);

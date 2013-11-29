@@ -67,34 +67,81 @@
           if (!$database) {
              die("Database selection failed:" . mysql_error());
           }
-        
-        
-          $email = $_POST['email'];
-          echo 'Email entered is ' . $email . '<br/>';
-          $subject = 'User Account Information - CSC 667 Dental Website';
+             // <?php
+        //  if (isset($_POST['submit'])) {
+            $output_form = false;
+            $email = $_POST['email'];
+            if (!empty($email)) {
+                $query = "SELECT email FROM patient_data WHERE email='$email'";
+                $data = mysql_query($query);
+                if (!$data) {
+                    die("query failed" . mysql_error());
+                }       
+    //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
+                if (mysql_num_rows($data) == 0) {
+                    echo "<p><font color='red'>Email does not exist.</font></p>";
+                    $output_form = true;
+                   // $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/retrieve_loginfo.php';
+                   // header('Location: ' . $home_url);
+                } else {
+            //        echo "action=mail_user.php >";
+                
+            //
+                
+                    $email = $_POST['email'];
+                    echo 'Email entered is ' . $email . '<br/>';
+                    $subject = 'User Account Information - CSC 667 Dental Website';
 
-          $query = "SELECT * FROM patient_data WHERE email='$email'";
-          $data = mysql_query($query);
-          if (!$data) {
-            die("query failed" . mysql_error());
-          } 
-          $row = mysql_fetch_array($data);
-
+                    $query = "SELECT * FROM patient_data WHERE email='$email'";
+                    $data = mysql_query($query);
+                    if (!$data) {
+                        die("query failed" . mysql_error());
+                    } 
+                    $row = mysql_fetch_array($data);
           
-          $msg = 'Your username is: '. $row['username'] . "\n\n".
-                 'Click the link below to reset your password:'. "\n" .
-                 'http://' . $_SERVER['HTTP_HOST'] . '/~rsanch' . '/reset_password.php' ;
+                    $msg = 'Your username is: '. $row['username'] . "\n\n".
+                           'Click the link below to reset your password:'. "\n" .
+                           'http://' . $_SERVER['HTTP_HOST'] . '/~rsanch' . '/reset_password.php' ;
                  
-
-          ini_set("sendmail_from", $email);
-          $headers = "From: $email";
-          if (mail($email, $subject, $msg, $headers)) {
-               echo 'The username and password has been sent to your email address.';
-          } else {
-               echo 'Sending email failed.';
-          }
-    
+                    ini_set("sendmail_from", $email);
+                    $headers = "From: $email";
+                    if (mail($email, $subject, $msg, $headers)) {
+                        echo 'The username and password has been sent to your email address.';
+                    } else {
+                        echo 'Sending email failed.';
+                    }                
+                
+                }      
+                
+                
+            }else { 
+                echo "<p><font color='red'>Email field is empty.</font></p>";
+                $output_form = true;
+                     //      $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/retrieve_loginfo.php';
+ 
+        //  header('Location: ' . $home_url);
+            }
+         // } else {
+          //    echo '>';
+          //}
+    //  end php
+        
+            
+            if ($output_form) {
         ?>
+        
+        <form role="form-inline" role="form" method="post" action="mail_user.php">
+            <div class="form-group">
+                <label for="email">Enter your Email Address:</label>
+                <input type="text" class="form-control input-small" name="email" placeholder="email ">
+            </div>
+
+
+            <input type="submit" value="Submit" id="submit" name="submit" />
+        </form> <?php } 
+  
+  
+  ?>
 
 <br><hr>
 
