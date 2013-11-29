@@ -29,18 +29,18 @@
   session_start();
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
       
     }
   }
   if (isset($_SESSION['user_id'])) {   
                     
     if($_SESSION['user_id'] < 1000) {          
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       } else {
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
   } else {
       echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
@@ -99,14 +99,13 @@
                     } 
                     $row = mysql_fetch_array($data);
           
-                    $msg = 'Your username is: '. $row['username'] . "\n\n".
-                           'Click the link below to reset your password:'. "\n" .
+                    $msg = 'Click the link below to reset your password:'. "\n" .
                            'http://' . $_SERVER['HTTP_HOST'] . '/~rsanch' . '/reset_password.php' ;
                  
                     ini_set("sendmail_from", $email);
                     $headers = "From: $email";
                     if (mail($email, $subject, $msg, $headers)) {
-                        echo 'The username and password has been sent to your email address.';
+                        echo 'The password has been sent to your email address.';
                     } else {
                         echo 'Sending email failed.';
                     }                

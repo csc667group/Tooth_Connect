@@ -32,18 +32,18 @@
   session_start();
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
       
     }
   }
   if (isset($_SESSION['user_id'])) {   
                     
     if($_SESSION['user_id'] < 1000) {          
-       echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+       echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       } else {
-       echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+       echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
   } else {
        echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
@@ -70,20 +70,20 @@
           if (isset($_POST['submit'])) {
  //     echo 'form submitted';
     // Grab the profile data from the POST
-//    $username = mysqli_real_escape_string($connection, trim($_POST['username']));
+//    $email = mysqli_real_escape_string($connection, trim($_POST['email']));
 //    $password1 = mysql_real_escape_string($connection, trim($_POST['password1']));
 //    $password2 = mysql_real_escape_string($connection, trim($_POST['password2']));
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
     
-    if (!empty($username) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
-      // Make sure someone isn't already registered using this username
-      $query = "SELECT * FROM patient_data WHERE username = '$username'";
+    if (!empty($email) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
+      // Make sure someone isn't already registered using this email
+      $query = "SELECT * FROM patient_data WHERE email = '$email'";
       $data = mysql_query($query);
       if (mysql_num_rows($data) == 1) {
-        // The username is unique, so insert the data into the database
-        $query = "UPDATE patient_data SET password=SHA('$password1') WHERE username ='$username' ";
+        // The email is unique, so insert the data into the database
+        $query = "UPDATE patient_data SET password=SHA('$password1') WHERE email ='$email' ";
         mysql_query($query);
 
         // Confirm success with the user
@@ -94,9 +94,9 @@
       }
 
       else {
-        // An account already exists for this username, so display an error message
-        echo "<font color='red'>Invalid username.</font>";
-        $username = "";
+        // An account already exists for this email, so display an error message
+        echo "<font color='red'>Invalid email.</font>";
+        $email = "";
       }
     }
     else {
@@ -104,7 +104,7 @@
       if ($password1 != $password2) {
           echo "<font color='red'>Password fields must be the same.<br/></font>";
       }
-      if (empty($username) || empty($password1) || empty($password2)) {
+      if (empty($email) || empty($password1) || empty($password2)) {
             echo "<font color='red'>Missing fields.<br/></font>";
       }
        
@@ -115,10 +115,7 @@
 ?>
       
 <form role="form-inline" role="form" method="post">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control input-small" name="username" placeholder="User name">
-  </div>
+
   <div class="form-group">
     <label for="exampleInputEmail1">Enter new password</label>
     <input type="password" class="form-control input-small"  name="password1" placeholder="Password">

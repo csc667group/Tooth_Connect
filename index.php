@@ -31,18 +31,18 @@
   session_start();
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
       
     }
   }
   if (isset($_SESSION['user_id'])) {   
                     
     if($_SESSION['user_id'] < 1000) {          
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       } else {
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
   } else {
       echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
@@ -125,20 +125,20 @@
     if (isset($_POST['submit'])) {
  //       echo 'submit is clicked';
       // Grab the user-entered log-in data
-//      $user_username = mysqli_real_escape_string($dbc, trim($_POST['username']));
+//      $user_email = mysqli_real_escape_string($dbc, trim($_POST['email']));
 //      $user_password = mysqli_real_escape_string($dbc, trim($_POST['password']));
-        $user_username = $_POST['username'];
+        $user_email = $_POST['email'];
         $user_password = $_POST['password'];
-  //      echo 'value of user_username is ' . $user_username. ' ' ;
+  //      echo 'value of user_email is ' . $user_email. ' ' ;
   //      echo 'value of password is ' . $user_password. ' ' ;
-      if (!empty($user_username) && !empty($user_password)) {
-        // Look up the patient username and password in the database 
+      if (!empty($user_email) && !empty($user_password)) {
+        // Look up the patient email and password in the database 
 
-        $query = "SELECT * FROM patient_data WHERE username='$user_username' AND password=SHA('$user_password')";
+        $query = "SELECT * FROM patient_data WHERE email='$user_email' AND password=SHA('$user_password')";
         $data = mysql_query($query);
         //if user isn't a patient check if they are a dentist
         if(mysql_num_rows($data) == 0){
-            $query = "SELECT * FROM dentist_data WHERE username='$user_username' AND password=SHA('$user_password')";
+            $query = "SELECT * FROM dentist_data WHERE email='$user_email' AND password=SHA('$user_password')";
             $data = mysql_query($query);
         } 
         if (!$data) {
@@ -147,12 +147,12 @@
    //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
         if (mysql_num_rows($data) == 1) {
           echo '<br/> more than one row of data ';
-          // The log-in is OK so set the user ID and username session vars (and cookies), and redirect to the home page
+          // The log-in is OK so set the user ID and email session vars (and cookies), and redirect to the home page
           $row = mysql_fetch_array($data);
           $_SESSION['user_id'] = $row['user_id'];
-          $_SESSION['username'] = $row['username'];
+          $_SESSION['email'] = $row['email'];
           setcookie('user_id', $row['user_id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
-          setcookie('username', $row['username'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
+          setcookie('email', $row['email'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
           if($_SESSION['user_id'] < 1000) {   
             $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Patient_Profile.php';
           } else {
@@ -162,25 +162,25 @@
       //    echo 'user is logged in successfully';
         }
         else {
-          // The username/password are incorrect so set an error message
-          echo "<font color='red'>You must enter a valid username and password to log in.</font>";
+          // The email/password are incorrect so set an error message
+          echo "<font color='red'>You must enter a valid email and password to log in.</font>";
         }
       }
       else {
-           if ((empty($user_username)) && (!empty($user_password)) ) {
-               echo "<font color='red'>Username field is empty.</font>";
-           } else if ( ((empty($user_password)) && (!empty($user_username))) ) {
+           if ((empty($user_email)) && (!empty($user_password)) ) {
+               echo "<font color='red'>Email field is empty.</font>";
+           } else if ( ((empty($user_password)) && (!empty($user_email))) ) {
                echo "<font color='red'>Password field is empty.</font>";
            } else {
-        // The username/password weren't entered so set an error message
-             echo "<font color='red'>Username and Password field are empty.</font>";
+        // The email/password weren't entered so set an error message
+             echo "<font color='red'>Email and Password field are empty.</font>";
            }
       }
     } else {
      //   echo 'submit not working';
     }
   } else {
-   // echo('<p class="login"><h2 style = "align=right;">You are logged in as</h2> ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+   // echo('<p class="login"><h2 style = "align=right;">You are logged in as</h2> ' . $_SESSION['email'] . '. <a href="logout.php">Log out</a>.</p>');
   }
 
 ?>
@@ -189,9 +189,9 @@
 <?php if (!isset($_SESSION['user_id']) ) { ?>
 <form class="form-horizontal" role="form" method="post">
   <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control input-small" placeholder="username" name="username" value="<?php if (!empty($user_username)) echo $user_username; ?>" />
+      <input type="text" class="form-control input-small" placeholder="Email" name="email" value="<?php if (!empty($user_email)) echo $user_email; ?>" />
     </div>
   </div>
   <div class="form-group">
@@ -200,9 +200,10 @@
       <input type="password" class="form-control input-small" placeholder="Password" name="password">
     </div>
   </div>
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      
+      <p><a href="retrieve_loginfo.php">Forgot password?</a></p>
       <div class="checkbox">
         <label>
           <input type="checkbox"> Remember me
@@ -218,7 +219,6 @@
 <a href="selection_page.html" class="btn btn-info"><i class="fa fa-book"></i> Register</a>     
 -->
         <br><br>
-        <p><a href="retrieve_loginfo.php">Forgot username or password?</a></p>
     </div>
   </div>
 </form>

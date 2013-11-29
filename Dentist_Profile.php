@@ -94,9 +94,9 @@ and open the template in the editor.
 
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
     }
   }
 
@@ -109,7 +109,7 @@ and open the template in the editor.
     exit();
   }
   if (isset($_SESSION['user_id'])) {   
-    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+    echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
   }
 ?>
 
@@ -121,7 +121,7 @@ and open the template in the editor.
          <ul style="list-style-type: none; width: 275px;">
         <li>
           <?php 
-            //echo('<p class="login">You are logged in as ' . $_SESSION['username'] . '. <a href="logout.php">Log out</a>.</p>');
+            //echo('<p class="login">You are logged in as ' . $_SESSION['email'] . '. <a href="logout.php">Log out</a>.</p>');
           ?>
         </li>
         <li>

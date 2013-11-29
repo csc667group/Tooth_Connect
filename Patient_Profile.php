@@ -96,9 +96,9 @@ and open the template in the editor.
 
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
     }
   }
   if (!isset($_SESSION['user_id']) ) { 
@@ -110,7 +110,7 @@ and open the template in the editor.
     exit();
   }
   if (isset($_SESSION['user_id'])) {   
-    echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+    echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
   }          
 ?>  
              <!-- HEADER BAR -->
@@ -148,23 +148,12 @@ and open the template in the editor.
                             </ul>
                             <div class="tab-content">
                                 <?php
-                                
-                                
-                                /*
-                                 * TO DO: Figure out what's wrong with tabs...
-                                 *   -Maybe it has to do with change of variables? (NO)
-                                 *   -Steven says it has to do with php code (syntax?)
-                                 *      -Test: comment out php besides tabs code, 
-                                 *          Then go through the code to debug
-                                 * 
-                                 * NOTE: DID NOT TOUCH CSS
-                                 */
+                          
                                     require_once('connectvars.php');
 
                                     // Connect to the database
                                     $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
 
-                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
                                     if (!$connection) {
                                       die("Database connection failed:" . mysql_error());
                                     }
@@ -178,6 +167,38 @@ and open the template in the editor.
                                 //FIRST TAB: My Info
                                 echo "<div class=\"tab-pane active\" id=\"a\">";
                                 
+                                //EDIT INFO IF USER CLICKS ON IT
+//                                if(isset($_POST['editinfo'])){
+                                    
+
+//                                    if(isset($_POST['submit'])){
+//                                        $firstname = $_POST['firstname'];  
+                                        /*
+                                        $lastname = $_POST['lastname'];  
+                                        $address = $_POST['address'];      
+                                        $city = $_POST['city'];      
+                                        $state = $_POST['state'];      
+                                        $zipcode = $_POST['zipcode'];      
+                                        $phone = $_POST['phone'];  
+                                        $email = $_POST['email'];   
+
+                                        $queryEDITINFO = "UPDATE patient_data 
+                                                            SET firstname = 
+                                                            WHERE user_id = '$_SESSION[user_id]' ";
+                                        */
+//                                    }
+/*                                    
+                                    //EDITING INFO: WHEN SUBMITTED, UPDATES INFO, THEN GOES BACK TO NORMAL PAGE    
+                                    echo "<form role=\"form-inline\" role=\"form\" method=\"post\" action=\"<?php echo \$_SERVER[\'PHP_SELF\']; ?>\">";
+                                      echo "<div class=\"form-group\">";
+                                        echo "<label for=\"firstname\">First Name</label>";
+                                        echo "<input type=\"text\" class=\"form-control input-small\" id=\"firstname\" name=\"firstname\" value=\"<?php if (!empty(\$firstname)) {echo \$firstname;} ?>\"  placeholder=\"First Name\">";
+                                      echo "</div>";
+                                      echo "<input type=\"submit\" value=\"Register\" id=\"submit\" name=\"submit\" />";
+                                    echo "</form>";                                    
+                                    
+                                }
+*/                                
                                 /******** using user's user_id that is logged in   */
                                 $queryA = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
                                 $dataA = mysql_query($queryA);  
@@ -199,9 +220,22 @@ and open the template in the editor.
                                      echo ($rowA['state']) . " " . ($rowA['zipcode']) . "<br>";
                                      echo "Telephone #: " . ($rowA['phone']) . "<br>";
                                      echo "Email: " . ($rowA['email']) . "<br>";
-                                 }                                
-                                    
-                                echo"</div>";
+                                 }      
+/*                                 
+                                 else{
+                                     echo "USER_ID = <br>";
+                                     echo "Name:  <br>";
+
+                                     echo "Address: <br>";
+                                     echo "Telephone #: <br>";
+                                     echo "Email: <br>";
+                                 }
+                                 
+                                echo "<form role=\"form-inline\" role=\"form\" method=\"post\" action=\"<?php echo \$_SERVER[\'PHP_SELF\']; ?>\">";
+
+                                echo "<br><input type=\"submit\" value=\"Edit Info\" id=\"editinfo\" name=\"editinfo\" />";
+*/                                    
+                                echo "</div>";
                                 
                                 //SECOND TAB: My dentists
                                 echo "<div class=\"tab-pane\" id=\"b\">";

@@ -29,18 +29,18 @@
   session_start();
   // If the session vars aren't set, try to set them with a cookie
   if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
       $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['username'] = $_COOKIE['username'];
+      $_SESSION['email'] = $_COOKIE['email'];
       
     }
   }
   if (isset($_SESSION['user_id'])) {   
                     
     if($_SESSION['user_id'] < 1000) {          
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       } else {
-      echo('<p align="right">Logged in as ' . $_SESSION['username'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+      echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
       }
   } else {
       echo('<p align="right">You are not logged in | '. '<a href="index.php#signin"> Sign in </a> </p>');
@@ -73,7 +73,7 @@
   if (isset($_POST['submit'])) {
  //     echo 'form submitted';
     // Grab the profile data from the POST
-//    $username = mysqli_real_escape_string($connection, trim($_POST['username']));
+//    $email = mysqli_real_escape_string($connection, trim($_POST['email']));
 //    $password1 = mysql_real_escape_string($connection, trim($_POST['password1']));
 //    $password2 = mysql_real_escape_string($connection, trim($_POST['password2']));
 
@@ -85,20 +85,19 @@
     $zipcode = $_POST['zipcode'];      
     $phone = $_POST['phone'];  
     $email = $_POST['email'];      
-    $username = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
   
-    if (!empty($username) && !empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
-      // Make sure someone isn't already registered using this username
-      $query = "SELECT * FROM dentist_data WHERE username = '$username'";
-      $query2 = "SELECT * FROM patient_data WHERE username = '$username'";
+    if (!empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
+      // Make sure someone isn't already registered using this email
+      $query = "SELECT * FROM dentist_data WHERE email = '$email'";
+      $query2 = "SELECT * FROM patient_data WHERE email = '$email'";
       $data = mysql_query($query);
       $data2 = mysql_query($query2);
       if (mysql_num_rows($data) == 0 && mysql_num_rows($data2) == 0) {
-        // The username is unique to patients and dentists, so insert the data into the database
-        $query = "INSERT INTO dentist_data (username,password,firstname,lastname,address,email,phone)
-            VALUES ( '$username', SHA('$password1'), '$firstname','$lastname','$address','$email','$phone')";
+        // The email is unique to patients and dentists, so insert the data into the database
+        $query = "INSERT INTO dentist_data (password,firstname,lastname,address,email,phone)
+            VALUES ( SHA('$password1'), '$firstname','$lastname','$address','$email','$phone')";
         mysql_query($query);
 
         // Confirm success with the user
@@ -109,13 +108,13 @@
       }
 
       else {
-        // An account already exists for this username, so display an error message
-        echo "<font color='red'>An account already exists for this username. Please use a different address.</font>";
-        $username = "";
+        // An account already exists for this email, so display an error message
+        echo "<font color='red'>An account already exists for this email. Please use a different address.</font>";
+        $email = "";
       }
     }
     else {
-      if (empty($username) || empty($password1) || empty($password2) || empty($email)) {
+      if (empty($password1) || empty($password2) || empty($email)) {
         echo "<font color='red'>Missing fields.<br/></font>";
       }
       if ($password1 != $password2) {
@@ -166,12 +165,6 @@
     <input type="text" class="form-control input-small" name="email" value="<?php if (!empty($email)) {echo $email;} ?>" placeholder="Email Address">
   </div>
 
-    
-    
-    <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" class="form-control input-small" name="username" value="<?php if (!empty($username)) {echo $username;} ?>" placeholder="User name">
-  </div>
   <div class="form-group">
     <label for="password1">Password</label>
     <input type="password" class="form-control input-small"  name="password1" placeholder="Password">
