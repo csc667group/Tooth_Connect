@@ -53,6 +53,161 @@
 
 <h2 align="center"> Editing Info </h2>
 
+<?php
+
+  require_once('connectvars.php');
+
+  // Connect to the database
+  $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+  //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
+  if (!$connection) {
+    die("Database connection failed:" . mysql_error());
+  }
+
+  $database = mysql_select_db(DB_NAME, $connection);
+  if (!$database) {
+    die("Database selection failed:" . mysql_error());
+  }
+  
+        /*
+         * Here, SQL retrieves data of current user,
+         * and displays it in edit_info form
+         */
+  
+        $t_user_id = $_SESSION['user_id']; //temporary variable for current user_id
+
+          if($t_user_id < 1000) {    
+              $query = "SELECT * FROM patient_data WHERE user_id = '$t_user_id'";
+          } 
+          else {
+              $query = "SELECT * FROM dentist_data WHERE user_id = '$t_user_id'";
+          }  
+
+          $data = mysql_query($query);
+          $row = mysql_fetch_array($data);    
+    
+        //TO BE DISPLAYED INITIALLY IN FORM
+        $firstname = $row['firstname'];  
+        $lastname = $row['lastname'];  
+        $address = $row['address'];      
+        $city = $row['city'];      
+        $state = $row['state'];      
+        $zipcode = $row['zipcode'];      
+        $phone = $row['phone'];     
+  ?>
+
+<?php
+  //SUBMITTED EDIT
+  if (isset($_POST['submit'])) {
+
+        $firstname = $_POST['firstname'];  
+        $lastname = $_POST['lastname'];  
+        $address = $_POST['address'];      
+        $city = $_POST['city'];      
+        $state = $_POST['state'];      
+        $zipcode = $_POST['zipcode'];      
+        $phone = $_POST['phone'];  
+
+
+        //$t_user_id = $_SESSION['user_id']; //temporary variable for current user_id
+
+         // if ($t_user_id === $row['user_id']) {
+            // EMAIL SHOULD NOT HAVE BEEN CHANGED => ALWAYS TRUE
+
+                if($_SESSION['user_id'] < 1000) {  
+                    $query = "UPDATE patient_data 
+                                SET firstname = '$firstname',
+                                    lastname = '$lastname',
+                                    address = '$address',
+                                    city = '$city',
+                                    state = '$state',
+                                    zipcode = '$zipcode',
+                                    phone = '$phone'                                    
+                              WHERE user_id = $t_user_id";
+                }
+
+                else{
+                    $query = "UPDATE dentist_data 
+                                SET firstname = '$firstname',
+                                    lastname = '$lastname',
+                                    address = '$address',
+                                    city = '$city',
+                                    state = '$state',
+                                    zipcode = '$zipcode',
+                                    phone = '$phone'
+                              WHERE user_id = $t_user_id";           
+                }
+                mysql_query($query);
+
+            // Editing succeded
+                if($t_user_id < 1000) {  
+                    echo 'Editing information completed. <a href="Patient_Profile.php">Return to profile</a>.';
+                }
+                else{
+                    echo 'Editing information completed. <a href="Dentist_Profile.php">Return to profile</a>.';            
+                }
+                mysql_close($connection);
+                exit();
+           // }
+
+
+  }
+  
+  mysql_close($connection);
+?>
+
+
+<form role="form-inline" role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    
+    
+  <div class="form-group">
+    <label for="firstname">First Name</label>
+    <input type="text" class="form-control input-small" id="firstname" name="firstname" 
+           value= "<?php if (!empty($row['firstname'])) {echo $row['firstname'];} ?>" placeholder ="First Name">
+  </div>
+    
+  <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input type="text" class="form-control input-small" name="lastname" 
+           value= "<?php if (!empty($row['lastname'])) {echo $row['lastname'];} ?>" placeholder="Last Name">
+  </div>  
+    
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" class="form-control input-small" name="address" 
+           value="<?php if (!empty($row['address'])) {echo $row['address'];} ?>" placeholder="Address">
+  </div>
+    
+  <div class="form-group">
+    <label for="city">City</label>
+    <input type="text" class="form-control input-small" name="city" 
+           value="<?php if (!empty($row['city'])) {echo $row['city'];} ?>" placeholder="City">
+  </div>
+    
+  <div class="form-group">
+    <label for="state">State</label>
+    <input type="text" class="form-control input-small" name="state" 
+           value="<?php if (!empty($row['state'])) {echo $row['state'];} ?>" maxlength="2" placeholder="State">
+  </div>
+    
+  <div class="form-group">
+    <label for="zipcode">Zipcode</label>
+    <input type="text" class="form-control input-small" name="zipcode" 
+           value="<?php if (!empty($row['zipcode'])) {echo $row['zipcode'];} ?>" maxlength="5" placeholder="Zipcode">
+  </div>
+    
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="text" class="form-control input-small" name="phone" 
+           value="<?php if (!empty($row['phone'])) {echo $row['phone'];} ?>" maxlength="10" placeholder="Phone Number">
+  </div>
+    
+    
+  <input type="submit" value="Finish Editing" id="submit" name="submit" />
+  
+  </form>
+
 
 <br><hr>
 

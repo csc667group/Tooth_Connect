@@ -167,58 +167,6 @@ and open the template in the editor.
                                 //FIRST TAB: My Info
                                 echo "<div class=\"tab-pane active\" id=\"a\">";
                                 
-                                //EDIT INFO IF USER CLICKS ON IT 
-                                
-                                /*
-                                 * TO DO: Can user edit directly on profile,
-                                 *          or should a seperate page be made
-                                 *          ("edit_info" page like FACEBOOK?)
-                                 * 
-                                 * GO TO editinfo BUTTON AND ADD THIS ACTION
-                                 * form action = "edit_info.php"
-                                 * 
-                                 * edit_info.php goes back to profile_page 
-                                 * after user edits info
-                                 */          
-                                if(isset($_POST['editinfo'])){
-                                    if(isset($_POST['submit'])){
-                                        //JUST TESTING FIRSTNAME FOR NOW
-    //                                        $firstname = $_POST['firstname'];  
-                                        /*
-                                        $lastname = $_POST['lastname'];  
-                                        $address = $_POST['address'];      
-                                        $city = $_POST['city'];      
-                                        $state = $_POST['state'];      
-                                        $zipcode = $_POST['zipcode'];      
-                                        $phone = $_POST['phone'];  
-                                        $email = $_POST['email'];   
-
-                                        $queryEDITINFO = "UPDATE patient_data 
-                                                            SET firstname = 
-                                                            WHERE user_id = '$_SESSION[user_id]' ";
-                                        */
-                                        echo "SUBMITTED";
-                                        unset($_POST['submit']);
-                                    }                                                                             
-/*                                    
-                                    //EDITING INFO: WHEN SUBMITTED, UPDATES INFO, THEN GOES BACK TO NORMAL PAGE    
-                                    echo "<form role=\"form-inline\" role=\"form\" method=\"post\" action=\"<?php echo \$_SERVER[\'PHP_SELF\']; ?>\">";
-                                      echo "<div class=\"form-group\">";
-                                        echo "<label for=\"firstname\">First Name</label>";
-                                        echo "<input type=\"text\" class=\"form-control input-small\" id=\"firstname\" name=\"firstname\" value=\"<?php if (!empty(\$firstname)) {echo \$firstname;} ?>\"  placeholder=\"First Name\">";
-                                      echo "</div>";
-                                      echo "<input type=\"submit\" value=\"Register\" id=\"submit\" name=\"submit\" />";
-                                    echo "</form>";                                    
-*/
-                                     echo "EDITING";
-                                     echo "<input type=\"submit\" value=\"Finish Editing\" id=\"submit\" name=\"submit\" />";
-                                     unset($_POST['editinfo']); 
-                                     
-                                }
-                           
-                                
-                                
-                                //IF (!isset($_POST['editinfo']{}
                                 /******** using user's user_id that is logged in   */
                                 $queryA = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
                                 $dataA = mysql_query($queryA);  
@@ -240,32 +188,22 @@ and open the template in the editor.
                                      echo ($rowA['state']) . " " . ($rowA['zipcode']) . "<br>";
                                      echo "Telephone #: " . ($rowA['phone']) . "<br>";
                                      echo "Email: " . ($rowA['email']) . "<br>";
-                                 }      
-/*                                 
-                                 else{
-                                     echo "USER_ID = <br>";
-                                     echo "Name:  <br>";
-
-                                     echo "Address: <br>";
-                                     echo "Telephone #: <br>";
-                                     echo "Email: <br>";
-                                 }
-                                */
-                                echo "<form role=\"form-inline\" role=\"form\" method=\"post\">";
+                                 }   
+                                 
+                                 echo "<br>";
+                                echo "<form action = \"edit_info.php\">";
                                 
                                 /*
-                                 * TO DO: Can user edit directly on profile,
-                                 *          or should a seperate page be made
-                                 *          ("edit_info" page like FACEBOOK?)
-                                 * 
-                                 * GO TO editinfo BUTTON AND ADD THIS ACTION
+                                 * GOES TO editinfo BUTTON 
                                  * form action = "edit_info.php"
                                  * 
                                  * edit_info.php goes back to profile_page 
                                  * after user edits info
                                  */                                   
                                 
-                                echo "<br><input type=\"submit\" value=\"Edit Info\" id=\"editinfo\" name=\"editinfo\" />"; // action = \"edit_info.php\"
+                                    echo "<input type=\"submit\" value=\"Edit Info\" id=\"editinfo\" name=\"editinfo\" />"; 
+                                    
+                                echo "</form>";
                                     
                                 echo "</div>"; 
                                 
