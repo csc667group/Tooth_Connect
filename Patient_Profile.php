@@ -264,7 +264,8 @@ and open the template in the editor.
                                 
                                 //GETTING ONLY PAST APPOINTMENTS                               
                                 $queryC = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' 
-                                                    AND appt_Date < CURRENT_DATE";
+                                                    AND appt_Date < CURRENT_DATE
+                                                    ORDER BY appt_Date DESC";
                                 $dataC = mysql_query($queryC);  
                                 if (!$dataC) {
                                     die("query failed" . mysql_error());
@@ -312,7 +313,8 @@ and open the template in the editor.
                                 
                                 //GETTING ONLY FUTURE APPOINTMENTS
                                 $queryD = "SELECT * FROM appointments WHERE user_id = '$_SESSION[user_id]' 
-                                            AND appt_Date > CURRENT_DATE";
+                                            AND appt_Date > CURRENT_DATE
+                                            ORDER BY appt_Date";
                                 $dataD = mysql_query($queryD);  
                                 if (!$dataD) {
                                     die("query failed" . mysql_error());
