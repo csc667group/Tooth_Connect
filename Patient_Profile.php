@@ -119,6 +119,37 @@ and open the template in the editor.
              <!-- HEADER BAR -->
       <?php include("header_bar.php"); ?>
 
+<?php
+                          
+                                    require_once('connectvars.php');
+
+                                    // Connect to the database
+                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+                                    if (!$connection) {
+                                      die("Database connection failed:" . mysql_error());
+                                    }
+
+                                    $database = mysql_select_db(DB_NAME, $connection);
+                                    if (!$database) {
+                                      die("Database selection failed:" . mysql_error());
+                                    }    
+?>
+<?php                                     
+                        if (isset($_POST['appt_request'])) {
+                                        //$idee= $_SESSION['user_id'];
+                                        $user_id = $_SESSION['user_id'];
+                                        $d_user_id = $_POST['dentist'];
+                                        $appt_date = $_POST['date'];
+                                        $appt_time = $_POST['time'];
+                                        $purpose = $_POST['purpose'];
+                                        $quer = "INSERT INTO temp_appointments (user_id, d_user_id, appt_date, appt_time, purpose)
+                                            VALUES ( '$user_id', '$d_user_id', '$appt_date', '$appt_time', '$purpose')";
+                                        mysql_query($quer);
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+
+                                    }
+?>             
       <hr>
     <ul style="list-style-type: none;" style="width: 275px;">
         <li>
@@ -138,19 +169,7 @@ and open the template in the editor.
 	      <a href="Patient_Profile.php#search"><input  type="submit" name="submit" value="Search for Dentist" ></a> 
 	    </form> 
             <?php
-                                  require_once('connectvars.php');
-
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    }                         
+                                                          
             if(isset($_POST['submit'])){ 
                 if(isset($_GET['go'])){ 
                     if(preg_match("/^[  a-zA-Z]+/", $_POST['name'])){ 
@@ -194,7 +213,8 @@ and open the template in the editor.
                         </li>
                         <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
                         </li>
-                        
+                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Request an Appointment</a>
+                        </li>
                         <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                         </li>
                         <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
@@ -312,6 +332,92 @@ and open the template in the editor.
                                 
                                 
                                 echo "</div>";
+                                
+                                //TAB: Request Appointment
+                                echo "<div class=\"tab-pane\" id=\"r\">";
+                                
+                                /******** using user's user_id that is logged in   */
+                                $queryR = "SELECT * FROM patient_data WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataR = mysql_query($queryR);  
+                                if (!$dataR) {
+                                    die("query failed" . mysql_error());
+                                }                                 
+                                if (mysql_num_rows($dataR) == 1) {
+                                  //View current requests.
+                                    $q="SELECT * FROM temp_appointments WHERE user_id = '$_SESSION[user_id]' ";
+                                    $q2=  mysql_query($q);
+                                    echo "<h4>Pending Appointment Requests:</h4>";
+                                    echo "<h6>***All pending requests will show up in your future appointments if your Dentist Approves them. Otherwise they will be deleted.***</h6><hr>";
+                                    echo "<table id=\"currentrequeststable\" style=\"border:5px;\">
+                                        <tr>
+                                            <th style=\"width:200px;\">Dentist</th>
+                                            <th style=\"width:200px;\">Date</th>
+                                            <th style=\"width:100px;\">Time</th>
+                                            <th style=\"width:600px;\">Purpose</th>
+                                        </tr>";
+                                        while ($rowq = mysql_fetch_array($q2)) {
+                                            $p = "SELECT * FROM dentist_data WHERE user_id = '$rowq[d_user_id]'  ";
+                                            $p2 = mysql_query($p);
+                                            $p3 = mysql_fetch_assoc($p2);
+                                            echo "<tr>
+                                                <td>".$p3['firstname']." ".$p3['lastname']."</td>
+                                                <td>".$rowq['appt_date']."</td>
+                                                <td>".$rowq['appt_time']."</td>
+                                                <td>".$rowq['purpose']."</td>
+                                            </tr>";
+                                        }
+                                        echo "</table>";
+                                    
+                                    //GETTING ALL DENTISTS USER HAS
+                                    //Request an appointment
+                                 echo "<br>";
+                                 echo "<h4>Request an Appointment:</h4><hr>";
+                                echo "<form id=\'request_appt\' role=\"form-inline\" role=\"form\" enctype=\"multipart/form-data\" method=\"post\" action=".$_SERVER['PHP_SELF'].">";
+                                
+                                /*
+                                 * User inputs appointment request info
+                                 * sends to temp_appointments to be
+                                 * viewed and confirmed by requested
+                                 * dentist
+                                 */       
+                                $queryDID = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
+                                $dataID = mysql_query($queryDID);  
+                                if (!$dataID) {
+                                    die("query failed" . mysql_error());
+                                } 
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"dentist\">Dentist</label><br>";
+                                    echo "<select class=\"form-control input-small\" name=\"dentist\" style=\"width:200px;\">";
+                                    while ($rowDID = mysql_fetch_array($dataID)) {
+                                        $id=$rowDID[dentist_id];
+                                        $getD = "SELECT * FROM dentist_data WHERE user_id = '$rowDID[dentist_id]'  ";
+                                        $querydent = mysql_query($getD);
+                                        $dname = mysql_fetch_assoc($querydent);
+                                        if (!$dname) {
+                                            die("query failed" . mysql_error());
+                                        }
+                                        echo "<option value=" . $id . ">". $dname[firstname] ." ". $dname[lastname] ."</option>";
+                                    }
+                                    echo "</select></div>";
+                                    
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"date\">Date</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"></div>";
+                                    
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"time\">Time</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" value=\"00:00:00\"></div>";
+                                    
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"purpose\">Purpose</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"text\" name=\"purpose\" style=\"width:600px;\"></div>";
+                                    
+                                    echo "<input type=\"submit\" value=\"Send Appointment Request\" id=\"appt_request\" name=\"appt_request\" />"; 
+                                    
+                                echo "</form>";
+                                    
+                                echo "</div>";
+                                }
                                 
                                 /*THIRD TAB: My Past APpointments
                                 

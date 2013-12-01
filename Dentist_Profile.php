@@ -112,13 +112,28 @@ and open the template in the editor.
                           exit();
                         }
                         if (isset($_SESSION['user_id'])) {   
-                          echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+                          echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Dentist_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
                         }
                       ?>
 
                                   <?php include("header_bar.php"); ?>
                           <hr>
-         
+<?php
+                          require_once('connectvars.php');
+
+                                    // Connect to the database
+                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
+                                    if (!$connection) {
+                                      die("Database connection failed:" . mysql_error());
+                                    }
+
+                                    $database = mysql_select_db(DB_NAME, $connection);
+                                    if (!$database) {
+                                      die("Database selection failed:" . mysql_error());
+                                    } 
+?>
          
          
                    <ul style="list-style-type: none; width: 275px;">
@@ -147,6 +162,8 @@ and open the template in the editor.
                         </li>
                         <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
                         </li>
+                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Appointment Requests</a>
+                        </li>
                         <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                         </li>
                         <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
@@ -157,22 +174,7 @@ and open the template in the editor.
                   <div class="col-md-8">   
                       <div class="tab-content">
                                 
-                                <?php
-
-                                    require_once('connectvars.php');
-
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    }  
+                                <?php  
                                 
                           
                                 //FIRST TAB: Dentist info
@@ -263,6 +265,44 @@ and open the template in the editor.
                                     
                                 
                                 echo "</div>";
+                                
+                                //TAB: Review Requested appointments Appointment
+                                echo "<div class=\"tab-pane\" id=\"r\">";
+                                
+                                /******** using user's user_id that is logged in   */
+                                $queryR = "SELECT * FROM dentist_data WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataR = mysql_query($queryR);  
+                                if (!$dataR) {
+                                    die("query failed" . mysql_error());
+                                }                                 
+                                if (mysql_num_rows($dataR) == 1) {
+                                  //View current requests.
+                                    $q="SELECT * FROM temp_appointments WHERE d_user_id = '$_SESSION[user_id]' ";
+                                    $q2=  mysql_query($q);
+                                    echo "<h4>Appointment Requests:</h4>";
+                                    //echo "<h6></h6><hr>"; Use this line to add a footer like thing Ex: ***I can do look like this***
+                                    echo "<table id=\"currentrequeststable\" style=\"border:5px;\">
+                                        <tr>
+                                            <th style=\"width:200px;\">Patient</th>
+                                            <th style=\"width:200px;\">Date</th>
+                                            <th style=\"width:100px;\">Time</th>
+                                            <th style=\"width:600px;\">Purpose</th>
+                                        </tr>";
+                                        while ($rowq = mysql_fetch_array($q2)) {
+                                            $p = "SELECT * FROM patient_data WHERE user_id = '$rowq[user_id]'  ";
+                                            $p2 = mysql_query($p);
+                                            $p3 = mysql_fetch_assoc($p2);
+                                            echo "<tr>
+                                                <td>".$p3['firstname']." ".$p3['lastname']."</td>
+                                                <td>".$rowq['appt_date']."</td>
+                                                <td>".$rowq['appt_time']."</td>
+                                                <td>".$rowq['purpose']."</td>
+                                            </tr>";
+                                        }
+                                        echo "</table>";
+                                    
+                                echo "</div>";
+                                }
                                 
                                 //THIRD TAB: Past appointments
                                 echo "<div class=\"tab-pane\" id=\"c\">";
