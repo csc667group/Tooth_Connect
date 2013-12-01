@@ -79,6 +79,7 @@
 
     $firstname = $_POST['firstname'];  
     $lastname = $_POST['lastname'];  
+    $license = $_POST['license'];
     $address = $_POST['address'];      
     $city = $_POST['city'];      
     $state = $_POST['state'];      
@@ -88,7 +89,9 @@
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
   
-    if (!empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
+    if (!empty($password1) && !empty($password2)&& ($password1 == $password2)  && !empty($email)
+         && filter_var($email,FILTER_VALIDATE_EMAIL) && (valid_password($password1)) 
+         && valid_phone($phone)) {
       // Make sure someone isn't already registered using this email
       $query = "SELECT * FROM dentist_data WHERE email = '$email'";
       $query2 = "SELECT * FROM patient_data WHERE email = '$email'";
@@ -96,13 +99,13 @@
       $data2 = mysql_query($query2);
       if (mysql_num_rows($data) == 0 && mysql_num_rows($data2) == 0) {
         // The email is unique to patients and dentists, so insert the data into the database
-        $query = "INSERT INTO dentist_data (password,firstname,lastname,address,email,phone)
-            VALUES ( SHA('$password1'), '$firstname','$lastname','$address','$email','$phone')";
+        $query = "INSERT INTO dentist_data (password,firstname,lastname,licensenumber,address,city,state,zipcode,email,phone)
+            VALUES ( SHA('$password1'), '$firstname','$lastname','$license','$address','$city','$state','$zipcode','$email','$phone')";
         mysql_query($query);
 
         // Confirm success with the user
         echo '<p>Your new account has been successfully created. You\'re now ready to <a href="index.php#signin">log in</a>.</p>';
-
+     
         mysql_close($connection);
         exit();
       }
@@ -123,11 +126,41 @@
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           echo "<font color='red'> Enter a valid email.</font>";
       }
-       
+      if (!valid_password($password1)) {
+          echo "<font color='red'> Invalid password. Must have at least 2 uppercase, 2 lowercase, 2 digit and 6 characters in length.<br/></font>";
+      }
+      if (!valid_phone($phone)) {
+          echo "<font color='red'> Phone must be in the xxx-xxx-xxxx format. <br/></font>";
+      }       
     }
   }
 //  echo 'form not submitted';
   mysql_close($connection);
+  
+function valid_password($pass) {
+   $r1='/[A-Z]/';  
+   $r2='/[a-z]/';  
+   $r3='/[0-9]/';  
+   $o = array();
+   if(preg_match_all($r1,$pass,$o)<2) return FALSE;
+
+   if(preg_match_all($r2,$pass,$o)<2) return FALSE;
+
+   if(preg_match_all($r3,$pass,$o)<2) return FALSE;
+
+   if(strlen($pass)<6) return FALSE;
+
+   return TRUE;
+}  
+  
+function valid_phone($number) {
+    // 555-555-5555
+ 
+    if ( preg_match( '/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/', $number) ) {
+        return TRUE;
+    } 
+    return FALSE;    
+}  
 ?>
 
 
@@ -139,6 +172,10 @@
   <div class="form-group">
     <label for="lastname">Last Name</label>
     <input type="text" class="form-control input-small" name="lastname" value="<?php if (!empty($lastname)) {echo $lastname;} ?>"placeholder="Last Name">
+  </div> 
+  <div class="form-group">
+    <label for="license">License Number</label>
+    <input type="text" class="form-control input-small" name="license" value="<?php if (!empty($address)) {echo $address;} ?>" placeholder="License Number">
   </div>    
   <div class="form-group">
     <label for="address">Address</label>
@@ -150,15 +187,67 @@
   </div>
   <div class="form-group">
     <label for="state">State</label>
-    <input type="text" class="form-control input-small" name="state" value="<?php if (!empty($state)) {echo $state;} ?>" maxlength="2" placeholder="State">
+    <select name="state">
+	<option value="AL">AL</option>
+	<option value="AK">AK</option>
+	<option value="AZ">AZ</option>
+	<option value="AR">AR</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DE">DE</option>
+	<option value="DC">DC</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="IA">IA</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="ME">ME</option>
+	<option value="MD">MD</option>
+	<option value="MA">MA</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MS">MS</option>
+	<option value="MO">MO</option>
+	<option value="MT">MT</option>
+	<option value="NE">NE</option>
+	<option value="NV">NV</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>
+	<option value="NY">NY</option>
+	<option value="NC">NC</option>
+	<option value="ND">ND</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VT">VT</option>
+	<option value="VA">VA</option>
+	<option value="WA">WA</option>
+	<option value="WV">WV</option>
+	<option value="WI">WI</option>
+	<option value="WY">WY</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="zipcode">Zipcode</label>
     <input type="text" class="form-control input-small" name="zipcode" value="<?php if (!empty($zipcode)) {echo $zipcode;} ?>" maxlength="5" placeholder="Zipcode">
   </div>
   <div class="form-group">
-    <label for="phone">Phone Number</label>
-    <input type="text" class="form-control input-small" name="phone" value="<?php if (!empty($phone)) {echo $phone;} ?>" placeholder="Phone Number">
+    <label for="phone">Phone Number</label> (xxx-xxx-xxxx)
+    <input type="text" class="form-control input-small" name="phone" value="<?php if (!empty($phone)) {echo $phone;} ?>" maxlength="15" placeholder="xxx-xxx-xxxx">
   </div>
   <div class="form-group">
     <label for="email">Email Address</label>
@@ -166,12 +255,12 @@
   </div>
 
   <div class="form-group">
-    <label for="password1">Password</label>
-    <input type="password" class="form-control input-small"  name="password1" placeholder="Password">
+    <label for="password1">Password</label>  (must contain at least 2 uppercase, 2 lowercase, 2 digits and at least 6 characters in length)
+    <input type="password" class="form-control input-small"  name="password1" placeholder="Password"> 
   </div>
 
   <div class="form-group">
-    <label for="password2">Password (Verify) </label>
+    <label for="password2">Password </label> (Verify)
     <input type="password" class="form-control input-small" name="password2" placeholder="Verify Password">
   </div>
 
@@ -180,11 +269,9 @@
 
 
 <br><hr>
-
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>
-
 </div>
 
 

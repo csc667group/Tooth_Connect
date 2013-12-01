@@ -11,8 +11,11 @@ and open the template in the editor.
         <title>Patient Profile</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">-->
         
+        <!-- Bardhyl's link-->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -131,22 +134,28 @@ and open the template in the editor.
         <!-- /row -->
           
             <div class="row">
-                <div><!--class="col-md-6" this was here-->
+                
                     <h3 class=""></h3> 
 
                 <!-- tabs left -->
-                        <div class="tabbable tabs-left">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
-                                </li>
-                                <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
-                                </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
-                                </li>
-                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
+                        </li>
+                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
+                        </li>
+                        <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
+                        </li>
+                        <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
+                        </li>
+                    </ul>
+
+
+                    <!-- Content on the right side inserted in a column-->
+                    <div class="col-md-6">   
+                        <div class="tab-content">
+               
+                
                                 <?php
                           
                                     require_once('connectvars.php');
@@ -179,15 +188,27 @@ and open the template in the editor.
                                 if (mysql_num_rows($dataA) == 1) {
 
                                      $rowA = mysql_fetch_array($dataA);
-                                     echo "USER_ID = " . ($rowA['user_id']) . "<br>";
+
+                                     echo "<strong>ID:</strong>&nbsp;" . ($rowA['user_id']) . "<br>";
+                                     echo "<strong>Name:</strong>&nbsp; " . ($rowA['firstname']) . " ";
+                                     echo ($rowA['lastname']) . "</strong><br>"; 
+                                     
+                                     echo "<address> <strong>Address:</strong>&nbsp;". ($rowA['address']) .  ", "
+                                     .($rowA['city']) .", ".($rowA['state']) . " " . ($rowA['zipcode']) . 
+                                     "<br>
+                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowA['phone']) . "<br>
+                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowA['email']) . "</a></address>";
+                                     echo "<hr>";
+
+
+                                     /*echo "USER_ID = " . ($rowA['user_id']) . "<br>";
                                      echo "Name: " . ($rowA['firstname']) . " ";
                                      echo ($rowA['lastname']) . "<br>";
-
                                      echo "Address: " . ($rowA['address']) . ", ";
                                      echo ($rowA['city']) . ", "; 
                                      echo ($rowA['state']) . " " . ($rowA['zipcode']) . "<br>";
                                      echo "Telephone #: " . ($rowA['phone']) . "<br>";
-                                     echo "Email: " . ($rowA['email']) . "<br>";
+                                     echo "Email: " . ($rowA['email']) . "<br>";*/
                                  }   
                                  
                                  echo "<br>";
@@ -201,7 +222,7 @@ and open the template in the editor.
                                  * after user edits info
                                  */                                   
                                 
-                                    echo "<input type=\"submit\" value=\"Edit Info\" id=\"editinfo\" name=\"editinfo\" />"; 
+                                    echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
                                     
                                 echo "</form>";
                                     
@@ -238,17 +259,29 @@ and open the template in the editor.
                                     
                                     $rowX = mysql_fetch_array($dataX);
                                      
+                                     echo "<strong>Name:</strong> " . ($rowX['firstname']) . " ";
+                                     echo ($rowX['lastname']) . "</strong><br>";
+                                     echo "<strong>License #:</strong> " . ($rowX['licensenumber']) . "<br>";
+                                     echo "<strong>Specialties:</strong> " . ($rowX['d_specialties']) . "<br>"; 
+                                     echo "<address> <strong>Address:</strong>". ($rowX['address']) . "<br>
+                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
+                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
+                                     echo "<hr>";
+                                      
+                                    /*
                                      echo "<strong>Name: " . ($rowX['firstname']) . " ";
                                      echo ($rowX['lastname']) . "</strong><br>";
-
+                                     echo "<address> ";
                                      echo "License #: " . ($rowX['licensenumber']) . "<br>";                                     
                                      echo "Address: " . ($rowX['address']) . "<br>";
-                                     echo "Telephone #: " . ($rowX['phone']) . "<br>";
+                                     echo "<span class='glyphicon glyphicon-earphone'></span>" . ($rowX['phone']) . "<br>";
                                      echo "Email: " . ($rowX['email']) . "<br>";
+                                     echo "</address> ";
                                      echo "Specialties: " . ($rowX['d_specialties']) . "<br>"; 
                                      echo "<br>";
+                                     */
                                  }                                  
-                                
+                             
                                 
                                 
                                 echo "</div>";
@@ -352,8 +385,8 @@ and open the template in the editor.
                                 echo "</div>";
                                 
                                 ?>
-                            </div>
                         </div>
+                    </div>
     <!-- /tabs -->
                 </div>
             </div>
