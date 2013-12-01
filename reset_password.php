@@ -81,6 +81,10 @@
       // Make sure someone isn't already registered using this email
       $query = "SELECT * FROM patient_data WHERE email = '$email'";
       $data = mysql_query($query);
+      if(mysql_num_rows($data) == 0){
+             $query = "SELECT * FROM dentist_data WHERE email='$email'";
+             $data = mysql_query($query);
+       } 
       if (mysql_num_rows($data) == 1) {
         // The email is unique, so insert the data into the database
         $query = "UPDATE patient_data SET password=SHA('$password1') WHERE email ='$email' ";
