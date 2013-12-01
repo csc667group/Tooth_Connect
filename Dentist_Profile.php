@@ -12,8 +12,11 @@ and open the template in the editor.
         <title>Dentist Profile</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">-->
         
+        <!-- Bardhyl's link-->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -89,67 +92,70 @@ and open the template in the editor.
     
 <body>
         <div class="container">
-<?php
- //session_start();
+                      <?php
+                       //session_start();
 
-  // If the session vars aren't set, try to set them with a cookie
-  if (!isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
-      $_SESSION['user_id'] = $_COOKIE['user_id'];
-      $_SESSION['email'] = $_COOKIE['email'];
-    }
-  }
+                        // If the session vars aren't set, try to set them with a cookie
+                        if (!isset($_SESSION['user_id'])) {
+                          if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
+                            $_SESSION['user_id'] = $_COOKIE['user_id'];
+                            $_SESSION['email'] = $_COOKIE['email'];
+                          }
+                        }
 
-  if (!isset($_SESSION['user_id']) ) { 
-    echo '<p class="login">Please <a href="index.php">log in</a> to access this page.</p>';
-    exit();
-  }
-  if ($_SESSION['user_id'] < 1000) {
-    echo 'Cannot access this page. You are not a dentist!';
-    exit();
-  }
-  if (isset($_SESSION['user_id'])) {   
-    echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
-  }
-?>
+                        if (!isset($_SESSION['user_id']) ) { 
+                          echo '<p class="login">Please <a href="index.php">log in</a> to access this page.</p>';
+                          exit();
+                        }
+                        if ($_SESSION['user_id'] < 1000) {
+                          echo 'Cannot access this page. You are not a dentist!';
+                          exit();
+                        }
+                        if (isset($_SESSION['user_id'])) {   
+                          echo('<p align="right">Logged in as ' . $_SESSION['email'] . '<a href="Patient_Profile.php"> [<i class="fa fa-user"></i> Profile] </a>     ' . '<a href="logout.php"> [<i class="fa fa-minus-circle"></i> Log out]</a></p>');
+                        }
+                      ?>
 
-            <?php include("header_bar.php"); ?>
-    <hr>
+                                  <?php include("header_bar.php"); ?>
+                          <hr>
          
          
          
-         <ul style="list-style-type: none; width: 275px;">
-        <li>
-          <?php 
-            //echo('<p class="login">You are logged in as ' . $_SESSION['email'] . '. <a href="logout.php">Log out</a>.</p>');
-          ?>
-        </li>
-        <li>
-            <img src="images/img1.jpg" id="profilepic">
-        </li>
-    </ul>
+                   <ul style="list-style-type: none; width: 275px;">
+                      <li>
+                        <?php 
+                          //echo('<p class="login">You are logged in as ' . $_SESSION['email'] . '. <a href="logout.php">Log out</a>.</p>');
+                        ?>
+                      </li>
+                      <li>
+                          <img src="images/img1.jpg" id="profilepic">
+                      </li>
+                    </ul>
     
 
        <!-- <div class="container">-->
         <!-- /row -->
           
             <div class="row">
-                <div><!--class="col-md-6" this was here-->
-                    <h3 class=""></h3> 
+                
+                  <h3 class=""></h3> 
 
-                <!-- tabs left -->
-                        <div class="tabbable tabs-left">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
-                                </li>
-                                <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
-                                </li>
-                                <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
-                                </li>
-                                <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
+                       <!-- tabs left -->
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
+                        </li>
+                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
+                        </li>
+                        <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
+                        </li>
+                        <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
+                        </li>
+                    </ul>
+
+                     <!-- Content on the right side inserted in a column-->
+                  <div class="col-md-8">   
+                      <div class="tab-content">
                                 
                                 <?php
 
@@ -324,12 +330,15 @@ and open the template in the editor.
                 condimentum vitae.</div>-->
 
 
-                            </div>
+                        <!-- /right-content -->
                         </div>
-    <!-- /tabs -->
+                    <!-- /column -->
+                    </div>
+                <!-- /tabs-left -->
                 </div>
+            <!-- /row -->
             </div>
-    <!-- /row -->
+        <!-- /container -->
         </div> 
         <hr class="">
         
