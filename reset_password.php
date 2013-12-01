@@ -76,7 +76,7 @@
    
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    
+    $patient = true;
     if (!empty($email) && !empty($password1) && !empty($password2) && ($password1 == $password2)) {
       // Make sure someone isn't already registered using this email
       $query = "SELECT * FROM patient_data WHERE email = '$email'";
@@ -84,11 +84,17 @@
       if(mysql_num_rows($data) == 0){
              $query = "SELECT * FROM dentist_data WHERE email='$email'";
              $data = mysql_query($query);
+             $patient = false;
        } 
       if (mysql_num_rows($data) == 1) {
         // The email is unique, so insert the data into the database
-        $query = "UPDATE patient_data SET password=SHA('$password1') WHERE email ='$email' ";
-        mysql_query($query);
+          if ($patient) {
+            $query = "UPDATE patient_data SET password=SHA('$password1') WHERE email ='$email' ";
+            mysql_query($query);
+          } else {
+             $query = "UPDATE dentist_data SET password=SHA('$password1') WHERE email ='$email' ";
+             mysql_query($query);  
+          }
 
         // Confirm success with the user
         echo '<p>Your password has been successfully changed. You\'re now ready to <a href="index.php#signin">log in</a>.</p>';

@@ -125,10 +125,60 @@ and open the template in the editor.
               
         </li>
         <li>
-            <img src="images/img1.jpg" id="profilepic">
+            <img src="images/img1.jpg" id="profilepic"> 
+            
+            
+            
+            
+                                          
+            <br> <br>                
+            <!-- Search query -->                
+            <form  method="post" action="Patient_Profile.php?go"   id="searchform"> 
+	      <input  type="text" name="name"> 
+	      <a href="Patient_Profile.php#search"><input  type="submit" name="submit" value="Search for Dentist" ></a> 
+	    </form> 
+            <?php
+                                  require_once('connectvars.php');
+
+                                    // Connect to the database
+                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+
+                                    if (!$connection) {
+                                      die("Database connection failed:" . mysql_error());
+                                    }
+
+                                    $database = mysql_select_db(DB_NAME, $connection);
+                                    if (!$database) {
+                                      die("Database selection failed:" . mysql_error());
+                                    }                         
+            if(isset($_POST['submit'])){ 
+                if(isset($_GET['go'])){ 
+                    if(preg_match("/^[  a-zA-Z]+/", $_POST['name'])){ 
+                        $name=$_POST['name']; 
+                        $sql="SELECT firstname, lastname FROM dentist_data WHERE firstname LIKE '%" . $name .  "%' OR lastname LIKE '%" . $name ."%'"; 	  
+                        $result=mysql_query($sql);   //-create  while loop and loop through result set 
+                        while($row=mysql_fetch_array($result)){ 
+                            $FirstName  =$row['firstname']; 
+                            $LastName=$row['lastname']; 
+                           // $ID=$row['user_id']; 
+	  //-display the result of the array 
+                            echo "<ul>\n"; 
+                            echo "<li>" . "<a  href=\"Patient_Profile.php?id=\">"   .$FirstName . " " . $LastName .  "</a></li>\n"; 
+                            echo "</ul>"; 
+                           // $search_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Dentist_Profile.php#search';
+                            //header('Location: ' . $search_url);
+                        } 
+                    } else{ 
+                        echo  "<p>Please enter a search query</p>"; 
+                    } 
+                } 
+            } ?>
+            
+            
+            
         </li>
     </ul>
-    
+      
 
         <div class="container">
         <!-- /row -->
@@ -144,6 +194,7 @@ and open the template in the editor.
                         </li>
                         <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
                         </li>
+                        
                         <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                         </li>
                         <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
@@ -158,19 +209,7 @@ and open the template in the editor.
                 
                                 <?php
                           
-                                    require_once('connectvars.php');
-
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    }                                 
+                                  
                                 
                                 
                                 //FIRST TAB: My Info
@@ -220,6 +259,13 @@ and open the template in the editor.
                                 
                                 //SECOND TAB: My dentists
                                 echo "<div class=\"tab-pane\" id=\"b\">";
+                             
+	 
+            
+            
+            
+            
+            
                                 
                                 /*
                                  * From current patient's user_id, it is sent to be searched in 

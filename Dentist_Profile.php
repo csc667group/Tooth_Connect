@@ -209,9 +209,7 @@ and open the template in the editor.
                                 
                                     echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
                                     
-                                echo "</form>";
-                                    
-                                echo "</div>";                               
+                                echo "</form>";                         
                                     
                                 
                                 echo "</div>";
@@ -265,7 +263,42 @@ and open the template in the editor.
                                      
                                         //Here, dentist is able to see a list of past appointments
                                         //from his patients' history.
+                                
+                                //GETTING ONLY PAST APPOINTMENTS                               
+                                $queryC = "SELECT * FROM appointments WHERE d_user_id = '$_SESSION[user_id]' 
+                                                    AND appt_Date < CURRENT_DATE
+                                                    ORDER BY appt_Date DESC";
+                                $dataC = mysql_query($queryC);  
+                                if (!$dataC) {
+                                    die("query failed" . mysql_error());
+                                }   
+                                
+                                //Reading each appointment
+                                while ($rowC = mysql_fetch_array($dataC)) {
+                                
+                                    $queryY = "SELECT * FROM patient_data WHERE user_id = '$rowC[user_id]' ";
                                     
+                                    $dataY = mysql_query($queryY);
+                                    if (!$dataY) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $rowY = mysql_fetch_array($dataY);
+                                     
+                                     echo "<strong>Patient: " . ($rowY['firstname']) . " ";
+                                     echo ($rowY['lastname']) . "</strong><br>";
+
+                                     echo "Date: " . ($rowC['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowC['appt_Time']) . "<br>";
+                                     
+                                     echo "Telephone #: " . ($rowY['phone']) . "<br>";
+                                     echo "Email: " . ($rowY['email']) . "<br>";
+                                     
+                                     echo "Purpose: " . ($rowC['purpose']) . "<br>";                                     
+                                    
+                                     echo "<br>";
+                                 }                                      
+                                                              
                                     
                                 echo "</div>";
                                 

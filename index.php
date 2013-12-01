@@ -146,6 +146,7 @@
 
         $query = "SELECT * FROM patient_data WHERE email='$user_email' AND password=SHA('$user_password')";
         $data = mysql_query($query);
+        
         //if user isn't a patient check if they are a dentist
         if(mysql_num_rows($data) == 0){
             $query = "SELECT * FROM dentist_data WHERE email='$user_email' AND password=SHA('$user_password')";
@@ -156,7 +157,7 @@
         }
    //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
         if (mysql_num_rows($data) == 1) {
-          echo '<br/> more than one row of data ';
+         
           // The log-in is OK so set the user ID and email session vars (and cookies), and redirect to the home page
           $row = mysql_fetch_array($data);
           $_SESSION['user_id'] = $row['user_id'];
