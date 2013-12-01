@@ -103,6 +103,16 @@
   ?>
 
 <?php
+  //DELETE ACCOUNT instead of edit
+    if (isset($_POST['delete_account'])) { 
+        $querydelete="DELETE FROM patient_data WHERE user_id='$t_user_id'";
+        mysql_query($querydelete);
+        $logout_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/logout.php';
+        header('Location: ' . $logout_url);
+        mysql_close($connection);
+        exit();     
+    }
+
   //SUBMITTED EDIT
   if (isset($_POST['submit'])) {
 
@@ -352,6 +362,7 @@ function valid_phone($number) {
   </div>  
     
   <input type="submit" value="Finish Editing" id="submit" name="submit" />
+  <input type="submit" value="DELETE ACCOUNT" id="delete_account" name="delete_account" onclick="return confirm('Are you SURE You want to DELETE your account?\nThis will successfully delete your account and return you to the homepage.');"/>
   
   </form>
 
