@@ -152,25 +152,8 @@ and open the template in the editor.
                             <div class="tab-content">
                                 
                                 <?php
-                                
-                                /*  TO DO: CONNECT WITH DENTIST_DATA
-                                 *      11/26/13:
-                                      I tried my best to implement this (4 hours), but it still doesnt work...
-                                 *    Also, how are we going to be implementing dentist log in? 
-                                 *      i saw that you had a check for user_id < 1000?
-                                 *      but we have seperate ids for dentist and users for the purpose
-                                 *      of connecting the two together in order to "interact"
-                                 * 
-                                 *      11/27/13:
-                                 *          Steven will be working on this page (with me)
-                                 *              Quite similar to patient profile.
-                                 *              Since patient and dentist both use "user_id",
-                                 *                  it is ok to use it instead of hardcode id
-                                 *                  For now, TO DO: edit dentist_profile to 
-                                 *                  run similar features patient_profile has
-                                */
 
-/*                                    require_once('connectvars.php');
+                                    require_once('connectvars.php');
 
                                     // Connect to the database
                                     $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
@@ -185,30 +168,51 @@ and open the template in the editor.
                                       die("Database selection failed:" . mysql_error());
                                     }  
                                 
-*/                                
+                          
                                 //FIRST TAB: Dentist info
                                 echo "<div class=\"tab-pane active\" id=\"a\">";
                               
-                              
-                                /******** replace 1 with actual d_user_id that is logged in   */
-/*                                $query = "SELECT * FROM dentist_data WHERE d_user_id = 1"; //'$_SESSION[user_id]' ";
-                                $data = mysql_query($query); 
-                     
-                                if (!$data) {
+                                /******** using user's user_id that is logged in   */
+                                $queryA = "SELECT * FROM dentist_data WHERE user_id = '$_SESSION[user_id]' ";
+                                $dataA = mysql_query($queryA);  
+                                if (!$dataA) {
                                     die("query failed" . mysql_error());
-                                }               
-                                //should only do once, since d_user_id is specific for only 1 dentist
-                                if (mysql_num_rows($data) == 1) {
-                                    echo "Name: " . ($row['d_firstName']) . " ";
-                                    echo ($row['d_lastName']) . "<br><br>";
+                                }                                 
+                                                             
+                                
+                                //should only do once, since user_id is specific for only 1 patient
+                                if (mysql_num_rows($dataA) == 1) {
 
-                                    echo "License #: " . ($row['d_licenseNumber']) . "<br><br>";
-                                    echo "Address: " . ($row['d_address']) . "<br><br>";
-                                    echo "Telephone #: " . ($row['d_telephoneNumber']) . "<br><br>";
-                                    echo "Email: " . ($row['d_email']) . "<br><br>";
-                                    echo "Specialties: " . ($row['d_specialties']) . "<br><br>";  
-                                }
-*/                                    
+                                     $rowA = mysql_fetch_array($dataA);
+
+                                     echo "<strong>Name:</strong> " . ($rowA['firstname']) . " ";
+                                     echo ($rowA['lastname']) . "</strong><br>";
+                                     echo "<strong>License #:</strong> " . ($rowA['licensenumber']) . "<br>";
+                                     echo "<strong>Specialties:</strong> " . ($rowA['d_specialties']) . "<br>"; 
+                                     echo "<address> <strong>Address:</strong>". ($rowA['address']) . "<br>
+                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowA['phone']) . "<br>
+                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowA['email']) . "</a></address>";
+                                     echo "<hr>";
+
+                                 }   
+                                 
+                                 echo "<br>";
+                                echo "<form action = \"edit_info.php\">";
+                                
+                                /*
+                                 * GOES TO editinfo BUTTON 
+                                 * form action = "edit_info.php"
+                                 * 
+                                 * edit_info.php goes back to profile_page 
+                                 * after user edits info
+                                 */                                   
+                                
+                                    echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
+                                    
+                                echo "</form>";
+                                    
+                                echo "</div>";                               
+                                    
                                 
                                 echo "</div>";
                                 
@@ -218,7 +222,37 @@ and open the template in the editor.
                                     // Here, dentist is able to see a list of patients (user_id, name, 
                                     //   and be able to modify patients' "medical records"
                                     //   i.e. update patient's history with checkup/wisdom teeth removal, etc
+                                $queryB = "SELECT * FROM list_of_patients WHERE dentist_id = '$_SESSION[user_id]' ";
+                                $dataB = mysql_query($queryB);  
+                                if (!$dataB) {
+                                    die("query failed" . mysql_error());
+                                }                                 
+                                                             
                                 
+                                
+                                while ($rowB = mysql_fetch_array($dataB)) {
+
+                                    $queryX = "SELECT * FROM patient_data WHERE user_id = '$rowB[patient_id]' ";
+                                    
+                                    $dataX = mysql_query($queryX);
+                                    if (!$dataX) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $rowX = mysql_fetch_array($dataX);
+                                     
+                                     echo "<strong>ID:</strong>&nbsp;" . ($rowX['user_id']) . "<br>";
+                                     echo "<strong>Name:</strong>&nbsp; " . ($rowX['firstname']) . " ";
+                                     echo ($rowX['lastname']) . "</strong><br>"; 
+                                     
+                                     echo "<address> <strong>Address:</strong>&nbsp;". ($rowX['address']) .  ", "
+                                     .($rowX['city']) .", ".($rowX['state']) . " " . ($rowX['zipcode']) . 
+                                     "<br>
+                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
+                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
+                                     echo "<hr>";
+                                      
+                                 }                                 
                                 
                                 
                                     

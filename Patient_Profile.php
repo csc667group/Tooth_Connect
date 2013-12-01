@@ -199,16 +199,6 @@ and open the template in the editor.
                                      <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowA['phone']) . "<br>
                                      <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowA['email']) . "</a></address>";
                                      echo "<hr>";
-
-
-                                     /*echo "USER_ID = " . ($rowA['user_id']) . "<br>";
-                                     echo "Name: " . ($rowA['firstname']) . " ";
-                                     echo ($rowA['lastname']) . "<br>";
-                                     echo "Address: " . ($rowA['address']) . ", ";
-                                     echo ($rowA['city']) . ", "; 
-                                     echo ($rowA['state']) . " " . ($rowA['zipcode']) . "<br>";
-                                     echo "Telephone #: " . ($rowA['phone']) . "<br>";
-                                     echo "Email: " . ($rowA['email']) . "<br>";*/
                                  }   
                                  
                                  echo "<br>";
@@ -268,18 +258,6 @@ and open the template in the editor.
                                      <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
                                      echo "<hr>";
                                       
-                                    /*
-                                     echo "<strong>Name: " . ($rowX['firstname']) . " ";
-                                     echo ($rowX['lastname']) . "</strong><br>";
-                                     echo "<address> ";
-                                     echo "License #: " . ($rowX['licensenumber']) . "<br>";                                     
-                                     echo "Address: " . ($rowX['address']) . "<br>";
-                                     echo "<span class='glyphicon glyphicon-earphone'></span>" . ($rowX['phone']) . "<br>";
-                                     echo "Email: " . ($rowX['email']) . "<br>";
-                                     echo "</address> ";
-                                     echo "Specialties: " . ($rowX['d_specialties']) . "<br>"; 
-                                     echo "<br>";
-                                     */
                                  }                                  
                              
                                 

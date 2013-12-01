@@ -71,15 +71,19 @@
         //  if (isset($_POST['submit'])) {
             $output_form = false;
             $email = $_POST['email'];
-            if (!empty($email)) {
+            if (!empty($email) && filter_var($email,FILTER_VALIDATE_EMAIL)) {
                 $query = "SELECT email FROM patient_data WHERE email='$email'";
                 $data = mysql_query($query);
+                if(mysql_num_rows($data) == 0){
+                    $query = "SELECT * FROM dentist_data WHERE email='$email'";
+                    $data = mysql_query($query);
+                } 
                 if (!$data) {
                     die("query failed" . mysql_error());
                 }       
     //    echo '<br/> number of rows ' .mysql_num_rows($data) . '. ';
                 if (mysql_num_rows($data) == 0) {
-                    echo "<p><font color='red'>Email does not exist.</font></p>";
+                    echo "<font color='red'>Email does not exist.<br/></font>";
                     $output_form = true;
                    // $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/retrieve_loginfo.php';
                    // header('Location: ' . $home_url);
@@ -87,20 +91,23 @@
             //        echo "action=mail_user.php >";
                 
             //
-                
                     $email = $_POST['email'];
                     echo 'Email entered is ' . $email . '<br/>';
                     $subject = 'User Account Information - CSC 667 Dental Website';
 
-                    $query = "SELECT * FROM patient_data WHERE email='$email'";
-                    $data = mysql_query($query);
-                    if (!$data) {
-                        die("query failed" . mysql_error());
-                    } 
-                    $row = mysql_fetch_array($data);
+//                    $query = "SELECT * FROM patient_data WHERE email='$email'";
+//                    $data = mysql_query($query);
+//                    if(mysql_num_rows($data) == 0){
+//                        $query = "SELECT * FROM dentist_data WHERE email='$email'";
+//                        $data = mysql_query($query);
+//                    } 
+//                    if (!$data) {
+//                        die("query failed" . mysql_error());
+//                    } 
+                    // $row = mysql_fetch_array($data);
           
                     $msg = 'Click the link below to reset your password:'. "\n" .
-                           'http://' . $_SERVER['HTTP_HOST'] . '/~rsanch' . '/reset_password.php' ;
+                           'http://' . $_SERVER['HTTP_HOST'] . '/~rsanch' . '/reset_password.php?email='. $email ;
                  
                     ini_set("sendmail_from", $email);
                     $headers = "From: $email";
@@ -114,7 +121,13 @@
                 
                 
             }else { 
-                echo "<p><font color='red'>Email field is empty.</font></p>";
+                if (empty($email)) {
+                    echo "<font color='red'>Missing field.<br/></font>";
+                } else {
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        echo "<font color='red'> Enter a valid email. <br/></font>";
+                    }
+                }
                 $output_form = true;
                      //      $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/retrieve_loginfo.php';
  

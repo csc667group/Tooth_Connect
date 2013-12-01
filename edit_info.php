@@ -50,7 +50,7 @@
   } 
 ?>
 
-      <?php include("header_bar.php"); echo exec('whoami');?>
+      <?php include("header_bar.php"); ?>
         
 
     <hr>

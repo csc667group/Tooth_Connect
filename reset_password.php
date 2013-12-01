@@ -66,14 +66,14 @@
           if (!$database) {
              die("Database selection failed:" . mysql_error());
           }
-          
+          $email = $_GET['email'];
           if (isset($_POST['submit'])) {
  //     echo 'form submitted';
     // Grab the profile data from the POST
 //    $email = mysqli_real_escape_string($connection, trim($_POST['email']));
 //    $password1 = mysql_real_escape_string($connection, trim($_POST['password1']));
 //    $password2 = mysql_real_escape_string($connection, trim($_POST['password2']));
-    $email = $_POST['email'];
+   
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
     
