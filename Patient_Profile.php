@@ -203,7 +203,7 @@ and open the template in the editor.
 
 
                     <!-- Content on the right side inserted in a column-->
-                    <div class="col-md-6">   
+                    <div class="col-md-8">   
                         <div class="tab-content">
                
                 
@@ -241,6 +241,7 @@ and open the template in the editor.
                                  }   
                                  
                                  echo "<br>";
+                                 
                                 echo "<form action = \"edit_info.php\">";
                                 
                                 /*
@@ -299,7 +300,9 @@ and open the template in the editor.
                                      echo ($rowX['lastname']) . "</strong><br>";
                                      echo "<strong>License #:</strong> " . ($rowX['licensenumber']) . "<br>";
                                      echo "<strong>Specialties:</strong> " . ($rowX['d_specialties']) . "<br>"; 
-                                     echo "<address> <strong>Address:</strong>". ($rowX['address']) . "<br>
+                                     echo "<address> <strong>Address:</strong>". ($rowX['address']) .  ", "
+                                     .($rowX['city']) .", ".($rowX['state']) . " " . ($rowX['zipcode']) .
+                                             "<br>
                                      <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
                                      <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
                                      echo "<hr>";

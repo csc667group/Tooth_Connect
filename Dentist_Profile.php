@@ -189,11 +189,12 @@ and open the template in the editor.
                                      echo ($rowA['lastname']) . "</strong><br>";
                                      echo "<strong>License #:</strong> " . ($rowA['licensenumber']) . "<br>";
                                      echo "<strong>Specialties:</strong> " . ($rowA['d_specialties']) . "<br>"; 
-                                     echo "<address> <strong>Address:</strong>". ($rowA['address']) . "<br>
+                                     echo "<address> <strong>Address:</strong>". ($rowA['address']) .  ", "
+                                     .($rowA['city']) .", ".($rowA['state']) . " " . ($rowA['zipcode']) .
+                                             "<br>
                                      <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowA['phone']) . "<br>
                                      <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowA['email']) . "</a></address>";
                                      echo "<hr>";
-
                                  }   
                                  
                                  echo "<br>";
