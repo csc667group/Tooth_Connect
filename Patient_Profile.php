@@ -13,19 +13,25 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">-->
         
-        <!-- Bardhyl's link-->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+        
+        <!-- Bardhyl commented this part. The url to this files doesn't exist
         <link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
         <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
         <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">-->
         <!-- add backgrouond -->
+        
+        
         <link type="text/css" rel="stylesheet" href="home_page.css" />
         <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.css">
+
+        <!-- Bardhyl's links-->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+        
  <!-- CSS code from Bootply.com editor -->     
         <style type="text/css">
             /* custom inclusion of left tab */
@@ -182,7 +188,7 @@ and open the template in the editor.
                            // $ID=$row['user_id']; 
 	  //-display the result of the array 
                             echo "<ul>\n"; 
-                            echo "<li>" . "<a  href=\"Patient_Profile.php?id=\">"   .$FirstName . " " . $LastName .  "</a></li>\n"; 
+                            echo "<li>" . "<a  href=/~rsanch/dentist_bio.php?firstname=$FirstName&lastname=$LastName>"   .$FirstName . " " . $LastName .  "</a></li>\n"; 
                             echo "</ul>"; 
                            // $search_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Dentist_Profile.php#search';
                             //header('Location: ' . $search_url);
@@ -218,6 +224,8 @@ and open the template in the editor.
                         <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                         </li>
                         <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
+                        </li>
+                        <li class=""><a href="#e" data-toggle="tab" class="" contenteditable="false">Treatment Records</a>
                         </li>
                     </ul>
 
@@ -511,20 +519,71 @@ and open the template in the editor.
                                      echo "Purpose: " . ($rowD['purpose']) . "<br>";                                     
 
                                      echo "<br>";
-                                 }                                      
-                                                    
-                                
-                                
+                                 } 
                                 echo "</div>";
                                 
+                                
+                                
+                                 ///
+                                //FIFTH TAB: Treatment Records
+                                echo "<div class=\"tab-pane\" id=\"e\">";
+                                
+                                echo "
+                                <table border='0' cellpadding='1' cellspacing='1'>
+                                    <tr>
+                                      <td><a href='#' onclick='return getOutput(1, $_SESSION[user_id]);'><img src='assets/img/tooth1.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(2, $_SESSION[user_id]);'><img src='assets/img/tooth2.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(3, $_SESSION[user_id]);'><img src='assets/img/tooth3.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(4, $_SESSION[user_id]);'><img src='assets/img/tooth4.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(5, $_SESSION[user_id]);'><img src='assets/img/tooth5.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(6, $_SESSION[user_id]);'><img src='assets/img/tooth6.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(7, $_SESSION[user_id]);'><img src='assets/img/tooth7.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(8, $_SESSION[user_id]);'><img src='assets/img/tooth8.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(9, $_SESSION[user_id]);'><img src='assets/img/tooth9.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(10, $_SESSION[user_id]);'><img src='assets/img/tooth10.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(11, $_SESSION[user_id]);'><img src='assets/img/tooth11.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(12, $_SESSION[user_id]);'><img src='assets/img/tooth12.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(13, $_SESSION[user_id]);'><img src='assets/img/tooth13.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(14, $_SESSION[user_id]);'><img src='assets/img/tooth14.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(15, $_SESSION[user_id]);'><img src='assets/img/tooth15.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(16, $_SESSION[user_id]);'><img src='assets/img/tooth16.jpg' alt='tooth1' ></a></td>
+                                    </tr>
+                                    <tr>
+                                      <td><a href='#' onclick='return getOutput(17, $_SESSION[user_id]);'><img src='assets/img/tooth32.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(18, $_SESSION[user_id]);'><img src='assets/img/tooth31.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(19, $_SESSION[user_id]);'><img src='assets/img/tooth30.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(20, $_SESSION[user_id]);'><img src='assets/img/tooth29.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(21, $_SESSION[user_id]);'><img src='assets/img/tooth28.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(22, $_SESSION[user_id]);'><img src='assets/img/tooth27.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(23, $_SESSION[user_id]);'><img src='assets/img/tooth26.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(24, $_SESSION[user_id]);'><img src='assets/img/tooth25.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(25, $_SESSION[user_id]);'><img src='assets/img/tooth24.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(26, $_SESSION[user_id]);'><img src='assets/img/tooth23.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(27, $_SESSION[user_id]);'><img src='assets/img/tooth22.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(28, $_SESSION[user_id]);'><img src='assets/img/tooth21.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(29, $_SESSION[user_id]);'><img src='assets/img/tooth20.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(30, $_SESSION[user_id]);'><img src='assets/img/tooth19.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(31, $_SESSION[user_id]);'><img src='assets/img/tooth18.jpg' alt='tooth1' ></a></td>
+                                      <td><a href='#' onclick='return getOutput(32, $_SESSION[user_id]);'><img src='assets/img/tooth17.jpg' alt='tooth1' ></a></td>
+                                    </tr>
+                                </table>
+                                ";
+                                 echo "<div id='output' style='color:#0000FF'><h3>Please click the tooth for treatment information!</h3></div>";
+                                ///END OF THE FIFTH TAB
+
+                                
                                 ?>
+                        <!-- /right-content -->
                         </div>
+                    <!-- /column -->
                     </div>
-    <!-- /tabs -->
+                <!-- /tabs-left -->
                 </div>
+            <!-- /row -->
             </div>
-    <!-- /row -->
+        <!-- /container -->
         </div> 
+      
         <hr class="">
         
         <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -539,6 +598,67 @@ and open the template in the editor.
             });
         
         </script>
+        
+        
+         <!-- JavaScript code for treatment details-->
+        <script type="text/javascript">
+        // handles the click event for link 1, sends the query
+            function getOutput(toothID, patientID) {
+
+              getRequest(
+                  'retrieve_treatments_for_patient.php?tooth_id='+toothID+'&patient_id='+patientID, // URL for the PHP file
+                   drawOutput,  // handle successful request
+                   drawError    // handle error
+              );
+              return false;
+            }  
+            // handles drawing an error message
+            function drawError () {
+                var container = document.getElementById('output');
+                container.innerHTML = 'Bummer: there was an error!';
+            }
+            // handles the response, adds the html
+            function drawOutput(responseText) {
+                var container = document.getElementById('output');
+                container.innerHTML = responseText;
+            }
+            // helper function for cross-browser request object
+            function getRequest(url, success, error) {
+                var req = false;
+                try{
+                    // most browsers
+                    req = new XMLHttpRequest();
+                } catch (e){
+                    // IE
+                    try{
+                        req = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        // try an older version
+                        try{
+                            req = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (e){
+                            return false;
+                        }
+                    }
+                }
+                if (!req) return false;
+                if (typeof success != 'function') success = function () {};
+                if (typeof error!= 'function') error = function () {};
+                req.onreadystatechange = function(){
+                    if(req .readyState == 4){
+                        return req.status === 200 ? 
+                            success(req.responseText) : error(req.status)
+                        ;
+                    }
+                }
+                req.open("GET", url, true);
+                req.send(null);
+                return req;
+            }
+
+        </script>
+        <!-- End of JavaScript code for treatment details -->
+ 
         
     </body>
 </html>

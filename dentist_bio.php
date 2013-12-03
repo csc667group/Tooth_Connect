@@ -69,10 +69,21 @@
 ?>
 
       <hr>
-
-
-
-
+<?php      
+    $firstname = $_GET['firstname'];
+    $lastname = $_GET['lastname'];
+    $query = "SELECT * FROM dentist_data WHERE firstname = '$firstname' AND lastname = '$lastname'";
+    $data = mysql_query($query);
+    if(mysql_num_rows($data) == 1){
+        $row = mysql_fetch_array($data);
+        $bio = $row['bio'];
+        echo "<b>Name: </b>";
+        echo $firstname . ' ' . $lastname;
+        echo "<br><br><b>Background:</b><br><p>$bio</p><br>";
+    }
+    mysql_close($connection);  
+   // exit();
+?>
 <hr>
 
      <div class="footer">
