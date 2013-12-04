@@ -134,6 +134,47 @@ and open the template in the editor.
                                       die("Database selection failed:" . mysql_error());
                                     } 
 ?>
+  <?php                       
+                        //add appointment to appointments and remove from pending
+                        if (isset($_POST['approve_appt'])) {
+                                        $d_user_id=$_SESSION['user_id'];
+                                        $user_id = $_POST['p_user_id'];
+                                        $date = $_POST['appt_date'];
+                                        $time = $_POST['appt_time'];
+                                        $purpose = $_POST['purpose'];
+                                        $quer = "INSERT INTO appointments (user_id, d_user_id, appt_date, appt_time, purpose)
+                                            VALUES ( '$user_id', '$d_user_id', '$date', '$time', '$purpose')";
+                                        $quer1 = "DELETE FROM temp_appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
+                                            AND appt_date='$date' AND appt_time='$time' AND purpose='$purpose'";
+                                        mysql_query($quer);
+                                        mysql_query($quer1);
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+
+                                    }
+                                    
+                        //decline appointment and remove from pending
+                        if (isset($_POST['decline_appt'])) {
+                                        $d_user_id=$_SESSION['user_id'];
+                                        $user_id = $_POST['p_user_id'];
+                                        $date = $_POST['appt_date'];
+                                        $time = $_POST['appt_time'];
+                                        $purpose = $_POST['purpose'];
+                                        $quer = "DELETE FROM temp_appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
+                                            AND appt_date='$date' AND appt_time='$time' AND purpose='$purpose'";
+                                        mysql_query($quer);
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+
+                                    }
+                         //add a patient to current doctors list of patients
+                         if (isset($_POST['add_patient'])) {
+                                        $d_user_id=$_SESSION['user_id'];
+                                        $user_id = $_POST['p_user_id'];
+                                        $quer = "INSERT INTO list_of_patients (dentist_id, patient_id)  
+                                            VALUES ('$d_user_id', '$user_id')";
+                                        mysql_query($quer);
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                         }
+?>
          
          
                    <ul style="list-style-type: none; width: 275px;">
@@ -148,6 +189,35 @@ and open the template in the editor.
                     </ul>
     
 
+                          <br>                 
+            <!-- Search query -->                
+            <form  method="post" action="Dentist_Profile.php?go"   id="searchform"> 
+	      <input  type="text" name="name"> 
+	      <a href="Dentist_Profile.php#search"><input  type="submit" name="submit" value="Search for Patient" ></a> 
+	    </form> 
+            <?php
+                                 
+            //Search for patients and add them to your list of patients
+            if(isset($_POST['submit'])){ 
+                if(isset($_GET['go'])){ 
+                    if(preg_match("/^[  a-zA-Z]+/", $_POST['name'])){ 
+                        $name=$_POST['name']; 
+                        $sql="SELECT firstname, lastname, user_id FROM patient_data WHERE firstname LIKE '%" . $name .  "%' OR lastname LIKE '%" . $name ."%'"; 	  
+                        $result=mysql_query($sql);   //-create  while loop and loop through result set 
+                        while($row=mysql_fetch_array($result)){ 
+                            $FirstName  =$row['firstname']; 
+                            $LastName=$row['lastname']; 
+                            echo  "".$FirstName . " " . $LastName ."";
+                            echo "<form method=\"post\" >
+                                    <input type=\"hidden\" name=\"p_user_id\" value=\"".$row['user_id']."\">
+                                    <input type=\"submit\" id=\"add_patient\" name=\"add_patient\" value=\"Add To Patients\">  
+                                  </form>";
+                        } 
+                    } else{ 
+                        echo  "<p>Please enter a search query</p>"; 
+                    } 
+                } 
+            } ?>
        <!-- <div class="container">-->
         <!-- /row -->
           
@@ -279,7 +349,7 @@ and open the template in the editor.
                                   //View current requests.
                                     $q="SELECT * FROM temp_appointments WHERE d_user_id = '$_SESSION[user_id]' ";
                                     $q2=  mysql_query($q);
-                                    echo "<h4>Appointment Requests:</h4>";
+                                    echo "<h4>Appointment Requests:</h4><hr>";
                                     //echo "<h6></h6><hr>"; Use this line to add a footer like thing Ex: ***I can do look like this***
                                     echo "<table id=\"currentrequeststable\" style=\"border:5px;\">
                                         <tr>
@@ -288,6 +358,7 @@ and open the template in the editor.
                                             <th style=\"width:100px;\">Time</th>
                                             <th style=\"width:600px;\">Purpose</th>
                                         </tr>";
+                                    //view records and allow dentist to approve or decline each requested appointments
                                         while ($rowq = mysql_fetch_array($q2)) {
                                             $p = "SELECT * FROM patient_data WHERE user_id = '$rowq[user_id]'  ";
                                             $p2 = mysql_query($p);
@@ -297,6 +368,18 @@ and open the template in the editor.
                                                 <td>".$rowq['appt_date']."</td>
                                                 <td>".$rowq['appt_time']."</td>
                                                 <td>".$rowq['purpose']."</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan=\"4\"><div class=\"form-group\">
+                                                    <form method=\"post\">
+                                                        <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowq['user_id']."\">
+                                                        <input type=\"hidden\" name=\"appt_date\" value=\"".$rowq['appt_date']."\">
+                                                        <input type=\"hidden\" name=\"appt_time\" value=\"".$rowq['appt_time']."\">
+                                                        <input type=\"hidden\" name=\"purpose\" value=\"".$rowq['purpose']."\">
+                                                        <input type=\"submit\" value=\"Approve Appointment\"  name=\"approve_appt\">
+                                                        <input type=\"submit\" value=\"Decline Appointment\"  name=\"decline_appt\">
+                                                    </form>
+                                                </td></div>
                                             </tr>";
                                         }
                                         echo "</table>";
