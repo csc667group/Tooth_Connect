@@ -152,12 +152,24 @@ and open the template in the editor.
                                         $quer = "INSERT INTO temp_appointments (user_id, d_user_id, appt_date, appt_time, purpose)
                                             VALUES ( '$user_id', '$d_user_id', '$appt_date', '$appt_time', '$purpose')";
                                         mysql_query($quer);
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                                        
+
+                                    }
+                        if (isset($_POST['cancel_appt'])) {
+                                        //$idee= $_SESSION['user_id'];
+                                        $user_id = $_SESSION['user_id'];
+                                        $d_user_id = $_POST['dentist'];
+                                        $appt_date = $_POST['date'];
+                                        $appt_time = $_POST['time'];
+                                        $purpose = $_POST['purpose'];
+                                        $quer = "DELETE FROM appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
+                                            AND appt_date='$appt_date' AND appt_time='$appt_time' AND purpose='$purpose'";
+                                        mysql_query($quer);
 
                                     }
 ?>             
       <hr>
-    <ul style="list-style-type: none;" style="width: 275px;">
+    <ul style="list-style-type: none;width: 275px;">
         <li>
               
         </li>
@@ -516,7 +528,14 @@ and open the template in the editor.
                                      echo "Telephone #: " . ($rowZ['phone']) . "<br>";
                                      echo "Email: " . ($rowZ['email']) . "<br>";
                                      
-                                     echo "Purpose: " . ($rowD['purpose']) . "<br>";                                     
+                                     echo "Purpose: " . ($rowD['purpose']) . "<br>";  
+                                     echo "<form method=\"post\" >
+                                            <input type=\"hidden\" name=\"dentist\" value=\"".$rowZ['user_id']."\">
+                                            <input type=\"hidden\" name=\"date\" value=\"".$rowD['appt_Date']."\">
+                                            <input type=\"hidden\" name=\"time\" value=\"".$rowD['appt_Time']."\">
+                                            <input type=\"hidden\" name=\"purpose\" value=\"".$rowD['purpose']."\">
+                                            <input type=\"submit\" id=\"cancel_appt\" name=\"cancel_appt\" value=\"Cancel Appointment\">  
+                                        </form>";
 
                                      echo "<br>";
                                  } 
@@ -524,7 +543,7 @@ and open the template in the editor.
                                 
                                 
                                 
-                                 ///
+                                //
                                 //FIFTH TAB: Treatment Records
                                 echo "<div class=\"tab-pane\" id=\"e\">";
                                 

@@ -148,7 +148,7 @@ and open the template in the editor.
                                             AND appt_date='$date' AND appt_time='$time' AND purpose='$purpose'";
                                         mysql_query($quer);
                                         mysql_query($quer1);
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                                        
 
                                     }
                                     
@@ -162,7 +162,7 @@ and open the template in the editor.
                                         $quer = "DELETE FROM temp_appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
                                             AND appt_date='$date' AND appt_time='$time' AND purpose='$purpose'";
                                         mysql_query($quer);
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                                        
 
                                     }
                          //add a patient to current doctors list of patients
@@ -172,8 +172,28 @@ and open the template in the editor.
                                         $quer = "INSERT INTO list_of_patients (dentist_id, patient_id)  
                                             VALUES ('$d_user_id', '$user_id')";
                                         mysql_query($quer);
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                                       
                          }
+                         //Remove's a patient from dentists list of patients
+                         if (isset($_POST['remove_patient'])) {
+                                        $d_user_id=$_SESSION['user_id'];
+                                        $user_id = $_POST['p_user_id'];
+                                        $quer = "DELETE FROM list_of_patients WHERE dentist_id='$d_user_id' AND patient_id='$user_id'";
+                                        mysql_query($quer);
+                                        
+                         }
+                         //schedule an appointment
+                         if (isset($_POST['create_appt'])) {
+                                        $user_id = $_SESSION['user_id'];
+                                        $p_user_id = $_POST['patient'];
+                                        $appt_date = $_POST['date'];
+                                        $appt_time = $_POST['time'];
+                                        $purpose = $_POST['purpose'];
+                                        $quer = "INSERT INTO appointments (d_user_id, user_id, appt_date, appt_time, purpose)
+                                            VALUES ( '$user_id', '$p_user_id', '$appt_date', '$appt_time', '$purpose')";
+                                        mysql_query($quer);
+
+                                    }
 ?>
          
          
@@ -232,7 +252,7 @@ and open the template in the editor.
                         </li>
                         <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
                         </li>
-                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Appointment Requests</a>
+                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Appointment Management</a>
                         </li>
                         <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
                         </li>
@@ -327,6 +347,10 @@ and open the template in the editor.
                                      "<br>
                                      <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
                                      <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
+                                     echo "<form method=\"post\">
+                                                        <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
+                                                        <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
+                                                    </form>";
                                      echo "<hr>";
                                       
                                  }                                 
@@ -336,7 +360,7 @@ and open the template in the editor.
                                 
                                 echo "</div>";
                                 
-                                //TAB: Review Requested appointments Appointment
+                                //TAB:Appointment Management
                                 echo "<div class=\"tab-pane\" id=\"r\">";
                                 
                                 /******** using user's user_id that is logged in   */
@@ -382,8 +406,51 @@ and open the template in the editor.
                                                 </td></div>
                                             </tr>";
                                         }
-                                        echo "</table>";
+                                        echo "</table><br>";
+                                    echo "<h4>Schedule Appointment:</h4><hr>";
+                                echo "<form id=\'request_appt\' role=\"form-inline\" role=\"form\" enctype=\"multipart/form-data\" method=\"post\" action=".$_SERVER['PHP_SELF'].">";
+                                
+                                /*
+                                 * dentist inputs appointment info
+                                 * sends to appointments to be
+                                 * viewed by user 
+                                 * 
+                                 */       
+                                $queryDID = "SELECT * FROM list_of_patients WHERE dentist_id = '$_SESSION[user_id]' ";
+                                $dataID = mysql_query($queryDID);  
+                                if (!$dataID) {
+                                    die("query failed" . mysql_error());
+                                } 
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"patient\">Patient</label><br>";
+                                    echo "<select class=\"form-control input-small\" name=\"patient\" style=\"width:200px;\">";
+                                    while ($rowDID = mysql_fetch_array($dataID)) {
+                                        $id=$rowDID['patient_id'];
+                                        $getD = "SELECT * FROM patient_data WHERE user_id = '$rowDID[patient_id]'  ";
+                                        $querydent = mysql_query($getD);
+                                        $dname = mysql_fetch_assoc($querydent);
+                                        if (!$dname) {
+                                            die("query failed" . mysql_error());
+                                        }
+                                        echo "<option value=\"" . $id . "\">". $dname['firstname'] ." ". $dname['lastname'] ."</option>";
+                                    }
+                                    echo "</select></div>";
                                     
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"date\">Date</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"></div>";
+                                    
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"time\">Time</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" value=\"00:00:00\"></div>";
+                                    
+                                    echo "<div class=\"form-group\">";
+                                    echo "<label for=\"purpose\">Purpose</label><br>";
+                                    echo "<input class=\"form-control input-small\" type=\"text\" name=\"purpose\" style=\"width:600px;\"></div>";
+                                    
+                                    echo "<input type=\"submit\" value=\"Create Appointent\" id=\"create_appt\" name=\"create_appt\" />"; 
+                                    
+                                echo "</form>";
                                 echo "</div>";
                                 }
                                 
@@ -435,23 +502,45 @@ and open the template in the editor.
                                 //FOURTH TAB: Future appointments
                                 echo "<div class=\"tab-pane\" id=\"d\">";
                                 
-                                    /* 
-                                        Dentist can assign patient future appointment date,
-                                        details for the appointment, etc.
-                                    
-                                    */
-                                    
-                                echo "</div>"
                                 
-                                ?><!--<div class="tab-pane active" id="a">Lorem ipsum dolor sit amet, charetra varius quam sit amet vulputate. Quisque
-                    mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</div>
-                <div
-                class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor
-                    accumsan. Aliquam in felis sit amet augue.</div>
-            <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra
-                varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt
-                condimentum vitae.</div>-->
+                                //GETTING ONLY FUTURE APPOINTMENTS
+                                $queryD = "SELECT * FROM appointments WHERE d_user_id = '$_SESSION[user_id]' 
+                                            AND appt_Date > CURRENT_DATE
+                                            ORDER BY appt_Date";
+                                $dataD = mysql_query($queryD);  
+                                if (!$dataD) {
+                                    die("query failed" . mysql_error());
+                                }   
+                                
+                                //Reading each appointment
+                                while ($rowD = mysql_fetch_array($dataD)) {
+                                    
+                                    $queryZ = "SELECT * FROM patient_data WHERE user_id = '$rowD[user_id]' ";
+                                    
+                                    $dataZ = mysql_query($queryZ);
+                                    if (!$dataZ) {
+                                        die("query failed" . mysql_error());
+                                    }  
+                                    
+                                    $rowZ = mysql_fetch_array($dataZ);
+                                     
+                                     echo "<strong>Appointment with: " . ($rowZ['firstname']) . " ";
+                                     echo ($rowZ['lastname']) . "</strong><br>";
 
+                                     echo "Date: " . ($rowD['appt_Date']) . "<br>";
+                                     echo "Time: " . ($rowD['appt_Time']) . "<br>";
+                                     
+                                     echo "Address: " . ($rowZ['address']) . "<br>";
+                                     echo "Telephone #: " . ($rowZ['phone']) . "<br>";
+                                     echo "Email: " . ($rowZ['email']) . "<br>";
+                                     
+                                     echo "Purpose: " . ($rowD['purpose']) . "<br>";                                     
+
+                                     echo "<br>";
+                                 } 
+                                echo "</div>";
+                                
+                                ?>
 
                         <!-- /right-content -->
                         </div>
