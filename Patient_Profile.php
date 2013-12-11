@@ -200,7 +200,7 @@ and open the template in the editor.
                            // $ID=$row['user_id']; 
 	  //-display the result of the array 
                             echo "<ul>\n"; 
-                            echo "<li>" . "<a  href=/~rsanch/dentist_bio.php?firstname=$FirstName&lastname=$LastName>"   .$FirstName . " " . $LastName .  "</a></li>\n"; 
+                            echo "<li>" . "<a href=dentist_bio.php?firstname=$FirstName&lastname=$LastName>"   .$FirstName . " " . $LastName .  "</a></li>\n"; 
                             echo "</ul>"; 
                            // $search_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/Dentist_Profile.php#search';
                             //header('Location: ' . $search_url);
@@ -302,11 +302,7 @@ and open the template in the editor.
                                 echo "<div class=\"tab-pane\" id=\"b\">";
                              
 	 
-            
-            
-            
-            
-            
+   
                                 
                                 /*
                                  * From current patient's user_id, it is sent to be searched in 
@@ -316,6 +312,18 @@ and open the template in the editor.
                                  * Afterwards, while loop reads through dentist_id from "list_of_patients"
                                  * and prints out info of each of the patient's dentists
                                  */
+            
+            
+                                echo "<table border = \"1\">";
+                                echo "<tr>";
+                                echo "<th>Dentist's Name</th>
+                                      <th>Address</th>
+                                      <th><span class='glyphicon glyphicon-earphone'></span>Phone Number</th>
+                                      <th><span class='glyphicon glyphicon-envelope'></span>Email</th>
+                                      <th>Remove Patient</th>";
+                                echo "</tr>";
+            
+            
                                 
                                 $queryB = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
                                 $dataB = mysql_query($queryB);  
@@ -336,18 +344,47 @@ and open the template in the editor.
                                     
                                     $rowX = mysql_fetch_array($dataX);
                                      
-                                     echo "<strong>Name:</strong> " . ($rowX['firstname']) . " ";
-                                     echo ($rowX['lastname']) . "</strong><br>";
-                                     echo "<strong>License #:</strong> " . ($rowX['licensenumber']) . "<br>";
-                                     echo "<strong>Specialties:</strong> " . ($rowX['d_specialties']) . "<br>"; 
-                                     echo "<address> <strong>Address:</strong>". ($rowX['address']) .  ", "
-                                     .($rowX['city']) .", ".($rowX['state']) . " " . ($rowX['zipcode']) .
-                                             "<br>
-                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
-                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
-                                     echo "<hr>";
+                                     echo "<tr>";
+                                     echo "<td><strong>"; 
+
+                                     $fullname = ($rowX['firstname']) . " " . ($rowX['lastname']);
+
+
+                                     $d_user_id = $rowX['user_id'];
+                                     echo "<a href= \"dentist_bio.php?d_user_id=$d_user_id\">".$fullname."</a>";
+
+
+                                    echo "</strong></td>";
+
+
+
+                                     echo "<td>". ($rowX['address']) .  ",<br>"
+                                     .($rowX['city']) .", ".($rowX['state']) . " " . ($rowX['zipcode']) . 
+                                     "</td>
+
+                                     <td>" . ($rowX['phone']) . "</td>
+
+                                     <td><a href='mailto:" . ($rowX['email']) . "'>" . ($rowX['email']) . "</a></td>";
+
+
+                                    echo "<td>";
+                                     
+
+                                     echo "<form method=\"post\">
+                                                <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
+                                                <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
+                                          </form>";
+
+                                     echo "</td><hr>";
+
+
+                                     echo "</tr>";
                                       
-                                 }                                  
+                                 }                                 
+                                
+                                
+                                    
+                                echo "</table>";                                
                              
                                 
                                 

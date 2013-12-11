@@ -64,8 +64,12 @@
 
 <div class="jumbotron">
   <h1>Contact Us</h1>
-  <p>...</p>
-  
+      SFSU Fall 2013 CSc 667 Team BDRS:<br>
+      Bardhyl Ymeri: EMAIL<br>
+      David Hua: EMAIL<br>
+      Rafael Sanchez: EMAIL<br>
+      Steven North: EMAIL<br>
+    
 
 </div>
 

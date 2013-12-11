@@ -64,7 +64,15 @@
 
 <div class="jumbotron">
   <h1>About Us</h1>
-  <p>...</p>
+  <p> This is a SFSU Fall 2013 CSc 667 Project!</p>
+
+
+<p> Usually, when you go to your dentist, all they really do is checkup on your teeth and clean it up. They really never talk to you in detail about your teeth (x-rays) and just how vulnerable they are for cavities, decay, etc.</p>
+
+
+  <p>This website is a great place for patients and dentists to communicate with each other! Never lose contact with your dentist again!</p>
+
+  <p> From requesting/managing appointments and being able to message each other via email, to being able to see patient's teeth history. Dentists can add to patients' teeth treatment history/analysis and have patients be able to be updated and see it. </p>
 
 <a class="btn btn-primary " href="selection_page.php"><i class="fa fa-pencil"></i> Sign up today</a>
 

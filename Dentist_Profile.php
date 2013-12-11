@@ -319,6 +319,17 @@ and open the template in the editor.
                                     // Here, dentist is able to see a list of patients (user_id, name, 
                                     //   and be able to modify patients' "medical records"
                                     //   i.e. update patient's history with checkup/wisdom teeth removal, etc
+
+                                echo "<table border = \"1\">";
+                                echo "<tr>";
+                                echo "<th>Patient's Name</th>
+                                      <th>Address</th>
+                                      <th><span class='glyphicon glyphicon-earphone'></span>Phone Number</th>
+                                      <th><span class='glyphicon glyphicon-envelope'></span>Email</th>
+                                      <th>Remove Patient</th>";
+                                echo "</tr>";
+
+
                                 $queryB = "SELECT * FROM list_of_patients WHERE dentist_id = '$_SESSION[user_id]' ";
                                 $dataB = mysql_query($queryB);  
                                 if (!$dataB) {
@@ -338,26 +349,47 @@ and open the template in the editor.
                                     
                                     $rowX = mysql_fetch_array($dataX);
                                      
-                                     echo "<strong>ID:</strong>&nbsp;" . ($rowX['user_id']) . "<br>";
-                                     echo "<strong>Name:</strong>&nbsp; " . ($rowX['firstname']) . " ";
-                                     echo ($rowX['lastname']) . "</strong><br>"; 
-                                     
-                                     echo "<address> <strong>Address:</strong>&nbsp;". ($rowX['address']) .  ", "
+                                     echo "<tr>";
+                                     echo "<td><strong>"; 
+
+                                     $fullname = ($rowX['firstname']) . " " . ($rowX['lastname']);
+
+
+                                     $p_user_id = $rowX['user_id'];
+                                     echo "<a href= \"patient_info.php?p_user_id=$p_user_id\">".$fullname."</a>";
+
+
+                                    echo "</strong></td>";
+
+
+
+                                     echo "<td>". ($rowX['address']) .  ",<br>"
                                      .($rowX['city']) .", ".($rowX['state']) . " " . ($rowX['zipcode']) . 
-                                     "<br>
-                                     <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($rowX['phone']) . "<br>
-                                     <span class='glyphicon glyphicon-envelope'></span><a href='mailto:#'>&nbsp;" . ($rowX['email']) . "</a></address>";
+                                     "</td>
+
+                                     <td>" . ($rowX['phone']) . "</td>
+
+                                     <td><a href='mailto:" . ($rowX['email']) . "'>" . ($rowX['email']) . "</a></td>";
+
+
+                                    echo "<td>";
+                                     
+
                                      echo "<form method=\"post\">
-                                                        <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
-                                                        <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
-                                                    </form>";
-                                     echo "<hr>";
+                                                <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
+                                                <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
+                                          </form>";
+
+                                     echo "</td><hr>";
+
+
+                                     echo "</tr>";
                                       
                                  }                                 
                                 
                                 
                                     
-                                
+                                echo "</table>";
                                 echo "</div>";
                                 
                                 //TAB:Appointment Management

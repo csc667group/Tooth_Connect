@@ -70,16 +70,36 @@
 
       <hr>
 <?php      
+
+    if(isset($_GET['firstname'])){
     $firstname = $_GET['firstname'];
     $lastname = $_GET['lastname'];
     $query = "SELECT * FROM dentist_data WHERE firstname = '$firstname' AND lastname = '$lastname'";
+    }
+
+    else if(isset($_GET['d_user_id'])){
+      $d_user_id = $_GET['d_user_id'];
+      $query = "SELECT * FROM dentist_data WHERE user_id = $d_user_id";
+    }
+
+
     $data = mysql_query($query);
     if(mysql_num_rows($data) == 1){
         $row = mysql_fetch_array($data);
-        $bio = $row['bio'];
-        echo "<b>Name: </b>";
-        echo $firstname . ' ' . $lastname;
-        echo "<br><br><b>Background:</b><br><p>$bio</p><br>";
+
+
+
+       echo "<strong>Name:</strong>&nbsp; " . ($row['firstname']) . " ";
+       echo ($row['lastname']) . "</strong><br>"; 
+       
+       echo "<address> <strong>Address:</strong>&nbsp;". ($row['address']) .  ", "
+       .($row['city']) .", ".($row['state']) . " " . ($row['zipcode']) . 
+       "<br>
+       <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($row['phone']) . "<br>
+       <span class='glyphicon glyphicon-envelope'></span><a href='mailto:" . ($row['email']) . "'>&nbsp;" . ($row['email']) . "</a></address>";
+       echo "<hr>";
+
+        echo "<br><br><b>Background:</b><br><p>" . $row['bio'] . "</p><br>";
     }
     mysql_close($connection);  
    // exit();
