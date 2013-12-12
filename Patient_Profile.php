@@ -302,7 +302,7 @@ and open the template in the editor.
                                 echo "<div class=\"tab-pane\" id=\"b\">";
                              
 	 
-   
+
                                 
                                 /*
                                  * From current patient's user_id, it is sent to be searched in 
@@ -459,11 +459,11 @@ and open the template in the editor.
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"date\">Date</label><br>";
-                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"></div>";
+                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"placeholder=\"yyyy-mm-dd></div>";
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"time\">Time</label><br>";
-                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" value=\"00:00:00\"></div>";
+                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" placeholder=\"00:00:00\"></div>";
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"purpose\">Purpose</label><br>";

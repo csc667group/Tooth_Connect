@@ -356,7 +356,7 @@ and open the template in the editor.
 
 
                                      $p_user_id = $rowX['user_id'];
-                                     echo "<a href= \"patient_info.php?p_user_id=$p_user_id\">".$fullname."</a>";
+                                     echo "<a href= \"patient_info.php?p_user_id=" . $p_user_id . "\">".$fullname."</a>";
 
 
                                     echo "</strong></td>";
@@ -470,11 +470,11 @@ and open the template in the editor.
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"date\">Date</label><br>";
-                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"></div>";
+                                    echo "<input class=\"form-control input-small\" type=\"date\" name=\"date\"placeholder=\"yyyy-mm-dd></div>";
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"time\">Time</label><br>";
-                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" value=\"00:00:00\"></div>";
+                                    echo "<input class=\"form-control input-small\" type=\"time\" name=\"time\" placeholder=\"00:00:00\"></div>";
                                     
                                     echo "<div class=\"form-group\">";
                                     echo "<label for=\"purpose\">Purpose</label><br>";

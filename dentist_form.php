@@ -175,7 +175,7 @@ function valid_phone($number) {
   </div> 
   <div class="form-group">
     <label for="license">License Number</label>
-    <input type="text" class="form-control input-small" name="license" value="<?php if (!empty($address)) {echo $address;} ?>" placeholder="License Number">
+    <input type="text" class="form-control input-small" name="license" value="<?php if (!empty($address)) {echo $address;} ?>" maxlength = "10" placeholder="License Number">
   </div>    
   <div class="form-group">
     <label for="address">Address</label>

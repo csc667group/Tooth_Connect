@@ -66,11 +66,55 @@
                                     if (!$database) {
                                       die("Database selection failed:" . mysql_error());
                                     }    
-?>
 
-<hr>
+        $p_user_id = $_GET['p_user_id'];
 
-<?php      
+        echo "<hr>";
+
+
+
+        echo "
+        <table border='0' cellpadding='1' cellspacing='1'>
+            <tr>
+              <td><a href='#' onclick='return getOutput(1, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth1.jpg' alt='tooth1' ></a></td>
+              <td><a href='#' onclick='return getOutput(2, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth2.jpg' alt='tooth2' ></a></td>
+              <td><a href='#' onclick='return getOutput(3, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth3.jpg' alt='tooth3' ></a></td>
+              <td><a href='#' onclick='return getOutput(4, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth4.jpg' alt='tooth4' ></a></td>
+              <td><a href='#' onclick='return getOutput(5, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth5.jpg' alt='tooth5' ></a></td>
+              <td><a href='#' onclick='return getOutput(6, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth6.jpg' alt='tooth6' ></a></td>
+              <td><a href='#' onclick='return getOutput(7, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth7.jpg' alt='tooth7' ></a></td>
+              <td><a href='#' onclick='return getOutput(8, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth8.jpg' alt='tooth8' ></a></td>
+              <td><a href='#' onclick='return getOutput(9, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth9.jpg' alt='tooth9' ></a></td>
+              <td><a href='#' onclick='return getOutput(10, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth10.jpg' alt='tooth10' ></a></td>
+              <td><a href='#' onclick='return getOutput(11, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth11.jpg' alt='tooth11' ></a></td>
+              <td><a href='#' onclick='return getOutput(12, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth12.jpg' alt='tooth12' ></a></td>
+              <td><a href='#' onclick='return getOutput(13, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth13.jpg' alt='tooth13' ></a></td>
+              <td><a href='#' onclick='return getOutput(14, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth14.jpg' alt='tooth14' ></a></td>
+              <td><a href='#' onclick='return getOutput(15, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth15.jpg' alt='tooth15' ></a></td>
+              <td><a href='#' onclick='return getOutput(16, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth16.jpg' alt='tooth16' ></a></td>
+            </tr>
+            <tr>
+              <td><a href='#' onclick='return getOutput(17, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth32.jpg' alt='tooth32' ></a></td>
+              <td><a href='#' onclick='return getOutput(18, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth31.jpg' alt='tooth31' ></a></td>
+              <td><a href='#' onclick='return getOutput(19, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth30.jpg' alt='tooth30' ></a></td>
+              <td><a href='#' onclick='return getOutput(20, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth29.jpg' alt='tooth29' ></a></td>
+              <td><a href='#' onclick='return getOutput(21, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth28.jpg' alt='tooth28' ></a></td>
+              <td><a href='#' onclick='return getOutput(22, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth27.jpg' alt='tooth27' ></a></td>
+              <td><a href='#' onclick='return getOutput(23, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth26.jpg' alt='tooth26' ></a></td>
+              <td><a href='#' onclick='return getOutput(24, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth25.jpg' alt='tooth25' ></a></td>
+              <td><a href='#' onclick='return getOutput(25, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth24.jpg' alt='tooth24' ></a></td>
+              <td><a href='#' onclick='return getOutput(26, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth23.jpg' alt='tooth23' ></a></td>
+              <td><a href='#' onclick='return getOutput(27, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth22.jpg' alt='tooth22' ></a></td>
+              <td><a href='#' onclick='return getOutput(28, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth21.jpg' alt='tooth21' ></a></td>
+              <td><a href='#' onclick='return getOutput(29, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth20.jpg' alt='tooth20' ></a></td>
+              <td><a href='#' onclick='return getOutput(30, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth19.jpg' alt='tooth19' ></a></td>
+              <td><a href='#' onclick='return getOutput(31, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth18.jpg' alt='tooth18' ></a></td>
+              <td><a href='#' onclick='return getOutput(32, $p_user_id, $_SESSION[user_id]);'><img src='assets/img/tooth17.jpg' alt='tooth17' ></a></td>
+            </tr>
+        </table>";
+        echo "<div id='output' style='color:#0000FF'><h3>Please click the tooth for treatment information!</h3></div>";
+                                ///END OF THE FIFTH TAB
+     
     $p_user_id = $_GET['p_user_id'];
     $query = "SELECT * FROM patient_data WHERE user_id = '$p_user_id'";
     $data = mysql_query($query);
@@ -93,6 +137,13 @@
 ?>
 <hr>
 
+
+
+
+
+
+
+
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>
@@ -110,75 +161,14 @@
 
 
 
-
-<!--
-
-REFER TO EDIT_INFO/DENTIST_BIO FILES
-
-$p_user_id is retrieved from Dentist_Profile.php when user clicks on patient's profile
-
-                                $query = "SELECT * FROM patient_data WHERE user_id = '$p_user_id' ";
-                                $data = mysql_query($query);  
-                                if (!$data) {
-                                    die("query failed" . mysql_error());
-                                } 
-
-Use that variable to access patient's general info, as well as his teeth records
-
-Dentist can add new treatments in teeth... 
-(QUERY FOR IF DENTIST HAS PERMISSION TO ADD TO PATIENT'S TEETH ANALYSIS (authentication)?)
-
-
-use "alt" as reference for linking to inserting new data into that teeth...
-
-                                <table border='0' cellpadding='1' cellspacing='1'>
-                                    <tr>
-                                      <td><a href='#' onclick='return getOutput(1, $_SESSION[user_id]);'><img src='assets/img/tooth1.jpg' alt='tooth1' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(2, $_SESSION[user_id]);'><img src='assets/img/tooth2.jpg' alt='tooth2' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(3, $_SESSION[user_id]);'><img src='assets/img/tooth3.jpg' alt='tooth3' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(4, $_SESSION[user_id]);'><img src='assets/img/tooth4.jpg' alt='tooth4' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(5, $_SESSION[user_id]);'><img src='assets/img/tooth5.jpg' alt='tooth5' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(6, $_SESSION[user_id]);'><img src='assets/img/tooth6.jpg' alt='tooth6' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(7, $_SESSION[user_id]);'><img src='assets/img/tooth7.jpg' alt='tooth7' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(8, $_SESSION[user_id]);'><img src='assets/img/tooth8.jpg' alt='tooth8' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(9, $_SESSION[user_id]);'><img src='assets/img/tooth9.jpg' alt='tooth9' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(10, $_SESSION[user_id]);'><img src='assets/img/tooth10.jpg' alt='tooth10' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(11, $_SESSION[user_id]);'><img src='assets/img/tooth11.jpg' alt='tooth11' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(12, $_SESSION[user_id]);'><img src='assets/img/tooth12.jpg' alt='tooth12' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(13, $_SESSION[user_id]);'><img src='assets/img/tooth13.jpg' alt='tooth13' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(14, $_SESSION[user_id]);'><img src='assets/img/tooth14.jpg' alt='tooth14' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(15, $_SESSION[user_id]);'><img src='assets/img/tooth15.jpg' alt='tooth15' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(16, $_SESSION[user_id]);'><img src='assets/img/tooth16.jpg' alt='tooth16' ></a></td>
-                                    </tr>
-                                    <tr>
-                                      <td><a href='#' onclick='return getOutput(17, $_SESSION[user_id]);'><img src='assets/img/tooth32.jpg' alt='tooth32' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(18, $_SESSION[user_id]);'><img src='assets/img/tooth31.jpg' alt='tooth31' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(19, $_SESSION[user_id]);'><img src='assets/img/tooth30.jpg' alt='tooth30' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(20, $_SESSION[user_id]);'><img src='assets/img/tooth29.jpg' alt='tooth29' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(21, $_SESSION[user_id]);'><img src='assets/img/tooth28.jpg' alt='tooth28' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(22, $_SESSION[user_id]);'><img src='assets/img/tooth27.jpg' alt='tooth27' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(23, $_SESSION[user_id]);'><img src='assets/img/tooth26.jpg' alt='tooth26' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(24, $_SESSION[user_id]);'><img src='assets/img/tooth25.jpg' alt='tooth25' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(25, $_SESSION[user_id]);'><img src='assets/img/tooth24.jpg' alt='tooth24' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(26, $_SESSION[user_id]);'><img src='assets/img/tooth23.jpg' alt='tooth23' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(27, $_SESSION[user_id]);'><img src='assets/img/tooth22.jpg' alt='tooth22' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(28, $_SESSION[user_id]);'><img src='assets/img/tooth21.jpg' alt='tooth21' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(29, $_SESSION[user_id]);'><img src='assets/img/tooth20.jpg' alt='tooth20' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(30, $_SESSION[user_id]);'><img src='assets/img/tooth19.jpg' alt='tooth19' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(31, $_SESSION[user_id]);'><img src='assets/img/tooth18.jpg' alt='tooth18' ></a></td>
-                                      <td><a href='#' onclick='return getOutput(32, $_SESSION[user_id]);'><img src='assets/img/tooth17.jpg' alt='tooth17' ></a></td>
-                                    </tr>
-                                </table>
-
-
-
-         <!-- JavaScript code for treatment details-->
+        <!-- JavaScript code for treatment details-->
         <script type="text/javascript">
         // handles the click event for link 1, sends the query
-            function getOutput(toothID, patientID) {
+            function getOutput(toothID, patientID, dentistID) {
 
               getRequest(
-                  'retrieve_treatments_for_patient.php?tooth_id='+toothID+'&patient_id='+patientID, // URL for the PHP file
+                  //'retrieve_treatments_for_patient.php?tooth_id='+toothID+'&patient_id='+patientID, // URL for the PHP file
+                  'retrieve_treatments_for_dentist.php?tooth_id='+toothID+'&patient_id='+patientID+'&dentist_id='+dentistID, 
                    drawOutput,  // handle successful request
                    drawError    // handle error
               );
