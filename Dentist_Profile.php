@@ -211,9 +211,11 @@ and open the template in the editor.
 
                           <br>                 
             <!-- Search query -->                
-            <form  method="post" action="Dentist_Profile.php?go"   id="searchform"> 
-	      <input  type="text" name="name"> 
-	      <a href="Dentist_Profile.php#search"><input  type="submit" name="submit" value="Search for Patient" ></a> 
+            <form  method="post" action="Dentist_Profile.php?go"   id="searchform">
+            <div class="col-sm-3">      
+	      <input  class="form-control" type="text" name="name"> 
+	      </div>
+	      <a href="Dentist_Profile.php#search"><input  class="btn btn-primary" type="submit" name="submit" value="Search for Patient" ></a> 
 	    </form> 
             <?php
                                  
@@ -248,15 +250,15 @@ and open the template in the editor.
                        <!-- tabs left -->
                 <div class="tabbable tabs-left">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
+                        <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false"><strong>My Info</strong></a>
                         </li>
-                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Patients</a>
+                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false"><strong>My Patients</strong></a>
                         </li>
-                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Appointment Management</a>
+                        <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false"><strong>Appointment Management</strong></a>
                         </li>
-                        <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false">Past Appointments</a>
+                        <li class=""><a href="#c" data-toggle="tab" class="" contenteditable="false"><strong>Past Appointments</strong></a>
                         </li>
-                        <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false">Future Appointments</a>
+                        <li class=""><a href="#d" data-toggle="tab" class="" contenteditable="false"><strong>Future Appointments</strong></a>
                         </li>
                     </ul>
 
@@ -306,7 +308,7 @@ and open the template in the editor.
                                  * after user edits info
                                  */                                   
                                 
-                                    echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
+                                    echo "<input class=\"btn btn-default\" type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
                                     
                                 echo "</form>";                         
                                     
@@ -320,7 +322,7 @@ and open the template in the editor.
                                     //   and be able to modify patients' "medical records"
                                     //   i.e. update patient's history with checkup/wisdom teeth removal, etc
 
-                                echo "<table border = \"1\">";
+                                echo "<table class='table table-striped' >";
                                 echo "<tr>";
                                 echo "<th>Patient's Name</th>
                                       <th>Address</th>
@@ -377,7 +379,7 @@ and open the template in the editor.
 
                                      echo "<form method=\"post\">
                                                 <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
-                                                <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
+                                                <input class=\"btn btn-warning\" type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
                                           </form>";
 
                                      echo "</td><hr>";
@@ -432,8 +434,8 @@ and open the template in the editor.
                                                         <input type=\"hidden\" name=\"appt_date\" value=\"".$rowq['appt_date']."\">
                                                         <input type=\"hidden\" name=\"appt_time\" value=\"".$rowq['appt_time']."\">
                                                         <input type=\"hidden\" name=\"purpose\" value=\"".$rowq['purpose']."\">
-                                                        <input type=\"submit\" value=\"Approve Appointment\"  name=\"approve_appt\">
-                                                        <input type=\"submit\" value=\"Decline Appointment\"  name=\"decline_appt\">
+                                                        <input class=\"btn btn-default\" type=\"submit\" value=\"Approve Appointment\"  name=\"approve_appt\">
+                                                        <input class=\"btn btn-default\" type=\"submit\" value=\"Decline Appointment\"  name=\"decline_appt\">
                                                     </form>
                                                 </td></div>
                                             </tr>";
@@ -480,7 +482,7 @@ and open the template in the editor.
                                     echo "<label for=\"purpose\">Purpose</label><br>";
                                     echo "<input class=\"form-control input-small\" type=\"text\" name=\"purpose\" style=\"width:600px;\"></div>";
                                     
-                                    echo "<input type=\"submit\" value=\"Create Appointent\" id=\"create_appt\" name=\"create_appt\" />"; 
+                                    echo "<input class=\"btn btn-success\" type=\"submit\" value=\"Create Appointent\" id=\"create_appt\" name=\"create_appt\" />"; 
                                     
                                 echo "</form>";
                                 echo "</div>";

@@ -65,11 +65,36 @@
                                     $database = mysql_select_db(DB_NAME, $connection);
                                     if (!$database) {
                                       die("Database selection failed:" . mysql_error());
-                                    }    
+                                    }  
 
-        $p_user_id = $_GET['p_user_id'];
 
-        echo "<hr>";
+ echo "<h3>Patient Info</h3>";
+
+
+    $p_user_id = $_GET['p_user_id'];
+
+    $query = "SELECT * FROM patient_data WHERE user_id = '$p_user_id'";
+    $data = mysql_query($query);
+    if(mysql_num_rows($data) == 1){
+        $row = mysql_fetch_array($data);
+
+
+       echo "<strong>Name:</strong>&nbsp; " . ($row['firstname']) . " ";
+       echo ($row['lastname']) . "</strong><br>"; 
+       
+       echo "<address> <strong>Address:</strong>&nbsp;". ($row['address']) .  ", "
+       .($row['city']) .", ".($row['state']) . " " . ($row['zipcode']) . 
+       "<br>
+       <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($row['phone']) . "<br>
+       <span class='glyphicon glyphicon-envelope'></span><a href='mailto:" . ($row['email']) . "'>&nbsp;" . ($row['email']) . "</a></address>";
+       echo "<hr>";
+    }
+    mysql_close($connection);  
+   // exit();  
+
+        //$p_user_id = $_GET['p_user_id'];
+
+        
 
 
 
@@ -115,27 +140,15 @@
         echo "<div id='output' style='color:#0000FF'><h3>Please click the tooth for treatment information!</h3></div>";
                                 ///END OF THE FIFTH TAB
      
-    $p_user_id = $_GET['p_user_id'];
-    $query = "SELECT * FROM patient_data WHERE user_id = '$p_user_id'";
-    $data = mysql_query($query);
-    if(mysql_num_rows($data) == 1){
-        $row = mysql_fetch_array($data);
-
-
-       echo "<strong>Name:</strong>&nbsp; " . ($row['firstname']) . " ";
-       echo ($row['lastname']) . "</strong><br>"; 
-       
-       echo "<address> <strong>Address:</strong>&nbsp;". ($row['address']) .  ", "
-       .($row['city']) .", ".($row['state']) . " " . ($row['zipcode']) . 
-       "<br>
-       <span class='glyphicon glyphicon-earphone'></span>&nbsp;" . ($row['phone']) . "<br>
-       <span class='glyphicon glyphicon-envelope'></span><a href='mailto:" . ($row['email']) . "'>&nbsp;" . ($row['email']) . "</a></address>";
-       echo "<hr>";
-    }
-    mysql_close($connection);  
-   // exit();
+   
 ?>
 <hr>
+
+
+
+
+
+
 
 
      <div class="footer">
@@ -143,6 +156,9 @@
       </div>
 
 </div>
+
+
+
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

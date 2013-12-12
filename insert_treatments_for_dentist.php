@@ -24,9 +24,15 @@
   <body>
   <div class="container">
 
+  <?php include("header_bar.php"); ?>
+
 <?php
 
  require_once('connectvars.php');
+
+  $identist_id = $_GET['dentist_id'];
+  $ipatient_id = $_GET['patient_id'];
+  $itooth_id = $_GET['tooth_id'];
 
   // Connect to the database
   $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
@@ -41,12 +47,6 @@
     die("Database selection failed:" . mysql_error());
   }
 
-
-  $tooth_id = $_GET['tooth_id'];
-  $dentist_id = $_GET['dentist_id'];
-  $patient_id = $_GET['patient_id'];
-
-
   if (isset($_POST['submit'])) {
 
     $treatmentCategoryID = $_POST['treatmentCategoryID'];
@@ -59,7 +59,7 @@
 
         // The email is unique to patients and dentists, so insert the data into the database
         $query = "INSERT INTO treatment_records  (treatment_category_id, description, dentist_id, patient_id, tooth_id)
-            VALUES ('$treatmentCategoryID', '$description','$dentist_id','$patient_id','$tooth_id')";
+            VALUES ('$treatmentCategoryID', '$description','$identist_id','$ipatient_id','$itooth_id')";
         mysql_query($query);
 
         // Confirm success with the user  patient_id="+$_GET[patient_id]+"&dentist_id="+$_GET[dentist_id]
@@ -85,12 +85,12 @@
 
 
 
-
+</br></br></br>
 <form role="form-inline" role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
   
   
   <div class="form-group">
-    <label for="treatmentCategoryID">Treatment Type</label>
+    <label for="treatmentCategoryID">Treatment Type</label></br>
     <select name="treatmentCategoryID">
     <option value=1>Health Problems</option>
     <option value=2>Filings</option>
@@ -109,7 +109,7 @@
     <input type="text" class="form-control input-small" id="description" name="description" value="<?php if (!empty($description)) {echo $description;} ?>"  placeholder="Description">
   </div>  
 
-  <input type="submit" value="Add Treatment" id="submit" name="submit" />
+  <input type="submit" class="btn btn-default" value="Add Treatment" id="submit" name="submit" />
   </form>
 
 
