@@ -28,10 +28,6 @@
 
  require_once('connectvars.php');
 
-  $identist_id = $_GET['dentist_id'];
-  $ipatient_id = $_GET['patient_id'];
-  $itooth_id = $_GET['tooth_id'];
-
   // Connect to the database
   $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
 
@@ -45,6 +41,12 @@
     die("Database selection failed:" . mysql_error());
   }
 
+
+  $tooth_id = $_GET['tooth_id'];
+  $dentist_id = $_GET['dentist_id'];
+  $patient_id = $_GET['patient_id'];
+
+
   if (isset($_POST['submit'])) {
 
     $treatmentCategoryID = $_POST['treatmentCategoryID'];
@@ -57,7 +59,7 @@
 
         // The email is unique to patients and dentists, so insert the data into the database
         $query = "INSERT INTO treatment_records  (treatment_category_id, description, dentist_id, patient_id, tooth_id)
-            VALUES ('$treatmentCategoryID', '$description','$identist_id','$ipatient_id','$itooth_id')";
+            VALUES ('$treatmentCategoryID', '$description','$dentist_id','$patient_id','$tooth_id')";
         mysql_query($query);
 
         // Confirm success with the user  patient_id="+$_GET[patient_id]+"&dentist_id="+$_GET[dentist_id]

@@ -33,10 +33,17 @@ require_once('connectvars.php');
                 die("query failed" . mysql_error());
             }
 
-            $itooth_id = $_GET['tooth_id'];
-            $ipatient_id = $_GET['patient_id'];
-            $identist_id = $_GET['dentist_id'];
+            $tooth_id = $_GET['tooth_id'];
+            $patient_id = $_GET['patient_id'];
+            $dentist_id = $_GET['dentist_id'];
 
+            echo $tooth_id . " " . $patient_id . " " . $dentist_id . "<br>";
+
+            echo "<a href=\"insert_treatments_for_dentist.php?tooth_id=" . $tooth_id . "&patient_id=" . $patient_id 
+                . "&dentist_id=" . $dentist_id. "\">ADD TREATMENT</a>";
+
+
+/*
             echo "
             <hr>
             <div class='row>'
@@ -48,8 +55,9 @@ require_once('connectvars.php');
                      </div>
                </div>
             </div>
-            </div>
-            <a href=\"insert_treatments_for_dentist.php?tooth_id=" . $itooth_id . "&patient_id=" . $ipatient_id . "&dentist_id=" . $identist_id. "\">ADD TREATMENT</a>";
+            </div>";
+*/
+
 
             while($rowX = mysql_fetch_array($dataX)){
              

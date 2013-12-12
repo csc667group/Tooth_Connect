@@ -138,20 +138,11 @@
 <hr>
 
 
-
-
-
-
-
-
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>
 
 </div>
-
-
-
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
