@@ -92,12 +92,6 @@
     mysql_close($connection);  
    // exit();  
 
-        //$p_user_id = $_GET['p_user_id'];
-
-        
-
-
-
         echo "
         <table border='0' cellpadding='1' cellspacing='1'>
             <tr>
@@ -145,21 +139,11 @@
 <hr>
 
 
-
-
-
-
-
-
      <div class="footer">
         <p>&copy; Copyrights 2013</p>
       </div>
 
 </div>
-
-
-
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
