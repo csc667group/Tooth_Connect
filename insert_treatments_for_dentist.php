@@ -45,10 +45,9 @@
     die("Database selection failed:" . mysql_error());
   }
 
-  $tooth_id = $_GET['tooth_id'];
   $dentist_id = $_GET['dentist_id'];
   $patient_id = $_GET['patient_id'];
-
+  $tooth_id = $_GET['tooth_id'];
 
 
   if (isset($_POST['submit'])) {
