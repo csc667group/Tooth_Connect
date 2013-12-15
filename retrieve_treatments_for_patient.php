@@ -22,21 +22,37 @@ require_once('connectvars.php');
                 die("query failed" . mysql_error());
             }  
             
+            //GETTING NAME OF TEETH
+            $queryT = "SELECT * FROM teeth WHERE id = '$_GET[tooth_id]'";
+            $dataT = mysql_query($queryT);
+            if (!$dataT) {
+                die("query failed" . mysql_error());
+            }            
+            $rowT = mysql_fetch_array($dataT); 
+            
+            echo "<br><br>";
+            
+            echo "<div class='row'>";            
+                echo "<strong>Teeth #" . $_GET['tooth_id'] . ": " . $rowT['tooth'] ."</strong><br><br>";
+                echo "<table class='table table-striped' >";
+                echo "<tr>";
+                echo "<th>Treatment Type</th>
+                      <th>Time</th>
+                      <th>Dentist</th>
+                      <th>Description</th>";
+                echo "</tr>";               
+            
+            
             while($rowX = mysql_fetch_array($dataX)){
              
-             
-         echo "<br><div class='row'>                                            
-                    <div class='col-md-10' >
-                        <strong>Treatment type: </strong> " . ($rowX['treatment_category']) . "<br>
-                        <strong >Time: </strong> " . ($rowX['cur_timestamp']) . "<br>
-                        <strong>Tooth: </strong> " . ($rowX['tooth']) . "<br>
-                        <strong >Dentist: </strong> " . ($rowX['whole_name']) . "<br><br>                
-                        <strong>Description: </strong>" . ($rowX['description']) . "                               
-                    </div>          
-                </div> 
-                <hr>
-                ";
-              }
+                echo "<div class='row'><tr>                 
+                       <td>" . ($rowX['treatment_category']) . "</td>
+                       <td>" . ($rowX['cur_timestamp']) . "</td>
+                       <td>" . ($rowX['whole_name']) . "</td>                
+                       <td>" . ($rowX['description']) . "</td>
+                       </tr></div>";
+             }
+             echo "</table>";
                                        
                                       
         echo "</div>";

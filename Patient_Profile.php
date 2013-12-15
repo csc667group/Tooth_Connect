@@ -127,33 +127,40 @@ and open the template in the editor.
 
 <?php
                           
-                                    require_once('connectvars.php');
+        require_once('connectvars.php');
                                    
-                        if (isset($_POST['appt_request'])) {
-                                        //$idee= $_SESSION['user_id'];
-                                        $user_id = $_SESSION['user_id'];
-                                        $d_user_id = $_POST['dentist'];
-                                        $appt_date = $_POST['date'];
-                                        $appt_time = $_POST['time'];
-                                        $purpose = $_POST['purpose'];
-                                        $quer = "INSERT INTO temp_appointments (user_id, d_user_id, appt_date, appt_time, purpose)
-                                            VALUES ( '$user_id', '$d_user_id', '$appt_date', '$appt_time', '$purpose')";
-                                        mysql_query($quer);
-                                        
-
-                                    }
-                        if (isset($_POST['cancel_appt'])) {
-                                        //$idee= $_SESSION['user_id'];
-                                        $user_id = $_SESSION['user_id'];
-                                        $d_user_id = $_POST['dentist'];
-                                        $appt_date = $_POST['date'];
-                                        $appt_time = $_POST['time'];
-                                        $purpose = $_POST['purpose'];
-                                        $quer = "DELETE FROM appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
-                                            AND appt_date='$appt_date' AND appt_time='$appt_time' AND purpose='$purpose'";
-                                        mysql_query($quer);
-
-                                    }
+        if (isset($_POST['appt_request'])) {
+                        //$idee= $_SESSION['user_id'];
+                        $user_id = $_SESSION['user_id'];
+                        $d_user_id = $_POST['dentist'];
+                        $appt_date = $_POST['date'];
+                        $appt_time = $_POST['time'];
+                        $purpose = $_POST['purpose'];
+                        $quer = "INSERT INTO temp_appointments (user_id, d_user_id, appt_date, appt_time, purpose)
+                            VALUES ( '$user_id', '$d_user_id', '$appt_date', '$appt_time', '$purpose')";
+                        mysql_query($quer);
+        }
+           
+        if (isset($_POST['cancel_appt'])) {
+                        //$idee= $_SESSION['user_id'];
+                        $user_id = $_SESSION['user_id'];
+                        $d_user_id = $_POST['dentist'];
+                        $appt_date = $_POST['date'];
+                        $appt_time = $_POST['time'];
+                        $purpose = $_POST['purpose'];
+                        $quer = "DELETE FROM appointments WHERE user_id='$user_id' AND d_user_id='$d_user_id'
+                            AND appt_date='$appt_date' AND appt_time='$appt_time' AND purpose='$purpose'";
+                        mysql_query($quer);
+        }
+                                    
+        if (isset($_POST['remove_dentist'])) {
+            $user_id=$_SESSION['user_id'];
+            $d_user_id = $_POST['d_user_id'];
+            $quer = "DELETE FROM list_of_patients WHERE dentist_id='$d_user_id' AND patient_id='$user_id'";
+            mysql_query($quer);    
+        }                          
+                                    
+                          
 ?>             
       <hr>
     <ul style="list-style-type: none;width: 275px;">
@@ -230,7 +237,7 @@ and open the template in the editor.
 
 
                     <!-- Content on the right side inserted in a column-->
-                    <div class="col-md-8">   
+                    <div class="col-md-9">   
                         <div class="tab-content">
                
                 
@@ -279,7 +286,7 @@ and open the template in the editor.
                                  * after user edits info
                                  */                                   
                                 
-                                    echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
+                                echo "<input type=\"submit\" value=\"Edit Account Information\" id=\"editinfo\" name=\"editinfo\" />"; 
                                     
                                 echo "</form>";
                                     
@@ -289,8 +296,6 @@ and open the template in the editor.
                                 echo "<div class=\"tab-pane\" id=\"b\">";
                              
 	 
-
-                                
                                 /*
                                  * From current patient's user_id, it is sent to be searched in 
                                  * "list_of_patients" in order to find dentists that patient is
@@ -299,6 +304,11 @@ and open the template in the editor.
                                  * Afterwards, while loop reads through dentist_id from "list_of_patients"
                                  * and prints out info of each of the patient's dentists
                                  */
+                                $queryB = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
+                                $dataB = mysql_query($queryB);  
+                                if (!$dataB) {
+                                    die("query failed" . mysql_error());
+                                }      
             
             
                                 echo "<table border = \"1\">";
@@ -307,18 +317,9 @@ and open the template in the editor.
                                       <th>Address</th>
                                       <th><span class='glyphicon glyphicon-earphone'></span>Phone Number</th>
                                       <th><span class='glyphicon glyphicon-envelope'></span>Email</th>
-                                      <th>Remove Patient</th>";
+                                      <th>Remove Dentist</th>";
                                 echo "</tr>";
             
-            
-                                
-                                $queryB = "SELECT * FROM list_of_patients WHERE patient_id = '$_SESSION[user_id]' ";
-                                $dataB = mysql_query($queryB);  
-                                if (!$dataB) {
-                                    die("query failed" . mysql_error());
-                                }                                 
-                                                             
-                                
                                 
                                 while ($rowB = mysql_fetch_array($dataB)) {
 
@@ -358,8 +359,8 @@ and open the template in the editor.
                                      
 
                                      echo "<form method=\"post\">
-                                                <input type=\"hidden\" name=\"p_user_id\" value=\"".$rowX['user_id']."\">
-                                                <input type=\"submit\" value=\"Remove Patient\"  name=\"remove_patient\">
+                                                <input type=\"hidden\" name=\"d_user_id\" value=\"".$rowX['user_id']."\">
+                                                <input class=\"btn btn-warning\" type=\"submit\" value=\"Remove Dentist\"  name=\"remove_dentist\">
                                           </form>";
 
                                      echo "</td><hr>";
