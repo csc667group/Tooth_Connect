@@ -490,6 +490,18 @@ and open the template in the editor.
                                     die("query failed" . mysql_error());
                                 }   
                                 
+                                
+                                //MAKE TABLE
+
+                                echo "<table class='table table-striped' >";
+                                echo "<tr>";
+                                echo "<th>Patient</th>
+                                      <th>Date & Time</th>
+                                      <th>Telephone #</th>
+                                      <th>Email</th>
+                                      <th>Purpose</th>";
+                                echo "</tr>";                                  
+                                
                                 //Reading each appointment
                                 while ($rowC = mysql_fetch_array($dataC)) {
                                 
@@ -502,21 +514,22 @@ and open the template in the editor.
                                     
                                     $rowY = mysql_fetch_array($dataY);
                                      
-                                     echo "<strong>Patient: " . ($rowY['firstname']) . " ";
-                                     echo ($rowY['lastname']) . "</strong><br>";
-
-                                     echo "Date: " . ($rowC['appt_Date']) . "<br>";
-                                     echo "Time: " . ($rowC['appt_Time']) . "<br>";
-                                     
-                                     echo "Telephone #: " . ($rowY['phone']) . "<br>";
-                                     echo "Email: " . ($rowY['email']) . "<br>";
-                                     
-                                     echo "Purpose: " . ($rowC['purpose']) . "<br>";                                     
+                                   echo "<tr>";
                                     
-                                     echo "<br>";
+                                     echo "<td>" . ($rowY['firstname']) . " " .($rowY['lastname']) . "</td>";
+
+                                     echo "<td>" . ($rowC['appt_Date']) . " " . ($rowC['appt_Time']) . "</td>";
+                                     
+                                     echo "<td>" . ($rowY['phone']) . "</td>";
+                                     echo "<td>" . ($rowY['email']) . "</td>";
+                                     
+                                     echo "<td>" . ($rowC['purpose']) . "</td>";                                     
+                                    
+                                     echo "</tr>";                                     
+                                     
                                  }                                      
                                                               
-                                    
+                                echo "</table>";    
                                 echo "</div>";
                                 
                                 //FOURTH TAB: Future appointments
