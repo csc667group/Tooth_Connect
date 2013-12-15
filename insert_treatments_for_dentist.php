@@ -30,12 +30,17 @@
 
  require_once('connectvars.php');
 
+ if (!(isset($_POST['submit']))){
   $dentist_id = $_GET['dentist_id'];
   $patient_id = $_GET['patient_id'];
   $tooth_id = $_GET['tooth_id'];
+ }
 
-
-  if (isset($_POST['submit'])) {
+  else if (isset($_POST['submit'])) {
+      
+  $dentist_id = $_POST['dentist_id'];
+  $patient_id = $_POST['patient_id'];
+  $tooth_id = $_POST['tooth_id'];
 
     $treatmentCategoryID = $_POST['treatmentCategoryID'];
     $description = $_POST['description']; 
@@ -51,8 +56,9 @@
         mysql_query($query);
 
         // Confirm success with the user  patient_id="+$_GET[patient_id]+"&dentist_id="+$_GET[dentist_id]
-        echo "<p>The new treatment has been successfully added.
-         You\'re now ready to <a href=\"retrieve_treatments_for_dentist.php?patient_id=" . $patient_id ."&dentist_id=" . $dentist_id . ">go back</a>.</p>";
+        echo "<p>The new treatment has been successfully added."
+         . "You're now ready to "
+         . "<a href=\"patient_info.php?p_user_id=" . $patient_id . "\">go back</a>.</p>";
      
         mysql_close($connection);
         exit();
@@ -96,6 +102,11 @@
     <label for="description">Description &nbsp</label>
     <input type="text" class="form-control input-small" id="description" name="description" value="<?php if (!empty($description)) {echo $description;} ?>"  placeholder="Description">
   </div>  
+
+  
+  <input type="hidden" name="dentist_id" value="<?php echo $dentist_id ?>">
+  <input type="hidden" name="patient_id" value="<?php echo $patient_id ?>">
+  <input type="hidden" name="tooth_id" value="<?php echo $tooth_id ?>">
 
   <input type="submit" class="btn btn-default" value="Add Treatment" id="submit" name="submit" />
   </form>

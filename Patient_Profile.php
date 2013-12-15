@@ -216,7 +216,7 @@ and open the template in the editor.
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#a" data-toggle="tab" class="" contenteditable="false">My Info</a>
                         </li>
-                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentist</a>
+                        <li class=""><a href="#b" data-toggle="tab" class="" contenteditable="false">My Dentists</a>
                         </li>
                         <li class=""><a href="#r" data-toggle="tab" class="" contenteditable="false">Request an Appointment</a>
                         </li>

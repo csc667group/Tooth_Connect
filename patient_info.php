@@ -53,7 +53,7 @@
 
 <?php
                           
-                                    require_once('connectvars.php');
+  require_once('connectvars.php');
 
  echo "<h3>Patient Info</h3>";
 

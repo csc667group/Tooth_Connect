@@ -27,10 +27,7 @@ require_once('connectvars.php');
             if (!$dataX) {
                 die("query failed" . mysql_error());
             }
-
-            // THIS IS WHERE DATA IS TRANSFERRED FROM PATIENT_INFO
-
-
+            
 /*
             echo "
             <hr>
@@ -44,27 +41,44 @@ require_once('connectvars.php');
                </div>
             </div>
             </div>";*/
-
-            echo "<a href=\"insert_treatments_for_dentist.php?tooth_id=" . $tooth_id . "&patient_id=" 
+            
+            
+            echo "<br><a href=\"insert_treatments_for_dentist.php?tooth_id=" . $tooth_id . "&patient_id=" 
                     . $patient_id . "&dentist_id=" . $dentist_id. "\">ADD TREATMENT</a>";
 
-            // END OF TRANSFERRED DATA IMPLEMENTATION
-
+  
+            //GETTING NAME OF TEETH
+            $queryT = "SELECT * FROM teeth WHERE id = '$tooth_id'";
+            $dataT = mysql_query($queryT);
+            if (!$dataT) {
+                die("query failed" . mysql_error());
+            }            
+            $rowT = mysql_fetch_array($dataT); 
+            
+            
+            
+            echo "<div class='row'>";            
+                echo "Teeth #" . $tooth_id . ": " . $rowT['tooth'] ."<br><br>";
+                echo "<table class='table table-striped' >";
+                echo "<tr>";
+                echo "<th>Treatment Type</th>
+                      <th>Time</th>
+                      <th>Dentist</th>
+                      <th>Description</th>";
+                echo "</tr>";            
+            
+            
             while($rowX = mysql_fetch_array($dataX)){
              
              
-         echo "<br><div class='row'>                                            
-                    <div class='col-md-10' >
-                        <strong>Treatment type: </strong> " . ($rowX['treatment_category']) . "<br>
-                        <strong >Time: </strong> " . ($rowX['cur_timestamp']) . "<br>
-                        <strong>Tooth: </strong> " . ($rowX['tooth']) . "<br>
-                        <strong >Dentist: </strong> " . ($rowX['whole_name']) . "<br><br>                
-                        <strong>Description: </strong>" . ($rowX['description']) . "                               
-                    </div>          
-                </div> 
-                <hr>
-                ";
-              }
+         echo "<div class='row'><tr>                 
+                <td>" . ($rowX['treatment_category']) . "</td>
+                <td>" . ($rowX['cur_timestamp']) . "</td>
+                <td>" . ($rowX['whole_name']) . "</td>                
+                <td>" . ($rowX['description']) . "</td>
+                </tr></div>";
+          }
+          echo "</table>";
                                        
                                       
         echo "</div>";
