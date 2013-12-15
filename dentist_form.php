@@ -58,18 +58,6 @@
 
   require_once('connectvars.php');
 
-  // Connect to the database
-  $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-  //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
-  if (!$connection) {
-    die("Database connection failed:" . mysql_error());
-  }
-
-  $database = mysql_select_db(DB_NAME, $connection);
-  if (!$database) {
-    die("Database selection failed:" . mysql_error());
-  }
   if (isset($_POST['submit'])) {
  //     echo 'form submitted';
     // Grab the profile data from the POST

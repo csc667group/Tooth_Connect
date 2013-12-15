@@ -128,20 +128,7 @@ and open the template in the editor.
 <?php
                           
                                     require_once('connectvars.php');
-
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    }    
-?>
-<?php                                     
+                                   
                         if (isset($_POST['appt_request'])) {
                                         //$idee= $_SESSION['user_id'];
                                         $user_id = $_SESSION['user_id'];

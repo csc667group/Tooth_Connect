@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Tooth Connect</title>
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="bootstrap-3.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -105,15 +105,6 @@
 <?php
   require_once('connectvars.php');
 
-   
-  $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-  if (!$connection) {
-    die("Database connection failed:" . mysql_error());
-  }
-  $database = mysql_select_db(DB_NAME, $connection);
-  if (!$database) {
-    die("Database selection failed:" . mysql_error());
-  }
 //  $query = "INSERT INTO patient_data VALUES ('rafael2', 'pjjass')"; // where city = '$city'"; //You don't need a ; like you do in SQL
 //  $result = mysql_query($query) or die("Query failed<br/><br/>" . mysql_error());
 

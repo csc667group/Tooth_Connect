@@ -57,15 +57,7 @@
       
       <?php
           require_once('connectvars.php');
- 
-          $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-          if (!$connection) {  
-             die("Database connection failed:" . mysql_error());
-          }
-          $database = mysql_select_db(DB_NAME, $connection);
-          if (!$database) {
-             die("Database selection failed:" . mysql_error());
-          }
+
    ?>       
       <form role="form-inline" role="form" method="post" action="mail_user.php">
     

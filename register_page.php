@@ -1,11 +1,3 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
-
 <html>
   <head>
     <title>Bootstrap 101 Template</title>

@@ -2,17 +2,6 @@
 
 require_once('connectvars.php');
 
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    } 
 //$tooth_id=1;
             $queryX = "SELECT  tc.treatment_category, tr.description, tr.cur_timestamp, tth.tooth,CONCAT_WS(' ', dd.firstname, dd.lastname) AS whole_name
                         FROM treatment_records tr                                                

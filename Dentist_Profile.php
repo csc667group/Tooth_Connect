@@ -120,21 +120,7 @@ and open the template in the editor.
                           <hr>
 <?php
                           require_once('connectvars.php');
-
-                                    // Connect to the database
-                                    $connection = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-
-                                    //$connection = mysql_connect("sfsuswe.com", "rsanch", "ASDasdqwe");
-                                    if (!$connection) {
-                                      die("Database connection failed:" . mysql_error());
-                                    }
-
-                                    $database = mysql_select_db(DB_NAME, $connection);
-                                    if (!$database) {
-                                      die("Database selection failed:" . mysql_error());
-                                    } 
-?>
-  <?php                       
+   
                         //add appointment to appointments and remove from pending
                         if (isset($_POST['approve_appt'])) {
                                         $d_user_id=$_SESSION['user_id'];
