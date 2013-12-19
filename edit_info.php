@@ -92,8 +92,15 @@
 <?php
   //DELETE ACCOUNT instead of edit
     if (isset($_POST['delete_account'])) { 
-        $querydelete="DELETE FROM patient_data WHERE user_id='$t_user_id'";
+        $querydelete="DELETE FROM appointments WHERE user_id='$t_user_id'";
         mysql_query($querydelete);
+        
+        $querydeleteappts="DELETE FROM list_of_patients WHERE patient_id='$t_user_id'";
+        mysql_query($querydeleteappts);
+        
+        $querydeletex="DELETE FROM patient_data WHERE user_id='$t_user_id'";
+        mysql_query($querydeletex);
+        
         $logout_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/logout.php';
         header('Location: ' . $logout_url);
         mysql_close($connection);
