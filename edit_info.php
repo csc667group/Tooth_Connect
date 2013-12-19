@@ -103,11 +103,11 @@
   //SUBMITTED EDIT
   if (isset($_POST['submit'])) {
 
-      
+      /*
         $profilepic = $_FILES['profilepic']['name'];
         $profilepic_type = $_FILES['profilepic']['type'];
         $profilepic_size = $_FILES['profilepic']['size'];       
-      
+      */
         $firstname = $_POST['firstname'];  
         $lastname = $_POST['lastname'];  
         $address = $_POST['address'];      
@@ -115,7 +115,7 @@
         $state = $_POST['state'];      
         $zipcode = $_POST['zipcode'];      
         $phone = $_POST['phone'];  
-
+/*
         
     if (!empty($profilepic)) {
       if ((($profilepic_type == 'image/gif') || ($profilepic_type == 'image/jpeg') || ($profilepic_type == 'image/pjpeg') || ($profilepic_type == 'image/png'))
@@ -160,7 +160,7 @@
       @unlink($_FILES['profilepic']['tmp_name']);
     }
     
-
+*/
           
         //$t_user_id = $_SESSION['user_id']; //temporary variable for current user_id
 
@@ -235,11 +235,11 @@ function valid_phone($number) {
 
 
 <form role="form-inline" role="form" enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo GW_MAXFILESIZE; ?>" />
+ <!-- <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo GW_MAXFILESIZE; ?>" />
   <label for="profilepic">Upload profile pic:</label>   
   <input type="file" id="profilepic" name="profilepic" placeholder="Upload profile pic" />
   <hr />  
-   
+   -->
   <div class="form-group">
     <label for="firstname">First Name</label>
     <input type="text" class="form-control input-small" id="firstname" name="firstname" 

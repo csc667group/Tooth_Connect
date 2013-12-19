@@ -261,8 +261,7 @@ and open the template in the editor.
                                 if (mysql_num_rows($dataA) == 1) {
 
                                      $rowA = mysql_fetch_array($dataA);
-
-                                     echo "<strong>ID:</strong>&nbsp;" . ($rowA['user_id']) . "<br>";
+                                     
                                      echo "<strong>Name:</strong>&nbsp; " . ($rowA['firstname']) . " ";
                                      echo ($rowA['lastname']) . "</strong><br>"; 
                                      
